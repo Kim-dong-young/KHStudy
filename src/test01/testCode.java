@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class testCode {
 	
 	//https://school.programmers.co.kr/learn/courses/30/lessons/258712
-	//작성중
 	
 	public static void main(String[] args) {
 		String[] friends = {"muzi", "ryan", "frodo", "neo"};
@@ -13,9 +12,10 @@ public class testCode {
 		
 		int answer = 0;
         int[] countGift = new int[friends.length];
+        int[] giftPoint = new int[friends.length];
         int[][] giftTable = new int[friends.length][friends.length];
         
-        //주고받은 표 구성
+        //주고받은 표 구성 ===================================
         for(int i=0;i < gifts.length; i++){
             String[] giftAndRecieve = gifts[i].split(" ");
             String gifter = giftAndRecieve[0];
@@ -26,27 +26,42 @@ public class testCode {
             giftTable[x][y] += 1;
         }
         
-        //선물 기록 탐색
+        //선물 지표 계산 =====================================
+        
+        //준 선물 계산
+        for(int i=0; i< friends.length; i++) {
+        	for(int j=0; j< friends.length; j++) {
+        		giftPoint[i] += giftTable[i][j];
+        	}
+        }
+        
+        //받은 선물 계산
+        for(int i=0; i< friends.length; i++) {
+        	for(int j=0; j< friends.length; j++) {
+        		giftPoint[i] -= giftTable[j][i];
+        	}
+        }
+        
+        
+        //선물 기록 탐색 ======================================
         for(int i=0; i < friends.length; i ++) {
         	for(int j=0; j< friends.length; j++) {
-        		if (giftTable[0][i] > giftTable[j][i]) {
+        		//선물을 주고받은 기록이 있다면 선물개수 누적
+        		if (giftTable[i][j] > giftTable[j][i]) {
         			countGift[i]++;
         		}
-        		else {
-        			
+        		//선물을 주고받은적이 없다면 선물 지수 계산
+        		else if (giftTable[i][j] == giftTable[j][i]) {
+        			//선물 지수가 더 크다면 선물개수 누적
+        			if(giftPoint[i] > giftPoint[j]) {
+        				countGift[i]++;
+        			}
         		}
         	}
         }
         
-        /*
-        //giftTable 출력
-        for(int i=0;i < friends.length; i++) {
-        	for(int j=0;j < friends.length; j++) {
-        		System.out.print(giftTable[i][j]);
-        	}
-        	System.out.println();
-        }
-        */
+        System.out.println(Arrays.stream(countGift).max().getAsInt());
+
         
 	}
 }
