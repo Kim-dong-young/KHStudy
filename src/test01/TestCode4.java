@@ -2,7 +2,6 @@ package test01;
 
 public class TestCode4 {
 	//https://school.programmers.co.kr/learn/courses/30/lessons/12909
-	//작성중
 	
 	public static void main(String[] args) {
 		String s = ")()(";
