@@ -1,8 +1,8 @@
-package test01;
+package _coding_test;
 
 public class TestCode5 {
-	//https://school.programmers.co.kr/learn/courses/30/lessons/161990
-	//==============작성중=================
+	// https://school.programmers.co.kr/learn/courses/30/lessons/161990
+	// 작성중
 	
 	public static void main(String[] args) {
 		String[] wallpaper = {".##...##.", "#..#.#..#", "#...#...#", ".#.....#.", "..#...#..", "...#.#...", "....#...."};

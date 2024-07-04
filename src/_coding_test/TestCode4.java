@@ -1,4 +1,4 @@
-package test01;
+package _coding_test;
 
 public class TestCode4 {
 	//https://school.programmers.co.kr/learn/courses/30/lessons/12909

@@ -1,8 +1,7 @@
-package test01;
+package _coding_test;
 
 public class TestCode6 {
 	// https://school.programmers.co.kr/learn/courses/30/lessons/131130
-	// =============작성중==============
 
 	public static void main(String[] args) {
 		int[] cards = { 8, 6, 3, 7, 2, 5, 1, 4 }; // 전체 카드
@@ -29,7 +28,7 @@ public class TestCode6 {
 				for (int j = 0; j < cards.length; j++) {
 					
 					if (isPickedInRound[nextBox]) { // 이미 열린 상자면 카드뽑기를 종료한다
-						if (score > maxScore) { // 현재 점수가 최고 점수보다 크면
+						if (score > maxScore) { // 현재 점수가 최고 점수보다 크면 
 							maxScore = score;   // 최고점수 기록
 							maxScorePick = isPickedInRound.clone();
 						}
