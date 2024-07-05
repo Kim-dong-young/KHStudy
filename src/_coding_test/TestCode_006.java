@@ -1,6 +1,6 @@
 package _coding_test;
 
-public class TestCode6 {
+public class TestCode_006 {
 	// https://school.programmers.co.kr/learn/courses/30/lessons/131130
 
 	public static void main(String[] args) {

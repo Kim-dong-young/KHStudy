@@ -1,6 +1,6 @@
 package _coding_test;
 
-public class TestCode1 {
+public class TestCode_001 {
 	
 	// https://school.programmers.co.kr/learn/courses/30/lessons/250137?language=java
 

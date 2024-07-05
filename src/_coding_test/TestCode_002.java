@@ -2,7 +2,7 @@ package _coding_test;
 
 import java.util.Arrays;
 
-public class TestCode2 {
+public class TestCode_002 {
 	
 	// https://school.programmers.co.kr/learn/courses/30/lessons/92334
 	

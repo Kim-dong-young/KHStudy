@@ -1,6 +1,6 @@
 package _coding_test;
 
-public class TestCode5 {
+public class TestCode_005 {
 	// https://school.programmers.co.kr/learn/courses/30/lessons/161990
 	// 작성중
 	

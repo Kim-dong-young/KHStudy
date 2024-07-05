@@ -1,6 +1,6 @@
 package _coding_test;
 
-public class TestCode7 {
+public class TestCode_007 {
 	// https://school.programmers.co.kr/learn/courses/30/lessons/42888
 	// 작성중
 	final static int status = 0;  // Enter, Leave, Change
