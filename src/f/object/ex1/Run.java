@@ -1,9 +1,18 @@
 package f.object.ex1;
 
-/* 접근제한자 class 클래스명 {
- * 		//필드(변수)
- * 		//메소드
- * }
+/*
+ * package
+ * 클래스간의 공간적 충돌이나 접근 방법의 충돌을 막기 위해
+ * 저장위치를 구분하여, 명확하게 접근할 수 있도록 해주는 것
+ * 보통 네이밍 방법은 회사 도메인을 역으로 입력한다.
+ * 	-> ex ) https://www.kh.com => pakage com.kh.팀명(프로젝트명)
+ * 
+ * import 로 패키지를 불러올 수 있다.
+ * import package.*; // import에서 *은 해당 패키지 내 모든 클래스를 가져온다는 의미
+ * import로 불러온 클래스는 해당 클래스 내에서 명시적인 패키지 선언 없이 바로 객체 생성이 가능하다
+ * import 하지 않는다면 java.util.Scanner s = new java.util.Scanner(System.in);
+ * 
+ * ex) import java.util.Scanner; => Scanner s = new Scanner(System.in); 
  */
 
 // 보통 Run이라고 생성하는 class는 객체 생성을 위한 class가 아닌, main문을 통해 프로그램 실행을 위한 클래스다.

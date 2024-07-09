@@ -3,19 +3,17 @@ package _coding_test;
 public class _PracticeNote {
 
 	public static void main(String[] args) {
-		String str = "[-1, -1], [-1, -1], [-1, -1], [-1, -1], [8, 5], [2, 10], [3, 0], [6, 1], [11, -1], [7, 4], [-1, -1], [-1, -1]";
+		char c1 = 'j';
+		char c2 = 'k';
+		// ---g --- k ----
+		int r1 = (c1 - c2 + 26) % 26;
+		System.out.println("left distance : " + r1);
+
+		int r2 = (c2 - c1 + 26) % 26;
+		System.out.println("right distance : " + r2);
 		
-		for(int i=0; i<str.length();i++) {
-			if(str.charAt(i) == '[') {
-				System.out.print("{");
-			}
-			else if (str.charAt(i) == ']'){
-				System.out.print("}");
-			}
-			else {
-				System.out.print(str.charAt(i));
-			}
-		}
+		System.out.println( ((r1 % 26) < (r2 % 26) ) ? (r1 % 26) : (r2 % 26) );
+		
 	}
 
 }
