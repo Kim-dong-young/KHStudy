@@ -53,6 +53,5 @@ public class TestCode_005 {
 			System.out.print(answer[i]);
 		}
 		
-		
 	}
 }
