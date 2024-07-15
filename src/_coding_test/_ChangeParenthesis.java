@@ -3,7 +3,7 @@ package _coding_test;
 public class _ChangeParenthesis {
 	public static void main(String[] args) {
 		
-		String s = "[[5, 7, 9], [4, 6, 4], [3, 6, 1], [3, 2, 3], [2, 1, 6]]";
+		String s = "[[5,3],[11,5],[13,3],[3,5],[6,1],[1,3],[8,6],[7,2],[2,2]]";
 		
 		for(char ch:s.toCharArray()) {
 			if(ch == '[') ch = '{';
