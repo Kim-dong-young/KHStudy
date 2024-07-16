@@ -8,6 +8,6 @@ public class _PracticeNote {
 		int[] copy;
 		copy = Arrays.copyOf(arr, 0);
 		
-		
+		System.out.println(copy);
 	}
 }

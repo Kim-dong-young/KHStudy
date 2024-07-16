@@ -30,6 +30,11 @@ public class Run {
 		Desktop d1 = new Desktop("LG","d-100","사무용PC",1000000,true);
 		System.out.println(d1.information());
 		
-		new Desktop();
+		// Product를 상속받는 TV클래스 작성
+		// 필드에는 int inch 정보를 가지고 있고, information을 오버라이딩하여 기본 product의 정보 + inch 정보 출력
+		// tv 생성 후 정보 출력
+		
+		TV tv = new TV("삼성","t-200","가정용TV",2000000,80);
+		System.out.println(tv.information());
 	}
 }

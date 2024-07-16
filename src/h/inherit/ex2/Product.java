@@ -47,5 +47,11 @@ public class Product {
 	public String information() {
 		return "브랜드 : "+this.brand+" 제품번호 : "+this.pCode+" 제품명 : "+this.pName+" 가격 : "+this.price+"원";
 	}
+	@Override
+	public String toString() {
+		return "Product [brand=" + brand + ", pCode=" + pCode + ", pName=" + pName + ", price=" + price + "]";
+	}
+	
+	
 	
 }
