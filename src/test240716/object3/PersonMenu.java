@@ -17,9 +17,11 @@ public class PersonMenu {
 			System.out.println("현재 저장된 학생은 " + personCount[0] + "명 입니다");
 			System.out.println("사원은 최대 10명까지 저장할 수 있습니다.");
 			System.out.println("현재 저장된 사원은 " + personCount[1] + "명 입니다");
+			
 			System.out.println("1. 학생 메뉴");
 			System.out.println("2. 사원 메뉴");
 			System.out.println("9. 끝내기");
+			
 			System.out.print("메뉴 번호 : ");
 			ch = sc.nextInt();
 			sc.nextLine();
@@ -34,7 +36,7 @@ public class PersonMenu {
 			case 9:
 				continue;
 			default:
-				System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+				System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.\n");
 				break;
 			}
 
@@ -51,6 +53,7 @@ public class PersonMenu {
 			personCount = pc.personCount();
 			isStuFull = (personCount[0] >= 3) ? true : false;
 			
+			System.out.println();
 			if(!isStuFull) {
 				System.out.println("1. 학생 추가");
 			}
@@ -88,6 +91,7 @@ public class PersonMenu {
 			personCount = pc.personCount();
 			isEmplyFull = (personCount[1] >= 10) ? true : false;
 			
+			System.out.println();
 			if(!isEmplyFull) {
 				System.out.println("1. 사원 추가");
 			}
@@ -172,8 +176,11 @@ public class PersonMenu {
 
 	public void printStudent() {
 		Student[] currentStudent = pc.printStudent();
-		for(Student st : currentStudent) {
-			System.out.println(st.toString());
+		for(int i=0; i<currentStudent.length; i++) {
+			if(currentStudent[i] != null)
+				System.out.println(currentStudent[i].toString());
+			else
+				break;
 		}
 	}
 
@@ -232,8 +239,11 @@ public class PersonMenu {
 
 	public void printEmployee() {
 		Employee[] currentEmployee = pc.printEmployee();
-		for(Employee e : currentEmployee) {
-			System.out.println(e.toString());
+		for(int i=0; i<currentEmployee.length; i++) {
+			if(currentEmployee[i] != null)
+				System.out.println(currentEmployee[i].toString());
+			else
+				break;
 		}
 	}
 }

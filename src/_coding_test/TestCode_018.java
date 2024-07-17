@@ -1,17 +1,30 @@
 package _coding_test;
 
 // https://school.programmers.co.kr/learn/courses/30/lessons/12951
-// 작성중
 
 public class TestCode_018 {
 	public static void main(String[] args) {
-		String s = "3people unFollowed me";
-		char[] buffer = new char[s.length()];
-		char ch = s.charAt(0);
+		String s = "AAa AaA aaa AAA  ";
+		char[] sArr = s.toCharArray();
+		
+		boolean isWordFirst = true;
+		char ch;
 		
 		for(int i=0; i<s.length(); i++) {
-			ch = s.charAt(i);
+			ch = sArr[i];
+			
+			if(isWordFirst && (ch >= 97 && ch <=122)) 
+				sArr[i] -= 32;
+			
+			if(!isWordFirst && (ch >= 65 && ch <= 90)) 
+				sArr[i] += 32;
+			
+			isWordFirst = false;
+			
+			if(ch == ' ') isWordFirst = true;
 		}
 		
+		String answer = String.valueOf(sArr);
+		System.out.println(answer);
 	}
 }

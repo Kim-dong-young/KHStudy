@@ -35,16 +35,7 @@ public class PersonController {
 	}
 	
 	public Student[] printStudent() {
-		int count=0;
-		for(int i=0; i<s.length; i++) {
-			if(s[i] == null) break;
-			count++;
-		}
-		Student[] currentStudent = new Student[count];
-		for(int i=0; i<count;i++) {
-			currentStudent[i] = s[i];
-		}
-		return currentStudent;
+		return this.s;
 	}
 	
 	public void insertEmployee(String name, int age, double height, double weight, int salary, String dept) {
@@ -57,15 +48,6 @@ public class PersonController {
 	}
 	
 	public Employee[] printEmployee() {
-		int count=0;
-		for(int i=0; i<e.length; i++) {
-			if(e[i] == null) break;
-			count++;
-		}
-		Employee[] currentEmployee = new Employee[count];
-		for(int i=0; i<count;i++) {
-			currentEmployee[i] = e[i];
-		}
-		return currentEmployee;
+		return this.e;
 	}
 }

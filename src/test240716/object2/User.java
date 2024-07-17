@@ -67,7 +67,12 @@ public class User {
 	@Override
 	public boolean equals(Object obj) {
 		User user = (User)obj;
-		return (this.toString().equals(user.toString())) ? true : false;
+		return this.id == user.id && 
+				this.password == user.password &&
+				this.name == user.name && 
+				this.age == user.age &&
+				this.gender == user.gender && 
+				this.phone == user.phone;
 	}
 	
 	@Override
