@@ -2,7 +2,7 @@ package _coding_test;
 
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
-public class TestCode21 {
+public class TestCode_021 {
 	public static void main(String[] args) {
 		String s = "egrqmqxaspvlrarmetsephovokkxgjalprbbhadcpbnhbhvfaolpxamokwntfnewehzojeqzffigmfmovxdtzrhmpufwi";
 		String buffer = "";
