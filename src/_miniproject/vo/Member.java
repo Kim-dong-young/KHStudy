@@ -1,4 +1,4 @@
-package _miniproject;
+package _miniproject.vo;
 
 import java.util.HashMap;
 
@@ -14,7 +14,7 @@ public class Member {
 		this.memberName = memberName;
 		this.memberId = memberId;
 		this.memberPwd = memberPwd;
-		this.shareHeld = null;
+		this.shareHeld = new HashMap<String, Integer>();
 		this.balance = 1000000;
 	}
 

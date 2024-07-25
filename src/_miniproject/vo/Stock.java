@@ -1,9 +1,10 @@
-package _miniproject;
+package _miniproject.vo;
 
 public class Stock {
 	private String stockName;
 	private int stockPrice;
 	private int stockQuantity;
+	private int maxQuantity;
 	
 	public Stock() {
 		super();
@@ -40,10 +41,17 @@ public class Stock {
 		this.stockQuantity = stockQuantity;
 	}
 
+	public int getMaxQuantity() {
+		return maxQuantity;
+	}
+
+	public void setMaxQuantity(int maxQuantity) {
+		this.maxQuantity = maxQuantity;
+	}
+
 	@Override
 	public String toString() {
-		return "Stock [stockName=" + stockName + ", stockPrice=" + stockPrice + ", stockQuantity=" + stockQuantity
-				+ "]";
+		return String.format("종목 : %s / 가격 : %d원 / 수량 : %d주", stockName, stockPrice, stockQuantity);
 	}
 	
 	

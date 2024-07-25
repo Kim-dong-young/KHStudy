@@ -1,4 +1,4 @@
-package l.io.ex3;
+package test240724.object1;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

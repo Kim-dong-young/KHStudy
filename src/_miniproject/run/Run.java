@@ -1,4 +1,6 @@
-package _miniproject;
+package _miniproject.run;
+
+import _miniproject.view.MainMenu;
 
 public class Run {
 	public static void main(String[] args) {

@@ -1,10 +1,15 @@
-package _miniproject;
+package _miniproject.view;
 
 import java.util.Scanner;
 
+import _miniproject.controller.MemberController;
+import _miniproject.vo.Member;
+
 public class MainMenu {
 	Scanner s = new Scanner(System.in);
-	MemberController mc = new MemberController();
+	MemberController mc = MemberController.getInstance();
+	StockMenu sm = new StockMenu();
+	PrivateMenu pm = new PrivateMenu();
 	
 	public void mainMenu() {
 		int ch = 0;
@@ -110,7 +115,7 @@ public class MainMenu {
 				stockMarketMenu();
 				break;
 			case 3:
-				myStockMenu();
+				privateMenu();
 				break;
 			case 9:
 				System.out.println("로그아웃 합니다.");
@@ -123,14 +128,14 @@ public class MainMenu {
 	}
 	
 	public void stockMenu() {
-		
+		sm.chartMenu();
 	}
 	
 	public void stockMarketMenu() {
-		
+		sm.marketMenu();
 	}
 	
-	public void myStockMenu() {
-		
+	public void privateMenu() {
+		pm.infoMenu();
 	}
 }
