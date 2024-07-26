@@ -10,12 +10,12 @@ import _miniproject.vo.Member;
 public class MemberController {
 	private static MemberController mc;
 	private StockController sc = StockController.getInstance();
-	private HashMap<String, Member> memberList;
+	private HashMap<Long, Member> memberList;
 	private Member currentMember;
 	
 	private MemberController() {
 		super();
-		this.memberList = new HashMap<String, Member>();
+		this.memberList = new HashMap<Long, Member>();
 	}
 	
 	public static MemberController getInstance() {
@@ -23,14 +23,28 @@ public class MemberController {
 			mc = new MemberController();
 		return mc;
 	}
+	
+	public Long findUIDbyID(String id) {
+		for(Entry<Long, Member> entry : memberList.entrySet()) {
+			if(entry.getValue().getMemberId().equals(id)) {
+				return entry.getValue().getMemberUID();
+			}
+		}
+		return null;
+	}
 
 	public boolean isMemberExist(String id) {
-		return this.memberList.containsKey(id);
+		for(Entry<Long, Member> entry : memberList.entrySet()) {
+			if(entry.getValue().getMemberId().equals(id)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean isLoginSuccess(String id, String pwd) {
 		boolean success = false;
-		Member m = memberList.get(id);
+		Member m = findMember(id);
 		if(m != null && m.getMemberPwd().equals(pwd))
 			success = true;
 		return success;
@@ -38,7 +52,7 @@ public class MemberController {
 	
 	public void loginMember(String id) {
 		// id를 입력받아, 해당 id에 속하는 멤버를 currentMember로 설정한다.
-		this.currentMember = memberList.get(id);
+		this.currentMember = findMember(id);
 	}
 	
 	public Member getCurrentMember() {
@@ -46,23 +60,31 @@ public class MemberController {
 	}
 	
 	public void addMember(String name, String id, String pwd) {
-		this.memberList.put(id, new Member(name,id,pwd));
+		Member newMember = new Member(name,id,pwd);
+		this.memberList.put(newMember.getMemberUID(), newMember);
 	}
 	
 	public void delMember(String id) {
-		this.memberList.remove(id);
+		this.memberList.remove(findUIDbyID(id));
+	}
+	
+	public Member findMember(String id) {
+		return this.memberList.get(findUIDbyID(id));
 	}
 	
 	public void updateMember(String name, String id, String pwd) {
+		Member member = findMember(id);
 		
-	}
-	
-	public void findMember(String id) {
-		
+		member.setMemberId(id);
+		member.setMemberName(name);
+		member.setMemberPwd(pwd);
 	}
 	
 	public void showMemberList() {
-		
+		for(Entry<Long, Member> entry : memberList.entrySet()) {
+			Member m = entry.getValue();
+			System.out.printf("UID : %d , id : %s , 이름 : %s\n",entry.getKey(), m.getMemberId(), m.getMemberName());
+		}
 	}
 	
 	public void showStockList() {
@@ -118,9 +140,12 @@ public class MemberController {
 		int price = sc.getStockPrice(stockName) * orderQuantity;
 		HashMap<String, Integer> cMemberShareHeld = currentMember.getShareHeld();
 		
-		/*
-		 * TODO 주문 처리
-		 */
+		if(cMemberStockQnt - orderQuantity > 0)
+			cMemberShareHeld.replace(stockName, cMemberStockQnt - orderQuantity);
+		else
+			cMemberShareHeld.remove(stockName);
+		
+		currentMember.setBalance(currentMember.getBalance() + price);
 
 		return 200; // 구매 성공
 	}

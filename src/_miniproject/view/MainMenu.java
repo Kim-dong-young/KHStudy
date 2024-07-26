@@ -102,6 +102,7 @@ public class MainMenu {
 			System.out.println("1. 주식 현황");
 			System.out.println("2. 주식 매매");
 			System.out.println("3. 나의 주식");
+			System.out.println("4. 다음날로 넘어가기");
 			System.out.println("9. 로그아웃");
 			System.out.print("메뉴 입력 : ");
 			ch = s.nextInt();
@@ -116,6 +117,9 @@ public class MainMenu {
 				break;
 			case 3:
 				privateMenu();
+				break;
+			case 4:
+				// TODO 날짜 변경 및 주식 가격 변동
 				break;
 			case 9:
 				System.out.println("로그아웃 합니다.");

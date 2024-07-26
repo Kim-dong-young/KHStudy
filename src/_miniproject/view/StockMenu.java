@@ -69,7 +69,7 @@ public class StockMenu {
 		int sellQuantity = s.nextInt();
 		s.nextLine();
 		
-		int result = mc.buyStock(sellStockName, sellQuantity);
+		int result = mc.sellStock(sellStockName, sellQuantity);
 		switch(result) {
 		case 200:
 			System.out.println("판매에 성공했습니다!");
@@ -78,7 +78,7 @@ public class StockMenu {
 			System.out.println("잘못된 수량입니다.");
 			break;
 		case 403:
-			System.out.println("잔액이 부족합니다.");
+			System.out.println("수량이 부족합니다.");
 			break;
 		}
 	}

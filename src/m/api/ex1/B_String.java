@@ -136,10 +136,11 @@ public class B_String {
 		// 방법2. 분리된 문자열들을 각각 토큰으로서 관리가능
 		//		 java.util.StringTokenizer 클래스를 이용
 		//		 StringTokenizer stn = new StringTokenizer(문자열, "구분자");
-		System.out.print("StringTokenizer stn = new StringTokenizer(str,\",\") : ");
+		System.out.println("StringTokenizer stn = new StringTokenizer(str,\",\")");
 		StringTokenizer stn = new StringTokenizer(str,",");
+		System.out.println("stn.countTokens() : " + stn.countTokens());
 		while(stn.hasMoreTokens()) {
-			System.out.print(stn.nextToken()+ " ");
+			System.out.print(stn.nextToken()+ " "); // 토큰이 없을때 실행 시 예외 발생한다
 		} System.out.println();
 		
 		// 분리된 문자열을 배열을 다시 String으로 변경하는 방법

@@ -1,11 +1,14 @@
 package _miniproject.controller;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Random;
 
 import _miniproject.vo.Stock;
 
 public class StockController {
 	private static StockController sc;
+	private Random random = new Random();
 	private HashMap<String, Stock> stockList;
 
 	private StockController() {
@@ -30,19 +33,45 @@ public class StockController {
 	}
 	
 	public int getStockPrice(String stockName) {
-		return stockList.get(stockName).getStockPrice();
+		Stock stock = stockList.get(stockName);
+		
+		if(stock != null)
+			return stock.getStockPrice();
+		else
+			return 0;
+	}
+	
+	public void randomStockPrice() {
+		for(Entry<String, Stock> entry : stockList.entrySet()) {
+			entry.getValue().setStockPrice( (int)(entry.getValue().getStockPrice() * random.nextDouble(0.8,1.2)));
+		}
 	}
 	
 	public int getStockQuantity(String stockName) {
-		return stockList.get(stockName).getStockQuantity();
+		Stock stock = stockList.get(stockName);
+		
+		if(stock != null)
+			return stock.getStockQuantity();
+		else
+			return 0;
 	}
 	
 	public void setStockQuantity(String stockName, int quantity) {
-		stockList.get(stockName).setStockQuantity(quantity);
+		Stock stock = stockList.get(stockName);
+		
+		if(stock != null)
+			stock.setStockQuantity(quantity);
+		else
+			return;
 	}
 	
 	public int getStockMaxQuantity(String stockName) {
-		return stockList.get(stockName).getMaxQuantity();
+		Stock stock = stockList.get(stockName);
+		
+		if(stock != null)
+			return stock.getMaxQuantity();
+		else
+			return 0;		
 	}
 	
 	public void setStockMaxQuantity(String stockName, int quantity) {
