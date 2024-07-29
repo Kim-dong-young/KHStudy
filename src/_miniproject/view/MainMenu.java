@@ -1,5 +1,6 @@
 package _miniproject.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import _miniproject.controller.MemberController;
@@ -14,6 +15,7 @@ public class MainMenu {
 	PrivateMenu pm = new PrivateMenu();
 	
 	public void mainMenu() {
+		mc.loadMembers();
 		int ch = 0;
 		
 		while(ch != 9) {
@@ -22,8 +24,15 @@ public class MainMenu {
 			System.out.println("2. 회원가입");
 			System.out.println("9. 프로그램 종료");
 			System.out.print("메뉴 번호 : ");
-			ch = s.nextInt();
-			s.nextLine();
+			
+			try {
+				ch = s.nextInt();
+			} catch(InputMismatchException e) {
+				System.out.println("잘못된 입력입니다.");
+				continue;
+			} finally {
+				s.nextLine();
+			}
 			
 			switch(ch) {
 			case 1:
@@ -34,6 +43,7 @@ public class MainMenu {
 				break;
 			case 9:
 				System.out.println("프로그램을 종료합니다.");
+				mc.saveMembers();
 				return;
 			default :
 				System.out.println("잘못 입력하셨습니다.");
@@ -109,8 +119,15 @@ public class MainMenu {
 			System.out.println("4. 다음날로 넘어가기");
 			System.out.println("9. 로그아웃");
 			System.out.print("메뉴 입력 : ");
-			ch = s.nextInt();
-			s.nextLine();
+			
+			try {
+				ch = s.nextInt();
+			} catch(InputMismatchException e) {
+				System.out.println("잘못된 입력입니다.");
+				continue;
+			} finally {
+				s.nextLine();
+			}
 
 			switch (ch) {
 			case 1:

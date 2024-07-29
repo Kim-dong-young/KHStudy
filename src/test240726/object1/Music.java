@@ -38,14 +38,13 @@ public class Music {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		Music m = (Music)obj;
+		if(this.singer.equals(m.getSinger()) &&
+				this.title.equals(m.getTitle())) {
 			return true;
-		if (obj == null)
+		}
+		else
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Music other = (Music) obj;
-		return Objects.equals(singer, other.singer) && Objects.equals(title, other.title);
 	}
 	
 	public int compareTo(Object o) {

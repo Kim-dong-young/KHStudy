@@ -1,5 +1,6 @@
 package _miniproject.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import _miniproject.controller.MemberController;
@@ -22,7 +23,15 @@ public class StockMenu {
 			System.out.println("1. 구매하기");
 			System.out.println("2. 판매하기");
 			System.out.println("9. 뒤로가기");
-			ch = s.nextInt();
+			
+			try {
+				ch = s.nextInt();
+			} catch(InputMismatchException e) {
+				System.out.println("잘못된 입력입니다.");
+				continue;
+			} finally {
+				s.nextLine();
+			}
 			
 			switch(ch) {
 			case 1:
@@ -43,10 +52,18 @@ public class StockMenu {
 	
 	public void buyStockMenu() {
 		sc.showStockList();
+		int buyQuantity = 0;
 		System.out.print("\n구매할 종목과 수량 입력(띄어쓰기로 구분) : ");
 		String buyStockName = s.next();
-		int buyQuantity = s.nextInt();
-		s.nextLine();
+		
+		try {
+			buyQuantity = s.nextInt();
+		} catch(InputMismatchException e) {
+			System.out.println("잘못된 입력입니다.");
+			return;
+		} finally {
+			s.nextLine();
+		}
 		
 		int result = mc.buyStock(buyStockName, buyQuantity);
 		switch(result) {
@@ -54,7 +71,7 @@ public class StockMenu {
 			System.out.println("구매에 성공했습니다!");
 			break;
 		case 400:
-			System.out.println("잘못된 수량입니다.");
+			System.out.println("잘못된 주문입니다.");
 			break;
 		case 403:
 			System.out.println("잔액이 부족합니다.");
@@ -64,10 +81,18 @@ public class StockMenu {
 	
 	public void sellStockMenu() {
 		mc.showStockList();
+		int sellQuantity = 0;
 		System.out.print("\n판매할 종목과 수량 입력(띄어쓰기로 구분) : ");
 		String sellStockName = s.next();
-		int sellQuantity = s.nextInt();
-		s.nextLine();
+
+		try {
+			sellQuantity = s.nextInt();
+		} catch(InputMismatchException e) {
+			System.out.println("잘못된 입력입니다.");
+			return;
+		} finally {
+			s.nextLine();
+		}
 		
 		int result = mc.sellStock(sellStockName, sellQuantity);
 		switch(result) {

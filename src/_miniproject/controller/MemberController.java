@@ -1,11 +1,19 @@
 package _miniproject.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import _miniproject.vo.Member;
 
 public class MemberController {
+	
 	private static MemberController mc;
 	private StockController sc = StockController.getInstance();
 	private HashMap<Long, Member> memberList;
@@ -122,8 +130,8 @@ public class MemberController {
 	
 	public int sellStock(String stockName, int orderQuantity) {
 
-		if (orderQuantity <= 0) { // 잘못된 수량을 판매할 경우( 음의 수 )
-			return 400; // 잘못된 수량 주문
+		if (orderQuantity <= 0 || sc.getStock(stockName) == null) { // 존재하지 않는 주식이거나 잘못된 수량을 판매할 경우( 음의 수 )
+			return 400; // 잘못된 주문
 		}
 		
 		Integer cMemberStockQnt = currentMember.getShareHeld().get(stockName);
@@ -138,13 +146,63 @@ public class MemberController {
 		int price = sc.getStockPrice(stockName) * orderQuantity;
 		HashMap<String, Integer> cMemberShareHeld = currentMember.getShareHeld();
 		
-		if(cMemberStockQnt - orderQuantity > 0)
+		if(cMemberStockQnt - orderQuantity > 0) // 보유한 수가 0이되면 HashMap에서 제거
 			cMemberShareHeld.replace(stockName, cMemberStockQnt - orderQuantity);
 		else
 			cMemberShareHeld.remove(stockName);
 		
+		// 주식 수량 복구
+		sc.setStockQuantity(stockName, sc.getStock(stockName).getStockQuantity() + orderQuantity);
+		
 		currentMember.setBalance(currentMember.getBalance() + price);
 
 		return 200; // 구매 성공
+	}
+	
+	public void saveMembers() {
+		File saveDir = new File("/save");
+		
+		if(!saveDir.exists())
+			saveDir.mkdirs();
+		
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("/save/memberList.txt"))){
+			for(Entry<Long, Member> entry : memberList.entrySet()) {
+				Member m = entry.getValue();
+				String memberInfo = String.format("%d,%s,%s,%s,%s,%s,%d,%d\n",
+						m.getMemberUID(), 
+						m.getMemberName(), 
+						m.getMemberId(), 
+						m.getMemberPwd(), 
+						m.getShareHeld(),
+						m.getStockList(),
+						m.getBalance(),
+						m.getDay());
+				bw.write(memberInfo);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadMembers() {
+		File saveData = new File("/save/memberList.txt");
+		
+		// TODO 세이브데이터 불러오기
+		if(saveData.exists()) {
+			String memberInfo = "";
+			try(BufferedReader br = new BufferedReader(new FileReader("/save/memberList.txt"))){
+				while((memberInfo = br.readLine()) != null) {
+					String[] infoArr = memberInfo.split(",");
+					
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

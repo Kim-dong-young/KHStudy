@@ -22,6 +22,10 @@ public class StockController {
 		return sc;
 	}
 	
+	public Stock getStock(String stockName) {
+		return stockList.get(stockName);
+	}
+	
 	public void setStockList(HashMap<String, Stock> stockList) {
 		this.stockList = stockList;
 	}
@@ -76,6 +80,5 @@ public class StockController {
 	public void setStockMaxQuantity(String stockName, int quantity) {
 		stockList.get(stockName).setMaxQuantity(quantity);
 	}
-	
 	
 }

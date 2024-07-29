@@ -41,37 +41,32 @@ public class MusicController {
 	}
 	
 	public Music removeMusic(String title) {
+		Music m = this.searchMusic(title);
 		
-		for(Object music : list) {
-			if( ((Music)music).getTitle().equals(title)) {
-				String songName = ((Music)music).getTitle();
-				String singer = ((Music)music).getSinger();
-				list.remove(((Music)music));
-				return new Music(songName,singer);
-			}
+		if(m != null) {
+			list.remove(m);
 		}
 		
-		return null;
+		return m;
 	}
 	
 	public Music setMusic(String title, Music music) {
-		
-		for(Object searchMusic : list) {
-			if( ((Music)searchMusic).getTitle().equals(title)) {
-				list.add(list.indexOf(searchMusic),music);
-				list.remove(searchMusic);
-				return ((Music)searchMusic);
-			}
+		Music foundMusic = this.searchMusic(title);
+
+		if( foundMusic != null ) {
+			list.set(list.indexOf(foundMusic), music);
 		}
 		
-		return null;
+		return foundMusic;
 	}
 	
 	public int ascTitle() {
 		// Collections.sort : 컬렉션에서 정렬기능을 제공하는 메소드
 		// 정렬하고 싶은 컬렉션 객체 + 정렬 기준을 정한 객체( Comparator 구현된 겍체 ) 를
 		// 전달하면 정렬 기준에 맞춰 정렬을 수행해준다.
+		// ex ) Collections.sort( 정렬하고 싶은 컬렉션 객체, new Comparator객체 );
 		try {
+			// Collections.sort(list, new AscTitle());
 			list.sort(new AscTitle());
 			return 1;
 		} catch(Exception e) {
@@ -81,6 +76,10 @@ public class MusicController {
 	
 	public int descSinger() {
 		try {
+			// lambda식
+			list.sort((o1, o2) -> ((Music)o2).getSinger().compareTo(((Music)o1).getSinger()));
+			/*
+			 * 익명 클래스
 			list.sort(new Comparator() {
 				@Override
 				public int compare(Object o1, Object o2) {
@@ -90,6 +89,7 @@ public class MusicController {
 					return m2.getSinger().compareTo(m1.getSinger());
 				}
 			});;
+			*/
 			return 1;
 		} catch(Exception e) {
 			return -1;

@@ -1,5 +1,6 @@
 package _miniproject.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import _miniproject.controller.MemberController;
@@ -15,7 +16,15 @@ public class PrivateMenu {
 			System.out.printf("===== %s 님의 마이페이지 =====\n",mc.getCurrentMember().getMemberName());
 			System.out.println("1. 보유중인 주식 확인");
 			System.out.println("9. 뒤로 가기");
-			ch = s.nextInt();
+			
+			try {
+				ch = s.nextInt();
+			} catch(InputMismatchException e) {
+				System.out.println("잘못된 입력입니다.");
+				continue;
+			} finally {
+				s.nextLine();
+			}
 			
 			switch(ch) {
 			case 1:

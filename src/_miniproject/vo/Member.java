@@ -2,6 +2,7 @@ package _miniproject.vo;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Member {
 	private Long memberUID;
@@ -89,10 +90,27 @@ public class Member {
 		this.balance = balance;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Member [memberName=" + memberName + ", memberId=" + memberId + ", memberPwd=" + memberPwd
-				+ ", shareHeld=" + shareHeld + ", balance=" + balance + "]";
+		return memberUID + "," + memberName + "," + memberId
+				+ "," + memberPwd + "," + shareHeld + "," + stockList + "," + day
+				+ "," + balance;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(memberUID);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Member) {
+			Member other = (Member)obj;
+			if(this.getMemberUID().equals(other.getMemberUID()))
+				return true;
+		}
+		return false;
 	}
 	
 	
