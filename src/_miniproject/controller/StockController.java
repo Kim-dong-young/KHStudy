@@ -14,17 +14,16 @@ public class StockController {
 	private StockController() {
 		super();
 		stockList = new HashMap<String, Stock>();
-		stockList.put("LG전자", new Stock("LG전자",112500,1000));
-		stockList.put("삼성전자", new Stock("삼성전자",159500,1000));
-		stockList.put("롯데케미칼", new Stock("롯데케미칼",100800,1000));
-		stockList.put("현대모비스", new Stock("현대모비스",224500,1000));
-		stockList.put("KB금융", new Stock("KB금융",84600,1000));
 	}
-	
+
 	public static StockController getInstance() {
 		if(sc == null) 
 			sc =  new StockController();
 		return sc;
+	}
+	
+	public void setStockList(HashMap<String, Stock> stockList) {
+		this.stockList = stockList;
 	}
 	
 	public void showStockList() {

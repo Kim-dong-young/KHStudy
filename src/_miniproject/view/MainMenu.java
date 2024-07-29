@@ -3,11 +3,13 @@ package _miniproject.view;
 import java.util.Scanner;
 
 import _miniproject.controller.MemberController;
+import _miniproject.controller.StockController;
 import _miniproject.vo.Member;
 
 public class MainMenu {
 	Scanner s = new Scanner(System.in);
 	MemberController mc = MemberController.getInstance();
+	StockController sc = StockController.getInstance();
 	StockMenu sm = new StockMenu();
 	PrivateMenu pm = new PrivateMenu();
 	
@@ -52,6 +54,7 @@ public class MainMenu {
 		
 		if(mc.isLoginSuccess(id, pwd)) {
 			mc.loginMember(id);
+			sc.setStockList(mc.getCurrentMember().getStockList());
 			memberMenu();
 			return;
 		}
@@ -98,6 +101,7 @@ public class MainMenu {
 
 		while (ch != 9) {
 			System.out.printf("===== %s 님 환영합니다. =====\n", currentMember.getMemberId());
+			System.out.printf("현재 날짜 : %d일", currentMember.getDay());
 			System.out.printf("보유 자산 : %d원\n", currentMember.getBalance());
 			System.out.println("1. 주식 현황");
 			System.out.println("2. 주식 매매");
@@ -119,7 +123,8 @@ public class MainMenu {
 				privateMenu();
 				break;
 			case 4:
-				// TODO 날짜 변경 및 주식 가격 변동
+				sc.randomStockPrice();
+				currentMember.setDay(currentMember.getDay() + 1);
 				break;
 			case 9:
 				System.out.println("로그아웃 합니다.");
