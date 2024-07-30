@@ -46,7 +46,12 @@ public class StockController {
 	
 	public void randomStockPrice() {
 		for(Entry<String, Stock> entry : stockList.entrySet()) {
-			entry.getValue().setStockPrice( (int)(entry.getValue().getStockPrice() * random.nextDouble(0.8,1.2)));
+			Stock stock = entry.getValue();
+			// 변경 전 가격 저장
+			int previousPrice = stock.getStockPrice();
+			// -20 ~ +20 % 사이 가격 변동
+			stock.setStockPrice( (int)( previousPrice * random.nextDouble(0.8,1.2)));
+			stock.setPriceFluct(stock.getStockPrice() - previousPrice);
 		}
 	}
 	

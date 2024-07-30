@@ -248,7 +248,7 @@ public class MemberController {
 			
 			// 개인별 주식창 추출
 			// < 데이터 형식 >
-			// 롯데케미칼=종목 : 롯데케미칼 / 가격 : 100800 / 수량 : 1000, 
+			// 롯데케미칼=종목 : 롯데케미칼 / 가격 : 100800 / 수량 : 1000 / 변동폭 : 1000, 
 			// LG전자=종목 : LG전자 / 가격 : 112500 / 수량 : 1000,
 			String stockListStr = matcher.group(6);
 			HashMap<String, Stock> stockList = new HashMap<>();
@@ -261,8 +261,9 @@ public class MemberController {
 					String[] stockInfo = stocks[1].split("/");
 					int stockPrice = Integer.parseInt(stockInfo[1].split(":")[1].trim());
 					int stockQuantity = Integer.parseInt(stockInfo[2].split(":")[1].trim());
+					int stockPreviousPrice = Integer.parseInt(stockInfo[3].split(":")[1].trim());
 					
-					stockList.put(stockName, new Stock(stockName, stockPrice, stockQuantity));
+					stockList.put(stockName, new Stock(stockName, stockPrice, stockPreviousPrice ,stockQuantity));
 				}
 			}
 			

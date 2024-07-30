@@ -13,6 +13,7 @@ public class MainMenu {
 	StockController sc = StockController.getInstance();
 	StockMenu sm = new StockMenu();
 	PrivateMenu pm = new PrivateMenu();
+	ItemStoreMenu ism = new ItemStoreMenu();
 	
 	public void mainMenu() {
 		mc.loadMembers();
@@ -116,7 +117,8 @@ public class MainMenu {
 			System.out.println("1. 주식 현황");
 			System.out.println("2. 주식 매매");
 			System.out.println("3. 나의 주식");
-			System.out.println("4. 다음날로 넘어가기");
+			System.out.println("4. 아이템 상점");
+			System.out.println("5. 다음날로 넘어가기");
 			System.out.println("9. 로그아웃");
 			System.out.print("메뉴 입력 : ");
 			
@@ -140,6 +142,10 @@ public class MainMenu {
 				privateMenu();
 				break;
 			case 4:
+				// TODO 아이템 상점 기능 구현
+				ism.storeMenu();
+				break;
+			case 5:
 				sc.randomStockPrice();
 				currentMember.setDay(currentMember.getDay() + 1);
 				break;

@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Stock {
 	private String stockName;
 	private int stockPrice;
+	private int priceFluct;
 	private int stockQuantity;
 	private int maxQuantity;
 	
@@ -16,6 +17,15 @@ public class Stock {
 		super();
 		this.stockName = stockName;
 		this.stockPrice = stockPrice;
+		this.stockQuantity = stockQuantity;
+		this.priceFluct = 0;
+	}
+
+	public Stock(String stockName, int stockPrice, int previousPrice, int stockQuantity) {
+		super();
+		this.stockName = stockName;
+		this.stockPrice = stockPrice;
+		this.priceFluct = previousPrice;
 		this.stockQuantity = stockQuantity;
 	}
 
@@ -51,9 +61,17 @@ public class Stock {
 		this.maxQuantity = maxQuantity;
 	}
 
+	public int getPriceFluct() {
+		return priceFluct;
+	}
+
+	public void setPriceFluct(int priceFluct) {
+		this.priceFluct = priceFluct;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("종목 : %s / 가격 : %d / 수량 : %d", stockName, stockPrice, stockQuantity);
+		return String.format("종목 : %s / 가격 : %d / 수량 : %d / 변동폭 : %d", stockName, stockPrice, stockQuantity, priceFluct);
 	}
 
 	@Override
