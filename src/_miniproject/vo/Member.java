@@ -33,6 +33,21 @@ public class Member {
 		stockList.put("현대모비스", new Stock("현대모비스",224500,1000));
 		stockList.put("KB금융", new Stock("KB금융",84600,1000));
 	}
+	
+	public Member(Long memberUID, String memberName, String memberId, String memberPwd,
+			HashMap<String, Integer> shareHeld, HashMap<String, Stock> stockList, int day, int balance) {
+		super();
+		this.memberUID = memberUID;
+		this.memberName = memberName;
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.shareHeld = shareHeld;
+		this.stockList = stockList;
+		this.day = day;
+		this.balance = balance;
+	}
+
+
 
 	public int getDay() {
 		return day;
@@ -80,6 +95,10 @@ public class Member {
 	
 	public HashMap<String, Stock> getStockList() {
 		return stockList;
+	}
+	
+	public void setStockList(HashMap<String, Stock> stockList) {
+		this.stockList = stockList;
 	}
 
 	public int getBalance() {

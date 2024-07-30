@@ -19,7 +19,7 @@ public class StockMenu {
 		int ch = 0;
 		
 		while(ch != 9) {
-			System.out.printf("===== 주식 시장 =====\n",mc.getCurrentMember().getMemberName());
+			System.out.printf("===== 주식 시장 =====\n");
 			System.out.println("1. 구매하기");
 			System.out.println("2. 판매하기");
 			System.out.println("9. 뒤로가기");
@@ -41,7 +41,7 @@ public class StockMenu {
 				sellStockMenu();
 				break;
 			case 9:
-				System.out.println("마이페이지에서 나갑니다.");
+				System.out.println("메뉴로 돌아갑니다.");
 				continue;
 			default:
 				System.out.println("잘못 입력하셨습니다.");

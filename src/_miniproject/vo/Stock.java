@@ -53,7 +53,7 @@ public class Stock {
 
 	@Override
 	public String toString() {
-		return String.format("종목 : %s / 가격 : %d원 / 수량 : %d주", stockName, stockPrice, stockQuantity);
+		return String.format("종목 : %s / 가격 : %d / 수량 : %d", stockName, stockPrice, stockQuantity);
 	}
 
 	@Override

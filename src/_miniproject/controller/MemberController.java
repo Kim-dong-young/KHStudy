@@ -9,10 +9,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import _miniproject.vo.Member;
+import _miniproject.vo.Stock;
 
 public class MemberController {
+	private static final String MEMBER_PATTERN = "(\\d+),([^,]+),([^,]+),([^,]+),\\{([^}]*)\\},\\{([^}]*)\\},(\\d+),(\\d+)";
 	
 	private static MemberController mc;
 	private StockController sc = StockController.getInstance();
@@ -51,8 +55,9 @@ public class MemberController {
 	public boolean isLoginSuccess(String id, String pwd) {
 		boolean success = false;
 		Member m = findMember(id);
-		if(m != null && m.getMemberPwd().equals(pwd))
+		if( m != null && m.getMemberPwd().equals(pwd)) {
 			success = true;
+		}
 		return success;
 	}
 	
@@ -84,6 +89,10 @@ public class MemberController {
 		member.setMemberId(id);
 		member.setMemberName(name);
 		member.setMemberPwd(pwd);
+	}
+	
+	public HashMap<Long, Member> getMemberList() {
+		return memberList;
 	}
 	
 	public void showMemberList() {
@@ -172,7 +181,7 @@ public class MemberController {
 						m.getMemberUID(), 
 						m.getMemberName(), 
 						m.getMemberId(), 
-						m.getMemberPwd(), 
+						m.getMemberPwd(),
 						m.getShareHeld(),
 						m.getStockList(),
 						m.getBalance(),
@@ -189,13 +198,14 @@ public class MemberController {
 	public void loadMembers() {
 		File saveData = new File("/save/memberList.txt");
 		
-		// TODO 세이브데이터 불러오기
 		if(saveData.exists()) {
-			String memberInfo = "";
 			try(BufferedReader br = new BufferedReader(new FileReader("/save/memberList.txt"))){
+				String memberInfo;
 				while((memberInfo = br.readLine()) != null) {
-					String[] infoArr = memberInfo.split(",");
-					
+					Member member = parseMemberInfo(memberInfo);
+					if(member != null) {
+						memberList.put(member.getMemberUID(), member);
+					}
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -204,5 +214,63 @@ public class MemberController {
 			}
 		}
 
+	}
+	
+	private Member parseMemberInfo(String memberInfo) {
+		// https://girawhale.tistory.com/77
+		
+		Pattern pattern = Pattern.compile(MEMBER_PATTERN);
+		Matcher matcher = pattern.matcher(memberInfo);
+		
+		Member member = null;
+		
+		if(matcher.find()) {
+			Long uid = Long.parseLong(matcher.group(1));
+			String name = matcher.group(2);    
+			String id = matcher.group(3);
+			String pwd = matcher.group(4);
+			
+			// 보유 주식 추출
+			// < 데이터 형식 >
+			// 삼성전자=1, 현대모비스=3
+			String shareHeldStr = matcher.group(5);
+			HashMap<String, Integer> shareHeld = new HashMap<>();
+			if(!shareHeldStr.isEmpty()) {
+				String[] shareHeldList = shareHeldStr.split(",");
+				for(String stock : shareHeldList) {
+					String[] stockInfo = stock.split("=");
+					String stockName = stockInfo[0].trim();
+					Integer stockQuantity = Integer.parseInt(stockInfo[1]);
+					
+					shareHeld.put(stockName, stockQuantity);
+				}
+			}
+			
+			// 개인별 주식창 추출
+			// < 데이터 형식 >
+			// 롯데케미칼=종목 : 롯데케미칼 / 가격 : 100800 / 수량 : 1000, 
+			// LG전자=종목 : LG전자 / 가격 : 112500 / 수량 : 1000,
+			String stockListStr = matcher.group(6);
+			HashMap<String, Stock> stockList = new HashMap<>();
+			if(!stockListStr.isEmpty()) {
+				String[] stockListArr = stockListStr.split(",");
+				for(String stock : stockListArr) {
+					String[] stocks = stock.split("=");
+					String stockName = stocks[0].trim();
+					
+					String[] stockInfo = stocks[1].split("/");
+					int stockPrice = Integer.parseInt(stockInfo[1].split(":")[1].trim());
+					int stockQuantity = Integer.parseInt(stockInfo[2].split(":")[1].trim());
+					
+					stockList.put(stockName, new Stock(stockName, stockPrice, stockQuantity));
+				}
+			}
+			
+			int balance = Integer.parseInt(matcher.group(7));
+			int day = Integer.parseInt(matcher.group(8));
+			
+			member = new Member(uid,name,id,pwd,shareHeld,stockList,day,balance);
+		}
+		return member;
 	}
 }
