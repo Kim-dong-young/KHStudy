@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
+import _miniproject.vo.items.Item;
+
 public class Member {
 	private Long memberUID;
 	private String memberName;
@@ -12,6 +14,7 @@ public class Member {
 	
 	private HashMap<String, Integer> shareHeld;
 	private HashMap<String, Stock> stockList;
+	private HashMap<Item, Integer> itemList;
 	
 	private int day;
 	private int balance;
@@ -25,6 +28,7 @@ public class Member {
 		this.day = 1;
 		this.shareHeld = new HashMap<String, Integer>();
 		this.stockList = new HashMap<String, Stock>();
+		this.itemList = new HashMap<Item, Integer>();
 		this.balance = 1000000;
 		
 		stockList.put("LG전자", new Stock("LG전자",112500,1000));
@@ -46,8 +50,6 @@ public class Member {
 		this.day = day;
 		this.balance = balance;
 	}
-
-
 
 	public int getDay() {
 		return day;
@@ -99,6 +101,23 @@ public class Member {
 	
 	public void setStockList(HashMap<String, Stock> stockList) {
 		this.stockList = stockList;
+	}
+	
+	public HashMap<Item, Integer> getItemList(){
+		return itemList;
+	}
+	
+	public void purchaseItem(Item item) {
+		if(!itemList.containsKey(item)) {
+			itemList.put(item, 1);
+		}
+		else {
+			itemList.replace(item, itemList.get(item) + 1);
+		}
+	}
+	
+	public void useItem(Item item) {
+		// TODO 아이템 사용
 	}
 
 	public int getBalance() {

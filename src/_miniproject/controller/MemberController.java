@@ -249,7 +249,6 @@ public class MemberController {
 			// 개인별 주식창 추출
 			// < 데이터 형식 >
 			// 롯데케미칼=종목 : 롯데케미칼 / 가격 : 100800 / 수량 : 1000 / 변동폭 : 1000, 
-			// LG전자=종목 : LG전자 / 가격 : 112500 / 수량 : 1000,
 			String stockListStr = matcher.group(6);
 			HashMap<String, Stock> stockList = new HashMap<>();
 			if(!stockListStr.isEmpty()) {

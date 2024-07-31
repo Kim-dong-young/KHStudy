@@ -1,19 +1,16 @@
-package _miniproject.vo;
+package _miniproject.vo.items;
 
 import java.util.Objects;
 
-public class Item {
+public class PredictPrice implements Item{
 	private String name;
 	private int price;
-	private int amount;
 	
-	public Item(String name, int price, int amount) {
+	public PredictPrice(String name, int price) {
 		super();
 		this.name = name;
 		this.price = price;
-		this.amount = amount;
 	}
-
 	public String getName() {
 		return name;
 	}
@@ -30,17 +27,9 @@ public class Item {
 		this.price = price;
 	}
 
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
 	@Override
 	public String toString() {
-		return "Item [name=" + name + ", price=" + price + ", amount=" + amount + "]";
+		return "Item [name=" + name + ", price=" + price + "]";
 	}
 
 	@Override
@@ -50,12 +39,17 @@ public class Item {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof Item) {
-			Item other = (Item)obj;
-			return this.getName().equals(other.getName());
+		if(obj instanceof PredictPrice) {
+			PredictPrice other = (PredictPrice)obj;
+			return this.name.equals(other.getName());
 		}
 		return false;
 	}
-	
-	
+
+	@Override
+	public void use() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

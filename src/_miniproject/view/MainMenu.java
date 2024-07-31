@@ -142,7 +142,6 @@ public class MainMenu {
 				privateMenu();
 				break;
 			case 4:
-				// TODO 아이템 상점 기능 구현
 				ism.storeMenu();
 				break;
 			case 5:
