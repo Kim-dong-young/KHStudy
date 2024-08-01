@@ -14,12 +14,14 @@ import java.util.regex.Pattern;
 
 import _miniproject.vo.Member;
 import _miniproject.vo.Stock;
+import _miniproject.vo.items.Item;
 
 public class MemberController {
-	private static final String MEMBER_PATTERN = "(\\d+),([^,]+),([^,]+),([^,]+),\\{([^}]*)\\},\\{([^}]*)\\},(\\d+),(\\d+)";
+	private static final String MEMBER_PATTERN = "(\\d+),([^,]+),([^,]+),([^,]+),\\{([^}]*)\\},\\{([^}]*)\\},(\\d+),(\\d+),\\{([^}]*)\\}";
 	
 	private static MemberController mc;
 	private StockController sc = StockController.getInstance();
+	private ItemController ic = ItemController.getInstance();
 	private HashMap<Long, Member> memberList;
 	private Member currentMember;
 	
@@ -108,6 +110,32 @@ public class MemberController {
 		}
 	}
 	
+	public void purchaseItem(Item item) {
+		HashMap<Item,Integer> cMemberIList = currentMember.getItemList();
+		if( ( currentMember.getBalance() >= item.getPrice() ) && !cMemberIList.containsKey(item)) {
+			cMemberIList.put(item, 1);
+			currentMember.setBalance( currentMember.getBalance() - item.getPrice() );
+		}
+		else {
+			cMemberIList.replace(item, cMemberIList.get(item) + 1);
+		}
+		
+	}
+	
+	public boolean useItem(Item item) {
+		HashMap<Item,Integer> cMemberIList = currentMember.getItemList();
+
+		if(cMemberIList.get(item) != null && cMemberIList.get(item) > 0) {
+			item.use();
+			cMemberIList.replace(item, cMemberIList.get(item) - 1);
+			
+			if(cMemberIList.get(item) <= 0) cMemberIList.remove(item);
+			
+			return true;
+		}
+		return false;
+	}
+	
 	public int buyStock(String stockName, int orderQuantity) {
 		
 		if(sc.getStockQuantity(stockName) < orderQuantity || orderQuantity <= 0 ) { // 잘못된 수량을 주문할 경우( 수량 초과, 음의 수 )
@@ -177,7 +205,7 @@ public class MemberController {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("/save/memberList.txt"))){
 			for(Entry<Long, Member> entry : memberList.entrySet()) {
 				Member m = entry.getValue();
-				String memberInfo = String.format("%d,%s,%s,%s,%s,%s,%d,%d\n",
+				String memberInfo = String.format("%d,%s,%s,%s,%s,%s,%d,%d,%s\n",
 						m.getMemberUID(), 
 						m.getMemberName(), 
 						m.getMemberId(), 
@@ -185,7 +213,8 @@ public class MemberController {
 						m.getShareHeld(),
 						m.getStockList(),
 						m.getBalance(),
-						m.getDay());
+						m.getDay(),
+						m.getItemList());
 				bw.write(memberInfo);
 			}
 		} catch (FileNotFoundException e) {
@@ -261,15 +290,29 @@ public class MemberController {
 					int stockPrice = Integer.parseInt(stockInfo[1].split(":")[1].trim());
 					int stockQuantity = Integer.parseInt(stockInfo[2].split(":")[1].trim());
 					int stockPreviousPrice = Integer.parseInt(stockInfo[3].split(":")[1].trim());
+					double nextFluct = Double.parseDouble(stockInfo[4].split(":")[1].trim());
 					
-					stockList.put(stockName, new Stock(stockName, stockPrice, stockPreviousPrice ,stockQuantity));
+					stockList.put(stockName, new Stock(stockName, stockPrice, stockPreviousPrice ,stockQuantity, nextFluct));
 				}
 			}
 			
 			int balance = Integer.parseInt(matcher.group(7));
 			int day = Integer.parseInt(matcher.group(8));
 			
-			member = new Member(uid,name,id,pwd,shareHeld,stockList,day,balance);
+			String itemListStr = matcher.group(9);
+			HashMap<Item, Integer> itemList = new HashMap<>();
+			if(!itemListStr.isEmpty()) {
+				String[] itemListArr = itemListStr.split(",");
+				for(String item : itemListArr) {
+					String[] itemInfo = item.split("=");
+					String itemName = itemInfo[0].trim();
+					Integer itemQuantity = Integer.parseInt(itemInfo[1]);
+					
+					itemList.put(ic.getItem(Integer.parseInt(itemName)), itemQuantity);
+				}
+			}
+			
+			member = new Member(uid,name,id,pwd,shareHeld,stockList,day,balance,itemList);
 		}
 		return member;
 	}

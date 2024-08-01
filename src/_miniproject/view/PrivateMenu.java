@@ -52,11 +52,11 @@ public class PrivateMenu {
 	public void itemMenu() {
 		int ch = -1;
 		
-		while(ch != 9) {
+		while(ch != 0) {
 			HashMap<Item, Integer> itemList = mc.getCurrentMember().getItemList();
 			System.out.println("===== 보유중인 아이템 =====");
 			for(Entry<Item, Integer> entry : itemList.entrySet()) {
-				System.out.printf("%s : %s",entry.getKey().getName(), entry.getValue());
+				System.out.printf("(%s번)%s : %s\n",entry.getKey().getItemNum(), entry.getKey().getName(), entry.getValue());
 			}
 			System.out.println("0. 마이페이지로 돌아가기");
 			System.out.print("사용할 아이템 번호 : ");
@@ -65,7 +65,9 @@ public class PrivateMenu {
 			
 			if(ch == 0) return;
 			
-			mc.getCurrentMember().useItem(ic.getItem(ch));
+			if( !mc.useItem(ic.getItem(ch)) ) {
+				System.out.println("아이템이 존재하지 않습니다.");
+			}
 		}
 		
 	}

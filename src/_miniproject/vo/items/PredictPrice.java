@@ -1,55 +1,37 @@
 package _miniproject.vo.items;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class PredictPrice implements Item{
-	private String name;
-	private int price;
-	
-	public PredictPrice(String name, int price) {
-		super();
-		this.name = name;
-		this.price = price;
-	}
-	public String getName() {
-		return name;
+import _miniproject.controller.StockController;
+import _miniproject.vo.Stock;
+
+public class PredictPrice extends Item{
+
+	public PredictPrice(String itemNum, String name, int price) {
+		super(itemNum, name, price);
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	@Override
-	public String toString() {
-		return "Item [name=" + name + ", price=" + price + "]";
-	}
-
+	/*
 	@Override
 	public int hashCode() {
-		return Objects.hash(name);
+		return Objects.hash(getItemNum());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof PredictPrice) {
 			PredictPrice other = (PredictPrice)obj;
-			return this.name.equals(other.getName());
+			return this.getItemNum().equals(other.getItemNum());
 		}
 		return false;
 	}
-
+	*/
+	
 	@Override
 	public void use() {
-		// TODO Auto-generated method stub
-		
+		Stock stock = StockController.getInstance().getRandomStock();
+		System.out.printf("소문에 따르면... %s는 내일 %.2f 만큼 가격이 변동합니다.\n",stock.getStockName(), stock.getNextFluct() * (0.8 + (Math.random() * 0.4)) );
 	}
 
 }

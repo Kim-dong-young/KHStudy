@@ -8,6 +8,7 @@ public class Stock {
 	private int priceFluct;
 	private int stockQuantity;
 	private int maxQuantity;
+	private double nextFluct;
 	
 	public Stock() {
 		super();
@@ -19,14 +20,16 @@ public class Stock {
 		this.stockPrice = stockPrice;
 		this.stockQuantity = stockQuantity;
 		this.priceFluct = 0;
+		this.nextFluct = 0.8 + (Math.random() * 0.4);
 	}
 
-	public Stock(String stockName, int stockPrice, int previousPrice, int stockQuantity) {
+	public Stock(String stockName, int stockPrice, int previousPrice, int stockQuantity, double nextFluct) {
 		super();
 		this.stockName = stockName;
 		this.stockPrice = stockPrice;
 		this.priceFluct = previousPrice;
 		this.stockQuantity = stockQuantity;
+		this.nextFluct = nextFluct;
 	}
 
 	public String getStockName() {
@@ -69,9 +72,17 @@ public class Stock {
 		this.priceFluct = priceFluct;
 	}
 
+	public double getNextFluct() {
+		return nextFluct;
+	}
+
+	public void setNextFluct(double nextFluct) {
+		this.nextFluct = nextFluct;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("종목 : %s / 가격 : %d / 수량 : %d / 변동폭 : %d", stockName, stockPrice, stockQuantity, priceFluct);
+		return String.format("종목 : %s / 가격 : %d / 수량 : %d / 변동폭 : %d / 변동률 : %.2f", stockName, stockPrice, stockQuantity, priceFluct, nextFluct);
 	}
 
 	@Override

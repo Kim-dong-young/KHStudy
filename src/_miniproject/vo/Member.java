@@ -39,7 +39,7 @@ public class Member {
 	}
 	
 	public Member(Long memberUID, String memberName, String memberId, String memberPwd,
-			HashMap<String, Integer> shareHeld, HashMap<String, Stock> stockList, int day, int balance) {
+			HashMap<String, Integer> shareHeld, HashMap<String, Stock> stockList, int day, int balance, HashMap<Item, Integer> itemList) {
 		super();
 		this.memberUID = memberUID;
 		this.memberName = memberName;
@@ -49,6 +49,7 @@ public class Member {
 		this.stockList = stockList;
 		this.day = day;
 		this.balance = balance;
+		this.itemList = itemList;
 	}
 
 	public int getDay() {
@@ -105,19 +106,6 @@ public class Member {
 	
 	public HashMap<Item, Integer> getItemList(){
 		return itemList;
-	}
-	
-	public void purchaseItem(Item item) {
-		if(!itemList.containsKey(item)) {
-			itemList.put(item, 1);
-		}
-		else {
-			itemList.replace(item, itemList.get(item) + 1);
-		}
-	}
-	
-	public void useItem(Item item) {
-		// TODO 아이템 사용
 	}
 
 	public int getBalance() {

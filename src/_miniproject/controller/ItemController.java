@@ -15,8 +15,8 @@ public class ItemController {
 		super();
 		this.itemList = new HashMap<>();
 		
-		itemList.put("1", new PredictPrice("오늘의운세",500));
-		itemList.put("2", new TodayLuck("주식가격예측",10000));
+		itemList.put("1", new TodayLuck("1","오늘의운세",500));
+		itemList.put("2", new PredictPrice("2","주식가격예측",10000));
 	}
 	
 	public static ItemController getInstance() {
@@ -31,7 +31,7 @@ public class ItemController {
 	}
 	
 	public Item getItem(int iNum) {
-		String itemNum = String.valueOf(iNum);
+		String itemNum = Integer.toString(iNum);
 		if(itemList.containsKey(itemNum)) {
 			return itemList.get(itemNum);
 		}

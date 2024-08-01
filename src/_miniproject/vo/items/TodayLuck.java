@@ -2,54 +2,32 @@ package _miniproject.vo.items;
 
 import java.util.Objects;
 
-public class TodayLuck implements Item{
-	private String name;
-	private int price;
+public class TodayLuck extends Item{
 	
-	public TodayLuck(String name, int price) {
-		super();
-		this.name = name;
-		this.price = price;
-	}
-	public String getName() {
-		return name;
+	public TodayLuck(String itemNum, String name, int price) {
+		super(itemNum, name, price);
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	@Override
-	public String toString() {
-		return "Item [name=" + name + ", price=" + price + "]";
-	}
-
+	/*
 	@Override
 	public int hashCode() {
-		return Objects.hash(name);
+		return Objects.hash(getItemNum());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof TodayLuck) {
 			TodayLuck other = (TodayLuck)obj;
-			return this.name.equals(other.getName());
+			return this.getItemNum().equals(other.getItemNum());
 		}
 		return false;
 	}
-	
+	*/
+
 	@Override
 	public void use() {
-		// TODO Auto-generated method stub
-		
+		String[] luck = {"매우 나쁨","나쁨","보통","좋음","매우 좋음"};
+		System.out.printf("오늘의 운세는 %s입니다.\n", luck[(int)(Math.random() * luck.length)]);
 	}
 
 }

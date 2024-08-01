@@ -1,6 +1,8 @@
 package _miniproject.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
@@ -26,13 +28,28 @@ public class StockController {
 		return stockList.get(stockName);
 	}
 	
+	public String getStockInfo(Stock stock) {
+		return String.format("종목 : %s / 가격 : %d / 수량 : %d / 변동폭 : %d", stock.getStockName(), stock.getStockPrice(), stock.getStockQuantity(), stock.getPriceFluct());
+	}
+	
+	public Stock getRandomStock() {
+		// TODO 랜덤한 주식값 뽑기
+		List<Stock> sl = new ArrayList<Stock>(stockList.values());
+		return sl.get( random.nextInt(0, sl.size()) );
+	}
+	
+	public HashMap<String, Stock> getStockList(){
+		return this.stockList;
+	}
+	
 	public void setStockList(HashMap<String, Stock> stockList) {
 		this.stockList = stockList;
 	}
 	
 	public void showStockList() {
-		// 메소드 참조( :: ), 람다식 생략
-		stockList.values().forEach(System.out::println);
+		for(Entry<String, Stock> entry : stockList.entrySet()) {
+			System.out.println(getStockInfo(entry.getValue()));
+		}
 	}
 	
 	public int getStockPrice(String stockName) {
@@ -49,9 +66,11 @@ public class StockController {
 			Stock stock = entry.getValue();
 			// 변경 전 가격 저장
 			int previousPrice = stock.getStockPrice();
+			double nextFluct = stock.getNextFluct(); // 주식 변동율 가져옴
 			// -20 ~ +20 % 사이 가격 변동
-			stock.setStockPrice( (int)( previousPrice * random.nextDouble(0.8,1.2)));
+			stock.setStockPrice( (int)( previousPrice * nextFluct ));
 			stock.setPriceFluct(stock.getStockPrice() - previousPrice);
+			stock.setNextFluct(random.nextDouble(0.8, 1.2));
 		}
 	}
 	

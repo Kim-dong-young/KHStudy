@@ -116,7 +116,7 @@ public class MainMenu {
 			System.out.printf("보유 자산 : %d원\n", currentMember.getBalance());
 			System.out.println("1. 주식 현황");
 			System.out.println("2. 주식 매매");
-			System.out.println("3. 나의 주식");
+			System.out.println("3. 마이 페이지");
 			System.out.println("4. 아이템 상점");
 			System.out.println("5. 다음날로 넘어가기");
 			System.out.println("9. 로그아웃");
