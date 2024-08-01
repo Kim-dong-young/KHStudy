@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Practice3 {
 	/*
 	 * 문자열 클래스에는 여러가지 기능이 있다.
-	 * ex ) 문자열 비교시 -> 문자열.equlas(비교문자열)
+	 * ex ) 문자열 비교시 -> 문자열.equals(비교문자열)
 	 * 
 	 * 문자열.charAt(index) : 문자열에서 내가 원하는 index의 글자를 가져온다.
 	 * index : 순서를 지칭할 때 사용하는 것

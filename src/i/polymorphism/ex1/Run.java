@@ -8,7 +8,7 @@ public class Run {
 			 참조변수 = 실제로 어디까지 접근이 가능한가? /  실제로 어떤 형태의 메모리가 생성이 되는가?
 		 */
 		
-		// Cake까지 접근 가능하며, 실제 메모리 공간은 ChesseCake다
+		// Cake까지 접근 가능하며, 실제 메모리 공간은 CheeseCake다
 		Cake c1 = new CheeseCake();
 		c1.sweet();
 		// 오버라이딩 시에는 실제 메모리에 있는 재정의된 메서드가 호출됨

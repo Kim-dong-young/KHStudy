@@ -1,5 +1,7 @@
 package o.collection.list;
 
+import java.util.Objects;
+
 public class Music {
 	private String title;
 	private String artist;
@@ -30,5 +32,21 @@ public class Music {
 	public String toString() {
 		return "Music [title=" + title + ", artist=" + artist + "]\n";
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(title,artist);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Music) {
+			Music other = (Music)obj;
+			if(other.getTitle().equals(this.title) &&
+					other.getArtist().equals(this.artist))
+				return true;
+		}
+		return false;
+	}
+	
+	
 	
 }
