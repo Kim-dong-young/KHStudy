@@ -8,7 +8,6 @@ import _miniproject.vo.items.TodayLuck;
 
 public class ItemController {
 	private static ItemController ic;
-	private StockController sc = StockController.getInstance();
 	private HashMap<String, Item> itemList;
 	
 	private ItemController() {
