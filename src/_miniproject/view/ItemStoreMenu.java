@@ -1,6 +1,7 @@
 package _miniproject.view;
 
 import java.util.Map.Entry;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import _miniproject.controller.ItemController;
@@ -27,8 +28,14 @@ public class ItemStoreMenu {
 			}
 			System.out.println("0. 메뉴로 돌아가기");
 			System.out.print("구매할 아이템 번호 입력 : ");
-			ch = s.nextInt();
-			s.nextLine();
+			try {
+				ch = s.nextInt();
+			} catch(InputMismatchException e) {
+				System.out.println("잘못된 입력입니다.");
+				continue;
+			} finally {
+				s.nextLine();
+			}
 
 			if (ch == 0) return;
  			
@@ -51,7 +58,8 @@ public class ItemStoreMenu {
 			System.out.print("\n구매하시겠습니까? ( y를 입력해 구매 ) : ");
 			break;
 		default :
-			System.out.println("아이템을 찾지 못했습니다.");	
+			System.out.println("아이템을 찾지 못했습니다.");
+			return;
 		}
 		
 		char ch = s.next().toUpperCase().charAt(0);

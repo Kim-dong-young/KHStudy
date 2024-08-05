@@ -60,8 +60,16 @@ public class PrivateMenu {
 			}
 			System.out.println("0. 마이페이지로 돌아가기");
 			System.out.print("사용할 아이템 번호 : ");
-			ch = s.nextInt();
-			s.nextLine();
+			
+			try {
+				ch = s.nextInt();
+			} catch(InputMismatchException e) {
+				System.out.println("잘못된 입력입니다.");
+				continue;
+			} finally {
+				s.nextLine();
+			}
+			
 			
 			if(ch == 0) return;
 			
