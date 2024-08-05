@@ -1,0 +1,27 @@
+package _miniproject.controller;
+
+import java.util.HashMap;
+
+import _miniproject.vo.Item;
+
+public class ItemController {
+	private static ItemController ic;
+	private StockController sc = StockController.getInstance();
+	private HashMap<Integer, Item> itemList;
+	
+	private ItemController() {
+		super();
+		this.itemList = new HashMap<>();	
+	}
+	
+	public static ItemController getInstance() {
+		if(ic == null) {
+			ic = new ItemController();
+		}
+		return ic;
+	}
+	
+	public void getItem(int ch) {
+		
+	}
+}

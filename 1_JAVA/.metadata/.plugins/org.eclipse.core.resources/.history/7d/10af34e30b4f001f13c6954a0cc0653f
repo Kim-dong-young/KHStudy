@@ -1,0 +1,10 @@
+package _miniproject.vo.items;
+
+public class TodayLuck extends Item {
+
+	public TodayLuck(String name, int price, int amount) {
+		super(name, price, amount);
+		// TODO Auto-generated constructor stub
+	}
+
+}

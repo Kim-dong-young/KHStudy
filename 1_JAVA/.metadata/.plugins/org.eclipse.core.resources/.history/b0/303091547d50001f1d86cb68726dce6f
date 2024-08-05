@@ -1,0 +1,15 @@
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
+public class Run {
+	public static void main(String[] args) {
+		Food food = new Food("사과",20);
+		food.fileSave("apple");
+		
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("apple"));){
+			
+		} catch() {
+			
+		}
+	}
+}

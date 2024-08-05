@@ -1,0 +1,5 @@
+package q.thread.chat;
+
+public class ClientSend {
+
+}

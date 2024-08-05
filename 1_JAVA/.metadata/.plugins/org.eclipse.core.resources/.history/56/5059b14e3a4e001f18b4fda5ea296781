@@ -1,0 +1,12 @@
+package p.network;
+
+import java.net.DatagramSocket;
+
+public class UDPServer {
+	public static void main(String[] args) {
+		
+		int port = 4000;
+		
+		DatagramSocket doc = new DatagramSocket(port);
+	}
+}

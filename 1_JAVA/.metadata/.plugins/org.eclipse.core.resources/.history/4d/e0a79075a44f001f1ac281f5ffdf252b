@@ -1,0 +1,36 @@
+package _miniproject.vo.items;
+
+import java.util.Objects;
+
+public class PredictPrice extends Item{
+
+	public PredictPrice(String itemNum, String name, int price) {
+		super(itemNum, name, price);
+	}
+
+	@Override
+	public String toString() {
+		return "Item [name=" + getName() + ", price=" + getPrice() + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getItemNum());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof PredictPrice) {
+			PredictPrice other = (PredictPrice)obj;
+			return this.getItemNum().equals(other.getItemNum());
+		}
+		return false;
+	}
+
+	@Override
+	public void use() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

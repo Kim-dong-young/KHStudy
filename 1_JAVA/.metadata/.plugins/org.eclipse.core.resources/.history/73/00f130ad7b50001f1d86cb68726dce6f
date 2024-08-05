@@ -1,0 +1,12 @@
+package _coding_test;
+
+import java.util.ArrayList;
+
+import test240710.object1.Person;
+import test240731.object1.Fruit;
+
+public class _PracticeNote {
+    public static void main(String[] args) {
+    	
+    }
+}

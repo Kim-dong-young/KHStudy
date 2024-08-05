@@ -1,0 +1,18 @@
+package q.thread.chat;
+
+import java.net.Socket;
+
+public class ServerSend implements Runnable{
+	private Socket socket;
+	
+	public ServerSend(Socket socket) {
+		super();
+		this.socket = socket;
+	}
+
+	@Override
+	public void run() {
+		PrintWriter pw = new PrintWriter(socket.getOutputStream());
+		
+	}
+}

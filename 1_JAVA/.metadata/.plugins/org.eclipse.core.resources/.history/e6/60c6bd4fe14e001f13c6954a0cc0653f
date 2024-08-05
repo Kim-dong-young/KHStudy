@@ -1,0 +1,19 @@
+package q.thread.chat;
+
+import java.net.Socket;
+
+public class ClientReceive extends Thread{
+	private Socket socket;
+
+	public ClientReceive(Socket socket) {
+		super();
+		this.socket = socket;
+	}
+
+	@Override
+	public void run() {
+		try(BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()I));)
+		
+		
+	}
+}

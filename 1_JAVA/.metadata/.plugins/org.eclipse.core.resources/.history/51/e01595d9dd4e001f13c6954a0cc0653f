@@ -1,0 +1,14 @@
+package q.thread.chat;
+
+import java.net.Socket;
+
+public class ServerReceive {
+	private Socket socket;
+
+	public ServerReceive(Socket socket) {
+		super();
+		this.socket = socket;
+	}
+	
+	
+}

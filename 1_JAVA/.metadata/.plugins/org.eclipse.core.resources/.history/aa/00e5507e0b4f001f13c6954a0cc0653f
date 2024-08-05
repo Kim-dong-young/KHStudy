@@ -1,0 +1,10 @@
+package _miniproject.vo.items;
+
+public class PredictPrice extends Item{
+
+	public PredictPrice(String name, int price, int amount) {
+		super(name, price, amount);
+	}
+	
+
+}

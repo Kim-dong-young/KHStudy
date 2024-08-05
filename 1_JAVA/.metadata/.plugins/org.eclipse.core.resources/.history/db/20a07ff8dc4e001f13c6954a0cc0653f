@@ -1,0 +1,12 @@
+package q.thread.chat;
+
+import java.net.ServerSocket;
+
+public class TCPServer {
+	public static void main(String[] args) {
+		
+		int port = 3000;
+		
+		ServerSocket ssoc = new ServerSocket(port);
+	}
+}

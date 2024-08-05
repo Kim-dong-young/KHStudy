@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.util.FormatFlagsConversionMismatchException"/>
+    <fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="f.object.ex2.BankAccount"/>
+    <fullyQualifiedTypeName name="f.object.ex1.Student"/>
+    <fullyQualifiedTypeName name="f.object.ex4.Student"/>
+    <fullyQualifiedTypeName name="test240709.object3.Student"/>
+    <fullyQualifiedTypeName name="test240709.object4.Book"/>
+    <fullyQualifiedTypeName name="test240712.object1.MemberController"/>
+    <fullyQualifiedTypeName name="h.inherit.ex1.Man"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="test240716.object3.Student"/>
+    <fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.HTMLReader.SpecialAction"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="test240719.object2.Employee"/>
+    <fullyQualifiedTypeName name="javax.swing.plaf.synth.SynthOptionPaneUI"/>
+    <fullyQualifiedTypeName name="k.exception.ex1.Run"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="_miniproject.controller.MemberController"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.util.Collections"/>
+    <fullyQualifiedTypeName name="java.util.TreeSet"/>
+    <fullyQualifiedTypeName name="java.util.Iterator"/>
+    <fullyQualifiedTypeName name="java.util.Map.Entry"/>
+    <fullyQualifiedTypeName name="_miniproject.controller.ItemController"/>
+    <fullyQualifiedTypeName name="_miniproject.controller.StockController"/>
+    <fullyQualifiedTypeName name="java.awt.color.ICC_ColorSpace"/>
+    <fullyQualifiedTypeName name="java.util.Objects"/>
+    <fullyQualifiedTypeName name="test240710.object1.Person"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="test240731.object1.Fruit"/>
+</qualifiedTypeNameHistroy>

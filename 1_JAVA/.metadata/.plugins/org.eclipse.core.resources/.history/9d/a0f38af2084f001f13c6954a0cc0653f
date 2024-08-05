@@ -1,0 +1,16 @@
+package _miniproject.controller;
+
+public class ItemController {
+	private static ItemController ic;
+	
+	private ItemController() {
+		
+	}
+	
+	public static ItemController getInstance() {
+		if(ic == null) {
+			ic = new ItemController();
+		}
+		return ic;
+	}
+}

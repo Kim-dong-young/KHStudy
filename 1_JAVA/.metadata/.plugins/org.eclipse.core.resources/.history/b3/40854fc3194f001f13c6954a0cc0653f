@@ -1,0 +1,5 @@
+package _miniproject.vo.items;
+
+public interface Item {
+	public void use();
+}

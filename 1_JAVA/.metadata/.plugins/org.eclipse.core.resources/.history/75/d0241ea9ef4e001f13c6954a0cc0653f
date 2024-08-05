@@ -1,0 +1,55 @@
+package test240731.object1;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class FarmController {
+	private HashMap<Farm, Integer> hMap = new HashMap<>();
+	private ArrayList<Farm> list = new ArrayList<>();
+	
+	public boolean addNewKind(Farm f, int amount) {
+		if(hMap.get(f) == null) {
+			hMap.put(f, amount);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean removeKind(Farm f) {
+		if(hMap.get(f) != null) {
+			hMap.remove(f);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean changeAmount(Farm f, int amount) {
+		if(hMap.get(f) != null) {
+			hMap.replace(f, amount);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public HashMap<Farm, Integer> printFarm(){
+		return null;
+	}
+	
+	public boolean buyFarm(Farm f) {
+		return false;
+	}
+	
+	public boolean removeFarm(Farm f) {
+		return false;
+	}
+	
+	public ArrayList<Farm> printBuyFarm(){
+		return null;
+	}
+}

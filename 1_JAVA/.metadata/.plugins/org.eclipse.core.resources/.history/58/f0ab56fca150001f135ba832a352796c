@@ -1,0 +1,50 @@
+package _coding_test.programmers.level2;
+
+public class TestCode_010 {
+	// https://school.programmers.co.kr/learn/courses/30/lessons/68645?language=java
+	// 작성중
+
+	public static void main(String[] args) {
+		int n = 20;
+		int[][] arr = new int[n][];
+		for(int i=1; i<=arr.length; i++) {
+			arr[i-1] = new int[i];
+		}
+		
+		int num = 1;
+		int count = 0;
+		int i=0;
+		
+		while(true){
+			
+			for(int y=count; y < arr.length - count ; y++) {
+				if(arr[y][count] != 0) continue;
+				arr[y][count] = num++;
+			}
+			if(++i > n) break; 
+			
+			for(int x=count; x < arr.length - count ; x++) {
+				if(arr[arr.length-1-count][x] != 0) continue;
+				arr[arr.length-1-count][x] = num++;
+			}
+			if(++i > n) break; 
+			
+			// TODO 대각선 코드 작성
+			for(int xy= arr.length -1; xy > 0 ; xy-- ) {
+				if(arr[xy][xy] != 0 && xy - count <= 0 ) continue;
+				arr[xy][xy-count] = num++;
+			}
+			if(++i > n) break;
+			
+			count++;
+			
+		}
+		
+		for(int[] a : arr) {
+			for(int x : a) {
+				System.out.printf("%4d ",x);
+			}
+			System.out.println();
+		}
+	}
+}

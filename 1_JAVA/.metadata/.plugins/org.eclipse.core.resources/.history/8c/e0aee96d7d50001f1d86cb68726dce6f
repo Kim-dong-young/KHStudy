@@ -1,0 +1,19 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class Run {
+	public static void main(String[] args) {
+		Food food = new Food("사과",20);
+		food.fileSave("apple");
+		
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("apple"));){
+			Food newFood = (Food)(ois.readObject());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

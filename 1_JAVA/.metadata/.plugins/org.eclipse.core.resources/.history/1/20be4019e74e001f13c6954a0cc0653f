@@ -1,0 +1,6 @@
+package test240731.object1;
+
+public class Fruit extends Farm{
+	private String name;
+	
+}

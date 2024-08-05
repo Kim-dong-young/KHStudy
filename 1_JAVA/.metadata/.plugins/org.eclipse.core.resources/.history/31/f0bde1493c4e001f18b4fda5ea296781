@@ -1,0 +1,31 @@
+package p.network;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+public class UDPServer {
+	public static void main(String[] args) {
+		
+		int port = 4000;
+		
+		try {
+			// 서버가 4000포트를 결합하여 요청을 받을 준비를 한다.
+			DatagramSocket doc = new DatagramSocket(port);
+			
+			// 전송받을 데이터를 지정할 바이트배열
+			byte[] data = new byte[60000];
+			
+			// 클라이언트로부터 받을 packet객체 생성
+			DatagramPacket dp = new DatagramPacket(data, data.length);
+			System.out.println("데이터 받을 준비 완료");
+			
+			
+			
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+}

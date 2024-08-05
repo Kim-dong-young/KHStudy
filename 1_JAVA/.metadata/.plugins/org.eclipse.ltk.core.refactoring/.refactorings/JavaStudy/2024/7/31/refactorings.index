@@ -1,0 +1,18 @@
+1722219358179	Delete element
+1722302012202	Rename local variable 'result'
+1722328125001	Rename field 'previousPrice'
+1722328141387	Rename method 'getPreviousPrice'
+1722328150454	Rename method 'setPreviousPrice'
+1722329342449	Delete element
+1722388045810	Delete element
+1722391272152	Rename type 'ClientReceiver'
+1722407401107	Move compilation unit
+1722407422565	Move compilation unit
+1722407429930	Move compilation unit
+1722409791673	Delete element
+1722409794721	Delete element
+1722409797452	Move compilation unit
+1722409801463	Delete element
+1722410735103	Rename local variable 'ch'
+1722414644830	Move compilation unit
+1722414880762	Delete element
