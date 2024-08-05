@@ -1,0 +1,37 @@
+package _miniproject.vo;
+
+public class Shares {
+	private String stockName;
+	private int quantity;
+	private int purchasePrice;
+	
+	public Shares(String stockName, int quantity, int purchasePrice) {
+		super();
+		this.stockName = stockName;
+		this.quantity = quantity;
+		this.purchasePrice = purchasePrice;
+	}
+	
+	public String getStockName() {
+		return stockName;
+	}
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public int getPurchasePrice() {
+		return purchasePrice;
+	}
+	public void setPurchasePrice(int purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+	
+	
+	
+	
+}
