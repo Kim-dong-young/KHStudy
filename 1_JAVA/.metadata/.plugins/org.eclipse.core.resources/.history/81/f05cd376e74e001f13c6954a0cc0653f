@@ -1,8 +1,0 @@
-package test240731.object1;
-
-import java.util.HashMap;
-
-public class FarmController {
-	private HashMap<Farm, Integer> hMap = new HashMap<>();
-	private ArrayList<Farm> = new ArrayList<>();
-}

@@ -1,5 +1,0 @@
-package p.network;
-
-public class UDPClient {
-
-}

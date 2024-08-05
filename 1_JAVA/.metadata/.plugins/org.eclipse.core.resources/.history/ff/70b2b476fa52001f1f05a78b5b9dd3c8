@@ -1,9 +1,0 @@
-package _miniproject.vo;
-
-public class Shares {
-	private String stockName;
-	private int quantity;
-	private int purchasePrice;
-	
-	
-}

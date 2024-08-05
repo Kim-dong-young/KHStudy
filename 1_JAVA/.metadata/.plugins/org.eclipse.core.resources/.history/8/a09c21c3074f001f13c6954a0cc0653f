@@ -1,5 +1,0 @@
-package _miniproject.controller;
-
-public class ItemController {
-	private static ItemController ic;
-}

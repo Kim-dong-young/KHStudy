@@ -1,8 +1,0 @@
-1722840108370	Rename method 'showStockList'
-1722841957488	Rename type 'Share'
-1722842386873	Rename local variable 'cMemberStockQnt'
-1722842395487	Rename local variable 'cMemberShares'
-1722843261856	Rename local variable 'stock'
-1722843269268	Rename local variable 'stockInfo'
-1722843278632	Rename local variable 'stockName'
-1722843284491	Rename local variable 'stockQuantity'

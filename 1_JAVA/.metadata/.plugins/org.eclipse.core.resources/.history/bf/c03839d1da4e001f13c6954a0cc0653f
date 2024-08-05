@@ -1,6 +1,0 @@
-package q.thread.ex1;
-
-// 쓰레드 생성방법2. Runnable 추상메소드 run을 구현하는 객체 생성
-public class MyRunable implements Runnable{
-
-}
