@@ -1,7 +1,6 @@
 package _miniproject.vo.items;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Objects;
 
 import _miniproject.controller.StockController;
 import _miniproject.vo.Stock;
@@ -12,7 +11,7 @@ public class PredictPrice extends Item{
 		super(itemNum, name, price);
 	}
 
-	/*
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(getItemNum());
@@ -26,7 +25,6 @@ public class PredictPrice extends Item{
 		}
 		return false;
 	}
-	*/
 	
 	@Override
 	public void use() {

@@ -8,7 +8,6 @@ public class TodayLuck extends Item{
 		super(itemNum, name, price);
 	}
 
-	/*
 	@Override
 	public int hashCode() {
 		return Objects.hash(getItemNum());
@@ -22,7 +21,6 @@ public class TodayLuck extends Item{
 		}
 		return false;
 	}
-	*/
 
 	@Override
 	public void use() {
