@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 import _miniproject.controller.MemberController;
 import _miniproject.controller.StockController;
+import _miniproject.controller.TradeLogController;
 import _miniproject.vo.Member;
 
 public class MainMenu {
 	Scanner s = new Scanner(System.in);
+	TradeLogController tc = TradeLogController.getInstance();
 	MemberController mc = MemberController.getInstance();
 	StockController sc = StockController.getInstance();
 	StockMenu sm = new StockMenu();
@@ -17,6 +19,7 @@ public class MainMenu {
 	
 	public void mainMenu() {
 		mc.loadMembers();
+		tc.loadTradeLog();
 		int ch = 0;
 		
 		while(ch != 9) {

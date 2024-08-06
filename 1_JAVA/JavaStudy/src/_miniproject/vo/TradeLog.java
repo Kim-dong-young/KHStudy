@@ -8,6 +8,10 @@ public class TradeLog {
 	public TradeLog() {
 		this.tradeLog = new ArrayList<>();
 	}
+	
+	public TradeLog(ArrayList<String> tradeLog) {
+		this.tradeLog = tradeLog;
+	}
 
 	public ArrayList<String> getTradeLog() {
 		return tradeLog;
@@ -17,13 +21,13 @@ public class TradeLog {
 		this.tradeLog = log;
 	}
 	
-	public void addTradeLog(String status) {
-		tradeLog.add(status);
+	public void addTradeLog(String log) {
+		tradeLog.add(log);
 	}
 	
 	@Override
 	public String toString() {
-		return "TradeLog [log=" + tradeLog + "]";
+		return tradeLog.toString();
 	}
 	
 	

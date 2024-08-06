@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
@@ -21,6 +22,7 @@ public class MemberController {
 	private static final String MEMBER_PATTERN = "(\\d+),([^,]+),([^,]+),([^,]+),\\{([^}]*)\\},\\{([^}]*)\\},(\\d+),(\\d+),\\{([^}]*)\\}";
 	
 	private static MemberController mc;
+	private TradeLogController tc = TradeLogController.getInstance();
 	private StockController sc = StockController.getInstance();
 	private ItemController ic = ItemController.getInstance();
 	private HashMap<Long, Member> memberList;
@@ -162,6 +164,7 @@ public class MemberController {
 			else {
 				cMemberShareHeld.get(stockName).updatePurchasePrice(orderQuantity, price);
 			}
+			tc.addTradeLog(currentMember.getMemberUID(), LocalDateTime.now() ,stockName + " 구매");
 		}
 		
 		return 200; // 구매 성공
@@ -194,6 +197,8 @@ public class MemberController {
 		sc.setStockQuantity(stockName, sc.getStock(stockName).getStockQuantity() + orderQuantity);
 		
 		currentMember.setBalance(currentMember.getBalance() + price);
+		
+		tc.addTradeLog(currentMember.getMemberUID(), LocalDateTime.now() ,stockName + " 판매");
 
 		return 200; // 구매 성공
 	}

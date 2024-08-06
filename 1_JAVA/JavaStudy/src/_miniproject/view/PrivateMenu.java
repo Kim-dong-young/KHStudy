@@ -7,10 +7,12 @@ import java.util.Scanner;
 
 import _miniproject.controller.ItemController;
 import _miniproject.controller.MemberController;
+import _miniproject.controller.TradeLogController;
 import _miniproject.vo.Stock;
 import _miniproject.vo.items.Item;
 
 public class PrivateMenu {
+	private TradeLogController tc = TradeLogController.getInstance();
 	private MemberController mc = MemberController.getInstance();
 	private ItemController ic = ItemController.getInstance();
 	private Scanner s = new Scanner(System.in);
@@ -22,6 +24,7 @@ public class PrivateMenu {
 			System.out.printf("===== %s 님의 마이페이지 =====\n",mc.getCurrentMember().getMemberName());
 			System.out.println("1. 보유중인 주식 확인");
 			System.out.println("2. 보유중인 아이템 확인");
+			System.out.println("3. 거래 기록 확인");
 			System.out.println("9. 뒤로 가기");
 			
 			try {
@@ -39,6 +42,9 @@ public class PrivateMenu {
 				break;
 			case 2:
 				itemMenu();
+				break;
+			case 3:
+				tc.showTradeLog(mc.getCurrentMember().getMemberUID());
 				break;
 			case 9:
 				System.out.println("마이페이지에서 나갑니다.");

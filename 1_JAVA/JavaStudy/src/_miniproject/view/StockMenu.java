@@ -5,9 +5,11 @@ import java.util.Scanner;
 
 import _miniproject.controller.MemberController;
 import _miniproject.controller.StockController;
+import _miniproject.controller.TradeLogController;
 
 public class StockMenu {
 	Scanner s = new Scanner(System.in);
+
 	private StockController sc = StockController.getInstance();
 	private MemberController mc = MemberController.getInstance();
 	
