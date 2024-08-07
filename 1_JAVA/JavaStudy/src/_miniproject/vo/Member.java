@@ -11,6 +11,7 @@ public class Member {
 	private String memberName;
 	private String memberId;
 	private String memberPwd;
+	private String rank;
 	
 	private HashMap<String, Shares> shareHeld;
 	private HashMap<String, Stock> stockList;
@@ -30,6 +31,7 @@ public class Member {
 		this.stockList = new HashMap<String, Stock>();
 		this.itemList = new HashMap<Item, Integer>();
 		this.balance = 1000000;
+		this.rank = "user";
 		
 		stockList.put("LG전자", new Stock("LG전자",112500,1000));
 		stockList.put("삼성전자", new Stock("삼성전자",159500,1000));
@@ -50,6 +52,7 @@ public class Member {
 		this.day = day;
 		this.balance = balance;
 		this.itemList = itemList;
+		this.rank = "user";
 	}
 
 	public int getDay() {
@@ -115,8 +118,15 @@ public class Member {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-
 	
+	public String getRank() {
+		return rank;
+	}
+
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+
 	@Override
 	public String toString() {
 		return memberUID + "," + memberName + "," + memberId

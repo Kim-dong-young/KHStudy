@@ -19,7 +19,7 @@ import _miniproject.vo.Member;
 import _miniproject.vo.TradeLog;
 
 public class TradeLogController {
-	private static final String TRADE_LOG_PATTERN = "(\\d+) (\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+) (.+) (구매|판매)";
+	private static final String TRADE_LOG_PATTERN = "(\\d+)\\s(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+)\\s([^\\s]+)\\s(\\d+)\\s(\\d+)\\s(구매|판매)";
 	private static TradeLogController tc;
 	private HashMap<Long, TradeLog> tradeLog;
 	
@@ -35,7 +35,7 @@ public class TradeLogController {
 		return tc;
 	}
 	
-	public void addTradeLog(Long uid, LocalDateTime time ,String message) {
+	public void addTradeLog(Long uid, LocalDateTime time , String message) {
 		if(tradeLog.get(uid) == null) {
 			tradeLog.put(uid, new TradeLog());
 		}
@@ -44,12 +44,31 @@ public class TradeLogController {
 	}
 	
 	public void showTradeLog(Long uid) {
-		if(tradeLog.isEmpty()) {
+		if(tradeLog.get(uid) == null) {
 			System.out.println("거래기록이 없습니다.");
 			return;
 		}
 		for(String msg : tradeLog.get(uid).getTradeLog()) {
 			System.out.println(msg);
+		}
+	}
+	
+	public void calcProfit(Long uid) {
+		if(tradeLog.get(uid) == null) {
+			System.out.println("거래기록이 없습니다.");
+			return;
+		}
+		
+		Pattern pattern = Pattern.compile(TRADE_LOG_PATTERN);
+		
+		for(String msg : tradeLog.get(uid).getTradeLog()) {
+			Matcher matcher = pattern.matcher(msg);
+			if(matcher.group(6).equals("구매")) {
+				
+			}
+			else if (matcher.group(6).equals("판매")) {
+				
+			}
 		}
 	}
 	
@@ -92,12 +111,14 @@ public class TradeLogController {
 			Long uid = Long.parseLong(matcher.group(1));
 			LocalDateTime time = LocalDateTime.parse(matcher.group(2), DateTimeFormatter.ISO_DATE_TIME);
 			String stockName = matcher.group(3);
-			String status = matcher.group(4); // 판매 or 구매
+			int quantity = Integer.parseInt(matcher.group(4));
+			int price = Integer.parseInt(matcher.group(5));
+			String status = matcher.group(6); // 판매 or 구매
 			
 			if(!tradeLog.containsKey(uid)) {
 				tradeLog.put(uid, new TradeLog());
 			} 
-			tradeLog.get(uid).addTradeLog(uid + " " + time + " " + stockName + " " + status);
+			tradeLog.get(uid).addTradeLog(uid + " " + time + " " + stockName + " " + quantity + " " + price + " " + status);
 		}
 		
 	}

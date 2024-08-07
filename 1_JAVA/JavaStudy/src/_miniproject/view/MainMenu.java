@@ -97,8 +97,10 @@ public class MainMenu {
 				System.out.println("이미 존재하는 아이디입니다. 다시 입력해주세요.");
 				continue;
 			}
-			else
+			else {
 				break;
+			}
+
 		}
 		
 		System.out.print("비밀번호 입력 : ");
@@ -106,7 +108,6 @@ public class MainMenu {
 		s.nextLine();
 		
 		mc.addMember(name, id, pwd);
-		
 	}
 	
 	public void memberMenu() {

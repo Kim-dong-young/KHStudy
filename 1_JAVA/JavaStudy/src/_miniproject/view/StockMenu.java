@@ -1,11 +1,13 @@
 package _miniproject.view;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import _miniproject.controller.MemberController;
 import _miniproject.controller.StockController;
-import _miniproject.controller.TradeLogController;
+import _miniproject.vo.Shares;
 
 public class StockMenu {
 	Scanner s = new Scanner(System.in);
@@ -56,7 +58,7 @@ public class StockMenu {
 		sc.showStockList();
 		int buyQuantity = 0;
 		System.out.print("\n구매할 종목과 수량 입력(띄어쓰기로 구분) : ");
-		String buyStockName = s.next();
+		String buyStockName = s.next().toUpperCase();
 		
 		try {
 			buyQuantity = s.nextInt();
@@ -82,10 +84,16 @@ public class StockMenu {
 	}
 	
 	public void sellStockMenu() {
-		mc.showShareHeld();
+		HashMap<String, Shares> shareHeld = mc.getShareHeld();
+		
+		for(Entry<String, Shares> entry : shareHeld.entrySet()) {
+			Shares share = entry.getValue();
+			System.out.printf("종목 : %s , 수량 : %d , 매입가 : %d\n",entry.getKey(), share.getQuantity(), share.getPurchasePrice());
+		}
+		
 		int sellQuantity = 0;
 		System.out.print("\n판매할 종목과 수량 입력(띄어쓰기로 구분) : ");
-		String sellStockName = s.next();
+		String sellStockName = s.next().toUpperCase();
 
 		try {
 			sellQuantity = s.nextInt();

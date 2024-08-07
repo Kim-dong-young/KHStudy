@@ -7,12 +7,15 @@ import java.util.Scanner;
 
 import _miniproject.controller.ItemController;
 import _miniproject.controller.MemberController;
+import _miniproject.controller.StockController;
 import _miniproject.controller.TradeLogController;
+import _miniproject.vo.Shares;
 import _miniproject.vo.Stock;
 import _miniproject.vo.items.Item;
 
 public class PrivateMenu {
 	private TradeLogController tc = TradeLogController.getInstance();
+	private StockController sc = StockController.getInstance();
 	private MemberController mc = MemberController.getInstance();
 	private ItemController ic = ItemController.getInstance();
 	private Scanner s = new Scanner(System.in);
@@ -38,7 +41,7 @@ public class PrivateMenu {
 			
 			switch(ch) {
 			case 1:
-				mc.showShareHeld();
+				shareHeldMenu();
 				break;
 			case 2:
 				itemMenu();
@@ -53,6 +56,27 @@ public class PrivateMenu {
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
+		}
+	}
+	
+	public void shareHeldMenu() {
+		HashMap<String, Shares> shareHeld = mc.getShareHeld();
+		int totalProfit = 0;
+		double totalPrice = 0; 
+		
+		for(Entry<String, Shares> entry : shareHeld.entrySet()) {
+			Shares share = entry.getValue();
+			System.out.printf("종목 : %s , 수량 : %d , 매입가 : %d | 수익 : %d ( %.2f %%)\n",
+					entry.getKey(), share.getQuantity(), share.getPurchasePrice(), 
+					(sc.getStock(entry.getKey()).getStockPrice() - share.getPurchasePrice()) * share.getQuantity(),
+					(double)(sc.getStock(entry.getKey()).getStockPrice() - share.getPurchasePrice()) /  share.getPurchasePrice() * 100 );
+			
+			totalProfit += share.getPurchasePrice() * share.getQuantity();
+			totalPrice += sc.getStock(entry.getKey()).getStockPrice() * share.getQuantity();
+		}
+		
+		if(!shareHeld.isEmpty()) {
+			System.out.printf("총 수익 : %d ( %.2f %%)\n", (int)(totalPrice - totalProfit) , (double)( (totalPrice - totalProfit) / totalProfit * 100 ) );
 		}
 	}
 	

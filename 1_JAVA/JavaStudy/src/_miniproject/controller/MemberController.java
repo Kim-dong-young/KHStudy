@@ -107,11 +107,8 @@ public class MemberController {
 		}
 	}
 	
-	public void showShareHeld() {
-		for(Entry<String, Shares> entry : currentMember.getShareHeld().entrySet()) {
-			Shares share = entry.getValue();
-			System.out.printf("종목명 : %s , 수량 : %d , 매입가 : %d\n",entry.getKey(), share.getQuantity(), share.getPurchasePrice());
-		}
+	public HashMap<String, Shares> getShareHeld(){
+		return mc.currentMember.getShareHeld();
 	}
 	
 	public void purchaseItem(Item item) {
@@ -164,7 +161,7 @@ public class MemberController {
 			else {
 				cMemberShareHeld.get(stockName).updatePurchasePrice(orderQuantity, price);
 			}
-			tc.addTradeLog(currentMember.getMemberUID(), LocalDateTime.now() ,stockName + " 구매");
+			tc.addTradeLog(currentMember.getMemberUID(), LocalDateTime.now(), stockName + " " + orderQuantity + " " + price + " 구매");
 		}
 		
 		return 200; // 구매 성공
@@ -198,7 +195,7 @@ public class MemberController {
 		
 		currentMember.setBalance(currentMember.getBalance() + price);
 		
-		tc.addTradeLog(currentMember.getMemberUID(), LocalDateTime.now() ,stockName + " 판매");
+		tc.addTradeLog(currentMember.getMemberUID(), LocalDateTime.now() , stockName + " " + orderQuantity + " " + price  + " 판매");
 
 		return 200; // 구매 성공
 	}
