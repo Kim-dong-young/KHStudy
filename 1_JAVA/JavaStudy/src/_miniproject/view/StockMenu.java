@@ -10,10 +10,14 @@ import _miniproject.controller.StockController;
 import _miniproject.vo.Shares;
 
 public class StockMenu {
-	Scanner s = new Scanner(System.in);
+	private Scanner s;
 
 	private StockController sc = StockController.getInstance();
 	private MemberController mc = MemberController.getInstance();
+	
+	public StockMenu(Scanner s) {
+		this.s = s;
+	}
 	
 	public void chartMenu() {
 		sc.showStockList();

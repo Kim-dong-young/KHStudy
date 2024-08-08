@@ -14,12 +14,18 @@ import _miniproject.vo.Stock;
 import _miniproject.vo.items.Item;
 
 public class PrivateMenu {
+	private Scanner s;
+	
 	private TradeLogController tc = TradeLogController.getInstance();
 	private StockController sc = StockController.getInstance();
 	private MemberController mc = MemberController.getInstance();
 	private ItemController ic = ItemController.getInstance();
-	private Scanner s = new Scanner(System.in);
 	
+	public PrivateMenu(Scanner s) {
+		super();
+		this.s = s;
+	}
+
 	public void infoMenu() {
 		int ch = 0;
 		

@@ -10,13 +10,11 @@ import _miniproject.vo.Member;
 
 public class MainMenu {
 	Scanner s = new Scanner(System.in);
+	
 	TradeLogController tc = TradeLogController.getInstance();
 	MemberController mc = MemberController.getInstance();
 	StockController sc = StockController.getInstance();
-	StockMenu sm = new StockMenu();
-	PrivateMenu pm = new PrivateMenu();
-	ItemStoreMenu ism = new ItemStoreMenu();
-	
+
 	public void mainMenu() {
 		mc.loadMembers();
 		tc.loadTradeLog();
@@ -120,9 +118,10 @@ public class MainMenu {
 			System.out.printf("보유 자산 : %d원\n", currentMember.getBalance());
 			System.out.println("1. 주식 현황");
 			System.out.println("2. 주식 매매");
-			System.out.println("3. 마이 페이지");
-			System.out.println("4. 아이템 상점");
-			System.out.println("5. 다음날로 넘어가기");
+			System.out.println("3. 자유 게시판");
+			System.out.println("4. 마이 페이지");
+			System.out.println("5. 아이템 상점");
+			System.out.println("6. 다음날로 넘어가기");
 			System.out.println("9. 로그아웃");
 			System.out.print("메뉴 입력 : ");
 			
@@ -143,12 +142,15 @@ public class MainMenu {
 				stockMarketMenu();
 				break;
 			case 3:
-				privateMenu();
+				new BulletinBoardMenu(s).boardMenu();
 				break;
 			case 4:
-				ism.storeMenu();
+				privateMenu();
 				break;
 			case 5:
+				new ItemStoreMenu(s).storeMenu();
+				break;
+			case 6:
 				sc.randomStockPrice();
 				currentMember.setDay(currentMember.getDay() + 1);
 				break;
@@ -163,14 +165,14 @@ public class MainMenu {
 	}
 	
 	public void stockMenu() {
-		sm.chartMenu();
+		new StockMenu(s).chartMenu();
 	}
 	
 	public void stockMarketMenu() {
-		sm.marketMenu();
+		new StockMenu(s).marketMenu();
 	}
 	
 	public void privateMenu() {
-		pm.infoMenu();
+		new PrivateMenu(s).infoMenu();
 	}
 }

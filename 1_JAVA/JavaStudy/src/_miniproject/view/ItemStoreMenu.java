@@ -9,12 +9,14 @@ import _miniproject.controller.MemberController;
 import _miniproject.vo.items.Item;
 
 public class ItemStoreMenu {
+	private Scanner s;
+	
 	private MemberController mc = MemberController.getInstance();
 	private ItemController ic = ItemController.getInstance();
-	private Scanner s = new Scanner(System.in);
 
-	public ItemStoreMenu() {
+	public ItemStoreMenu(Scanner s) {
 		super();
+		this.s = s;
 	}
 
 	public void storeMenu() {
