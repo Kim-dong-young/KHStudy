@@ -13,7 +13,6 @@ public class BulletinController {
 		bulletinList = new ArrayList<Bulletin>();
 		
 		// 테스트용 데이터
-		/*
 		bulletinList.add(new Bulletin(0,"test1","안녕하세요","반갑습니다1"));
 		bulletinList.add(new Bulletin(1,"test2","졸리네요","반갑습니다2"));
 		bulletinList.add(new Bulletin(2,"test1","배고파요","반갑습니다3"));
@@ -34,7 +33,6 @@ public class BulletinController {
 		
 		bulletinList.add(new Bulletin(15,"test5","안녕하세요","반갑습니다16"));
 		bulletinList.add(new Bulletin(16,"test3","배고파요","반갑습니다17"));
-		*/
 	}
 	
 	public static BulletinController getInstance() {
@@ -46,6 +44,16 @@ public class BulletinController {
 	
 	public ArrayList<Bulletin> getBulletinList() {
 		return bulletinList;
+	}
+	
+	public ArrayList<Bulletin> getBulletinList(int searchCriterion, String searchText) {
+		if(searchCriterion == 1) {
+			return searchByTitle(searchText);
+		}
+		else if (searchCriterion == 2) {
+			return searchByAuthor(searchText);
+		}
+		return null;
 	}
 
 	public void setBulletinList(ArrayList<Bulletin> bulletinList) {
@@ -60,11 +68,31 @@ public class BulletinController {
 		bulletinList.remove(index);
 	}
 	
-	public Bulletin getBulletin(int index){
+	public Bulletin searchByIndex(int index){
 		if(index >= 0 && index < bulletinList.size()) {
 			return bulletinList.get(index);
 		}
 		return null;
+	}
+	
+	public ArrayList<Bulletin> searchByTitle(String title){
+		ArrayList<Bulletin> searchList = new ArrayList<Bulletin>();
+		for(Bulletin bl : bulletinList) {
+			if(bl.getTitle().contains(title)) {
+				searchList.add(bl);
+			}
+		}
+		return searchList;
+	}
+	
+	public ArrayList<Bulletin> searchByAuthor(String author){
+		ArrayList<Bulletin> searchList = new ArrayList<Bulletin>();
+		for(Bulletin bl : bulletinList) {
+			if(bl.getAuthorID().contains(author)) {
+				searchList.add(bl);
+			}
+		}
+		return searchList;
 	}
 	
 	public void updateBulletin() {

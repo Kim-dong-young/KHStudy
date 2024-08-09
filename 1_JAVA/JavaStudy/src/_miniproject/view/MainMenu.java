@@ -142,13 +142,13 @@ public class MainMenu {
 				stockMarketMenu();
 				break;
 			case 3:
-				new BulletinBoardMenu(s).boardMenu();
+				new BulletinBoardMenu(s).mainMenu();
 				break;
 			case 4:
 				privateMenu();
 				break;
 			case 5:
-				new ItemStoreMenu(s).storeMenu();
+				new ItemStoreMenu(s).mainMenu();
 				break;
 			case 6:
 				sc.randomStockPrice();
@@ -169,10 +169,10 @@ public class MainMenu {
 	}
 	
 	public void stockMarketMenu() {
-		new StockMenu(s).marketMenu();
+		new StockMenu(s).mainMenu();
 	}
 	
 	public void privateMenu() {
-		new PrivateMenu(s).infoMenu();
+		new PrivateMenu(s).mainMenu();
 	}
 }

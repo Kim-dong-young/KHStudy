@@ -19,7 +19,7 @@ public class ItemStoreMenu {
 		this.s = s;
 	}
 
-	public void storeMenu() {
+	public void mainMenu() {
 		int ch = -1;
 		
 		while (ch != 0) {

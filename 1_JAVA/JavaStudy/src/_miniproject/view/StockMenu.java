@@ -23,7 +23,7 @@ public class StockMenu {
 		sc.showStockList();
 	}
 	
-	public void marketMenu() {
+	public void mainMenu() {
 		int ch = 0;
 		
 		while(ch != 9) {

@@ -26,7 +26,7 @@ public class PrivateMenu {
 		this.s = s;
 	}
 
-	public void infoMenu() {
+	public void mainMenu() {
 		int ch = 0;
 		
 		while(ch != 9) {
