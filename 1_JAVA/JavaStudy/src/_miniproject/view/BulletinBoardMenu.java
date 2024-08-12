@@ -20,7 +20,7 @@ public class BulletinBoardMenu {
 	}
 	
 	public void searchResultMenu() {
-		//TODO 검색을 하고나서 -> 게시글 작성 후 -> 검색 기록 리프레쉬 한번 해줘야뎀. 새글 표시안되.네
+		// TODO 게시글 삭제, 변경 후 인덱스 값 제대로 계산할 것
 		ArrayList<Bulletin> bulletinList = bc.getBulletinList();
 		
 		// searchText[0] : 조회 기준 ( 0 : 전체, 1 : 제목 , 2 : 작성자 )
@@ -30,13 +30,16 @@ public class BulletinBoardMenu {
 		searchText[1] = null;
 		
 		int maxPageView = 5; // 한 페이지에서 보여주는 최대 게시글 수
-		int totalPage = 1 + (int) Math.floor((double) bulletinList.size() / (double) maxPageView); // 전체 페이지 수
+		int totalPage; // 전체 게시글 페이지 수
 		int curPage = 1; // 현재 페이지
 
 		int sIndex = bulletinList.size() - 1;
 		int eIndex = (bulletinList.size() > maxPageView) ? bulletinList.size() - maxPageView : 0;
 
 		while(true) {
+			// 전체 게시글 페이지 수 계산
+			totalPage = (int) Math.ceil((double) bulletinList.size() / (double) maxPageView); // 전체 페이지 수
+			
 			System.out.println("===== 자유 게시판 =====");
 			if(bulletinList.isEmpty()) {
 				System.out.println("작성된 게시글이 없습니다.");
@@ -46,8 +49,8 @@ public class BulletinBoardMenu {
 			}
 			System.out.println("현재 페이지 : " + curPage + " / " + totalPage);
 			System.out.println("이전 페이지 = p , 다음 페이지 = n 입력");
-			System.out.println("게시글 작성 = w , 게시글 삭제 = d 입력");
-			System.out.println("게시글 검색 = s , 종료 = q 입력");
+			System.out.println("게시글 작성 = w , 게시글 검색 = s 입력");
+			System.out.println("종료 = q 입력");
 			System.out.print("게시글을 보려면 게시글 번호 입력 : ");
 
 			String ch = null;
@@ -69,15 +72,11 @@ public class BulletinBoardMenu {
 			}
 			// 게시글 작성
 			else if (ch.equals("w")) {
-				writeBulletin();
+				writeMenu();
+				bulletinList = bc.getBulletinList();
 				sIndex = bulletinList.size() - 1;
 				eIndex = (bulletinList.size() > maxPageView) ? bulletinList.size() - maxPageView : 0;
-			}
-			// 게시글 삭제
-			else if (ch.equals("d")) {
-				deleteBulletin();
-				sIndex = bulletinList.size() - 1;
-				eIndex = (bulletinList.size() > maxPageView) ? bulletinList.size() - maxPageView : 0;
+				curPage = 1;
 			}
 			// 게시글 검색
 			else if (ch.equals("s")) {
@@ -95,8 +94,7 @@ public class BulletinBoardMenu {
 				// searchText[1] : 검색할 검색어 ( 조회 기준 = 0(전체)일 경우 null )
 				sIndex = bulletinList.size() - 1;
 				eIndex = (bulletinList.size() > maxPageView) ? bulletinList.size() - maxPageView : 0;
-				totalPage = 1 + (int) Math.floor((double) bulletinList.size() / (double) maxPageView); // 전체 페이지 수
-				curPage = 1; // 현재 페이지
+				curPage = 1;
 			}
 			// 게시판 종료
 			else if (ch.equals("q")) {
@@ -105,8 +103,9 @@ public class BulletinBoardMenu {
 			} 
 			// 게시글 조회 - 게시글 번호로 조회한다.
 			else {
+				boolean isChanged = false;
 				try {
-					Bulletin bl = bc.searchByIndex(Integer.parseInt(ch));
+					Bulletin bl = bc.searchByBulletinID(Integer.parseInt(ch));
 					// 조회 실패
 					if (bl == null) {
 						System.out.println("해당 게시글이 존재하지 않습니다.");
@@ -114,16 +113,17 @@ public class BulletinBoardMenu {
 					}
 					// 조회 성공
 					else {
-						System.out.println("====================");
-						System.out.printf("게시글 번호 : %s\n", bl.getIndex());
-						System.out.printf("제목 : %s\n", bl.getTitle());
-						System.out.printf("작성자 : %s\n", bl.getAuthorID());
-						System.out.println("====================");
-						System.out.printf("%s\n", bl.getContent());
-						System.out.println("====================");
+						isChanged = bulletinMenu(bl);
 					}
 				} catch (NumberFormatException e) { // 조회할 게시글 번호 입력값이 숫자가 아닐경우
 					System.out.println("잘못 입력하셨습니다.");
+				}
+				
+				if(isChanged) { // 조회한 게시글의 변경이 일어났을 경우, 게시물 목록을 새로고침한다.
+					bulletinList = bc.getBulletinList();
+					sIndex = bulletinList.size() - 1;
+					eIndex = (bulletinList.size() > maxPageView) ? bulletinList.size() - maxPageView : 0;
+					curPage = 1;
 				}
 			}
 		}
@@ -135,8 +135,47 @@ public class BulletinBoardMenu {
 		// 메인메뉴, 전체 게시글을 보여준다
 		searchResultMenu();
 	}
+	
+	public boolean bulletinMenu(Bulletin bl) {
+		// TODO 게시글 삭제, 변경 후 인덱스 값 제대로 계산할 것
+		String ch = "";
+		boolean isChanged = false;
+		
+		while(!ch.equals("q")) {
+			System.out.println("\n====================");
+			System.out.printf("게시글 번호 : %s\n", bl.getbulletinID());
+			System.out.printf("제목 : %s\n", bl.getTitle());
+			System.out.printf("작성자 : %s\n", bl.getAuthorID());
+			System.out.println("====================");
+			System.out.printf("%s\n", bl.getContent());
+			System.out.println("====================\n");
+			System.out.println("게시글 수정 : u , 게시글 삭제 : d 입력");
+			System.out.println("뒤로 가기 : q 입력");
+			System.out.printf("메뉴 입력 : ");
+			ch = s.next();
+			s.nextLine();
+			
+			if(ch.equals("u")) {
+				updateMenu(bl);
+				isChanged = true;
+			}
+			else if(ch.equals("d")) {
+				deleteMenu(bl);
+				isChanged = true;
+				return isChanged;
+			}
+			else if(ch.equals("q")) {
+				System.out.println("게시판으로 돌아갑니다.");
+				break;
+			}
+			else {
+				System.out.println("잘못 입력하셨습니다.");
+			}
+		}
+		return isChanged;
+	}
 
-	public void writeBulletin() {
+	public void writeMenu() {
 		System.out.printf("게시글 제목 : ");
 		String title = s.nextLine();
 		System.out.println("게시글 내용입력 (마치려면 \"!q\" 입력) : ");
@@ -167,30 +206,23 @@ public class BulletinBoardMenu {
 		}
 	}
 
-	public void deleteBulletin() {
-		System.out.printf("삭제할 게시글 번호 : ");
-		int bNum = -1;
-		try {
-			bNum = s.nextInt();
-		} catch (InputMismatchException e) {
-			System.out.println("잘못 입력하셨습니다.");
-		} finally {
-			s.nextLine();
-		}
-		Bulletin bl = bc.searchByIndex(bNum);
-		if (bl == null) {
-			System.out.println("해당 게시글이 존재하지 않습니다.");
-			return;
-		}
+	public boolean deleteMenu(Bulletin bl) {
+		boolean isSuccess = false;
 		Member author = mc.findMember(bl.getAuthorID());
 		System.out.printf("사용자 인증을 위해 비밀번호를 입력해주세요 : ");
 		String password = s.next();
 		if (author != null && author.getMemberPwd().equals(password)) {
-			bc.deleteBulletin(bNum);
+			if(bc.deleteBulletin(bl)) {
+				isSuccess = true;
+				System.out.println("성공적으로 삭제하였습니다.");
+			}
+			else {
+				System.out.println("게시글 삭제에 실패하였습니다.");
+			}
 		} else {
 			System.out.println("비밀번호가 다릅니다.");
 		}
-
+		return isSuccess;
 	}
 
 	public String[] searchMenu() {
@@ -228,6 +260,54 @@ public class BulletinBoardMenu {
 		}
 
 		return searchText;
+	}
+	
+	public void updateMenu(Bulletin bl) {
+		Member author = mc.findMember(bl.getAuthorID());
+		System.out.printf("사용자 인증을 위해 비밀번호를 입력해주세요 : ");
+		String password = s.next();
+		if (author != null && author.getMemberPwd().equals(password)) {
+			System.out.println("바꿀 항목을 골라주세요.");
+			System.out.println("1. 제목");
+			System.out.println("2. 내용");
+			System.out.println("바꿀 항목 입력 : ");
+			int ch = s.nextInt();
+			s.nextLine();
+			
+			String text = null;
+			switch(ch) {
+			
+			case 1:
+				System.out.println("바꿀 제목을 입력해주세요.");
+				text = s.nextLine();
+				bl.setTitle(text);
+				System.out.println("성공적으로 제목을 수정하였습니다.");
+				break;
+				
+			case 2:
+				System.out.println("바꿀 내용을 입력해주세요.");
+				System.out.println("게시글 내용입력 (마치려면 \"!q\" 입력) : ");
+				String content = "";
+				String buffer = "";
+				while (true) {
+					buffer = s.nextLine();
+					if (buffer.equals("!q")) {
+						break;
+					}
+					content += buffer;
+				}
+				bl.setContent(content);
+				System.out.println("성공적으로 내용을 수정하였습니다.");
+				break;
+				
+			default :
+				System.out.println("잘못 입력하셨습니다.");
+				return;
+			}
+		} else { // 작성자 인증에 실패할 경우
+			System.out.println("비밀번호가 다릅니다.");
+		}
+
 	}
 
 }
