@@ -49,17 +49,12 @@ public class MemberController {
 	}
 
 	public boolean isMemberExist(String id) {
-		for(Entry<Long, Member> entry : memberList.entrySet()) {
-			if(entry.getValue().getMemberId().equals(id)) {
-				return true;
-			}
-		}
-		return false;
+		return memberList.containsKey(findUIDbyID(id));
 	}
 	
 	public boolean isLoginSuccess(String id, String pwd) {
 		boolean success = false;
-		Member m = findMember(id);
+		Member m = getMember(id);
 		if( m != null && m.getMemberPwd().equals(pwd)) {
 			success = true;
 		}
@@ -68,7 +63,7 @@ public class MemberController {
 	
 	public void loginMember(String id) {
 		// id를 입력받아, 해당 id에 속하는 멤버를 currentMember로 설정한다.
-		this.currentMember = findMember(id);
+		this.currentMember = getMember(id);
 	}
 	
 	public Member getCurrentMember() {
@@ -84,12 +79,12 @@ public class MemberController {
 		this.memberList.remove(findUIDbyID(id));
 	}
 	
-	public Member findMember(String id) {
+	public Member getMember(String id) {
 		return this.memberList.get(findUIDbyID(id));
 	}
 	
 	public void updateMember(String name, String id, String pwd) {
-		Member member = findMember(id);
+		Member member = getMember(id);
 		
 		member.setMemberId(id);
 		member.setMemberName(name);

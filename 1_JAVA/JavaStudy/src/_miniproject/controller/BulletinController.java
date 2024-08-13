@@ -57,6 +57,9 @@ public class BulletinController {
 		else if (searchCriterion == 2) { // 작성자명으로 검색
 			return searchByAuthor(searchText);
 		}
+		else if(searchCriterion == 0) {
+			return bulletinList;
+		}
 		return null;
 	}
 
@@ -72,9 +75,13 @@ public class BulletinController {
 		return bulletinList.remove(bl);
 	}
 	
+	public void addViewCount(Bulletin bl) {
+		bl.setViewCount(bl.getViewCount() + 1);
+	}
+	
 	public Bulletin searchByBulletinID(int bulletinID){
 		for(Bulletin bl : bulletinList) {
-			if(bl.getbulletinID() == bulletinID) {
+			if(bl.getBulletinID() == bulletinID) {
 				return bl;
 			}
 		}
@@ -101,8 +108,20 @@ public class BulletinController {
 		return searchList;
 	}
 	
-	public void updateBulletin() {
-		
+	public void updateBulletin(Bulletin bl, String title, String content) {
+		if(title != null && content != null) {
+			bl.setTitle(title);
+			bl.setContent(content);
+		}
+		else if(title != null) {
+			bl.setTitle(title);
+		}
+		else if (content != null) {
+			bl.setContent(content);
+		}
+		else {
+			System.out.println("잘못된 수정입니다.");
+		}
 	}
 	
 	

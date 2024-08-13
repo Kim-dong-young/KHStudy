@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Bulletin {
 	private int bulletinID;
+	private int viewCount;
 	
 	private String authorID;
 	private String title;
@@ -17,11 +18,11 @@ public class Bulletin {
 		this.content = content;
 	}
 	
-	public int getbulletinID() {
+	public int getBulletinID() {
 		return bulletinID;
 	}
 
-	public void setbulletinID(int bulletinID) {
+	public void setBulletinID(int bulletinID) {
 		this.bulletinID = bulletinID;
 	}
 
@@ -49,6 +50,14 @@ public class Bulletin {
 		this.content = content;
 	}
 	
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(bulletinID);
@@ -58,7 +67,7 @@ public class Bulletin {
 	public boolean equals(Object obj) {
 		if(obj instanceof Bulletin) {
 			Bulletin other = (Bulletin) obj;
-			if(other.getbulletinID() == this.getbulletinID())
+			if(other.getBulletinID() == this.getBulletinID())
 				return true;
 		}
 		return false;
@@ -66,7 +75,8 @@ public class Bulletin {
 
 	@Override
 	public String toString() {
-		return "게시글 번호 : " + bulletinID +  " | 제목 : " + title + " | 작성자 : " + authorID;
+		return String.format("게시글 번호 : %d | 제목 : %s | 작성자 : %s | 조회수 : %d",
+								bulletinID, title, authorID, viewCount);
 	}
 
 }
