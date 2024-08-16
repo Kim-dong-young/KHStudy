@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
@@ -156,7 +157,7 @@ public class MemberController {
 			else {
 				cMemberShareHeld.get(stockName).updatePurchasePrice(orderQuantity, price);
 			}
-			tc.addTradeLog(currentMember.getMemberUID(), LocalDateTime.now(), stockName + " " + orderQuantity + " " + price + " 구매");
+			tc.addTradeLog(currentMember.getMemberUID(), new Date() , stockName, orderQuantity, price, "구매");
 		}
 		
 		return 200; // 구매 성공
@@ -189,8 +190,7 @@ public class MemberController {
 		sc.setStockQuantity(stockName, sc.getStock(stockName).getStockQuantity() + orderQuantity);
 		
 		currentMember.setBalance(currentMember.getBalance() + price);
-		
-		tc.addTradeLog(currentMember.getMemberUID(), LocalDateTime.now() , stockName + " " + orderQuantity + " " + price  + " 판매");
+		tc.addTradeLog(currentMember.getMemberUID(), new Date() , stockName, orderQuantity, price, "판매");
 
 		return 200; // 구매 성공
 	}
