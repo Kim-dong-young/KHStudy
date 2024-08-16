@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import _miniproject.controller.BulletinController;
+import _miniproject.controller.CommentController;
 import _miniproject.controller.MemberController;
 import _miniproject.vo.Bulletin;
 import _miniproject.vo.Member;
@@ -12,7 +13,10 @@ import _miniproject.vo.Member;
 public class BulletinBoardMenu {
 	private Scanner s;
 	private BulletinController bc = BulletinController.getInstance();
+	private CommentController cc = CommentController.getInstance();
 	private MemberController mc = MemberController.getInstance();
+	private final static int CONTENT_LIMIT = 500;
+	private final static int TITLE_LIMIT = 30;
 
 	public BulletinBoardMenu(Scanner s) {
 		super();
@@ -89,7 +93,7 @@ public class BulletinBoardMenu {
 				try {
 					Bulletin bl = bc.searchByBulletinID(Integer.parseInt(ch));
 					// 조회 성공
-					if (bl != null && bulletinMenu(bl)) {
+					if (bl != null && readBulletin(bl)) {
 						// bulletinMenu 반환값 : 게시글 수정 or 삭제 여부
 						isChanged = true;
 					}
@@ -117,12 +121,12 @@ public class BulletinBoardMenu {
 		searchResultMenu();
 	}
 	
-	public boolean bulletinMenu(Bulletin bl) {
+	public boolean readBulletin(Bulletin bl) {
 		// 반환값 : 게시글 수정 or 삭제 여부
 		String ch = "";
 		boolean isChanged = false;
 		bc.addViewCount(bl);
-		
+		// TODO 댓글기능 마무리 칠 것
 		while(!ch.equals("q")) {
 			System.out.println("\n====================");
 			System.out.printf("게시글 번호 : %s\n", bl.getBulletinID());
@@ -130,10 +134,13 @@ public class BulletinBoardMenu {
 			System.out.printf("작성자 : %s\n", bl.getAuthorID());
 			System.out.printf("조회수 : %s\n", bl.getAuthorID());
 			System.out.println("====================");
-			System.out.printf("%s\n", bl.getContent());
+			System.out.printf("%s", bl.getContent());
+			System.out.println("====================");
+			cc.readAllComment(bl);
 			System.out.println("====================\n");
 			System.out.println("게시글 수정 : u , 게시글 삭제 : d 입력");
-			System.out.println("뒤로 가기 : q 입력");
+			System.out.println("댓글 작성 : w , 댓글 삭제 : cd 입력");
+			System.out.println("댓글 수정 : c , 뒤로 가기 : q 입력");
 			System.out.printf("메뉴 입력 : ");
 			ch = s.next();
 			s.nextLine();
@@ -148,6 +155,15 @@ public class BulletinBoardMenu {
 				isChanged = true;
 				return isChanged;
 			}
+			else if(ch.equals("w")) {
+				new CommentMenu(s).writeMenu();
+			}
+			else if(ch.equals("cd")) {
+				new CommentMenu(s).deleteMenu();
+			}
+			else if(ch.equals("c")) {
+				new CommentMenu(s).updateMenu();
+			}
 			else if(ch.equals("q")) {
 				System.out.println("게시판으로 돌아갑니다.");
 				break;
@@ -160,17 +176,35 @@ public class BulletinBoardMenu {
 	}
 
 	public void writeMenu() {
-		System.out.printf("게시글 제목 : ");
-		String title = s.nextLine();
-		System.out.println("게시글 내용입력 (마치려면 \"!q\" 입력) : ");
+		String title = "";
+		while (true) {
+			System.out.printf("게시글 제목 [%d자 제한]: ", TITLE_LIMIT);
+			title = s.nextLine();
+			
+			if(title.length() >= TITLE_LIMIT) {
+				System.out.println("제한 글자를 초과했습니다. 다시 입력해주세요.");
+				title = "";
+			}
+			else {
+				break;
+			}
+		}
+		System.out.printf("게시글 내용입력 [%d자 제한] (마치려면 \"!q\" 입력) : \n", CONTENT_LIMIT);
 		String content = "";
 		String buffer = "";
 		while (true) {
 			buffer = s.nextLine();
+			
 			if (buffer.equals("!q")) {
 				break;
 			}
-			content += buffer;
+			if (content.length() + buffer.length() >= CONTENT_LIMIT) {
+				System.out.println("제한 글자를 초과했습니다. 다시 입력해주세요.");
+				System.out.printf("현재 작성글 길이 : %d\n",content.length());
+				buffer = "";
+				continue;
+			}
+			content += buffer + "\n";
 		}
 
 		while (true) {
@@ -255,24 +289,41 @@ public class BulletinBoardMenu {
 			switch(ch) {
 			
 			case 1:
-				
-				System.out.println("바꿀 제목을 입력해주세요.");
-				String title = s.nextLine();
+				String title = "";
+				while (true) {
+					System.out.printf("게시글 제목 [%d자 제한]: ", TITLE_LIMIT);
+					title = s.nextLine();
+					
+					if(title.length() >= TITLE_LIMIT) {
+						System.out.println("제한 글자를 초과했습니다. 다시 입력해주세요.");
+						title = "";
+					}
+					else {
+						break;
+					}
+				}
 				bc.updateBulletin(bl, title, null);
 				System.out.println("성공적으로 제목을 수정하였습니다.");
 				break;
 				
 			case 2:
 				System.out.println("바꿀 내용을 입력해주세요.");
-				System.out.println("게시글 내용입력 (마치려면 \"!q\" 입력) : ");
+				System.out.printf("게시글 내용입력 [%d자 제한] (마치려면 \"!q\" 입력) : \n", CONTENT_LIMIT);
 				String content = "";
 				String buffer = "";
 				while (true) {
 					buffer = s.nextLine();
+					
 					if (buffer.equals("!q")) {
 						break;
 					}
-					content += buffer;
+					if (content.length() + buffer.length() >= CONTENT_LIMIT) {
+						System.out.println("제한 글자를 초과했습니다. 다시 입력해주세요.");
+						System.out.printf("현재 작성글 길이 : %d\n",content.length());
+						buffer = "";
+						continue;
+					}
+					content += buffer+"\n";
 				}
 				bc.updateBulletin(bl, null, content);
 				System.out.println("성공적으로 내용을 수정하였습니다.");

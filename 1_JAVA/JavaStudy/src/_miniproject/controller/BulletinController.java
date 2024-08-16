@@ -3,9 +3,11 @@ package _miniproject.controller;
 import java.util.ArrayList;
 
 import _miniproject.vo.Bulletin;
+import _miniproject.vo.Comment;
 
 public class BulletinController {
 	private static BulletinController bc;
+	private static CommentController cc = CommentController.getInstance();
 	private ArrayList<Bulletin> bulletinList;
 	private int index;
 	
@@ -124,5 +126,24 @@ public class BulletinController {
 		}
 	}
 	
+	public void writeComment(Bulletin bl, Comment comment) {
+		cc.writeComment(bl, comment);
+	}
+	
+	public void deleteComment(Bulletin bl, int commentID) {
+		cc.deleteComment(bl, commentID);
+	}
+	
+	public Comment getComment(Bulletin bl, int commentID) {
+		return cc.getComment(bl, commentID);
+	}
+	
+	public void readAllComment(Bulletin bl) {
+		cc.readAllComment(bl);
+	}
+	
+	public void updateComment(Bulletin bl, Comment comment, int commentID) {
+		cc.updateComment(bl, comment, commentID);
+	}
 	
 }
