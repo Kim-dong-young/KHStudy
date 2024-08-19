@@ -10,6 +10,7 @@ public class Comment {
 	
 	private String authorID; // 댓글 작성자 id
 	private String content; // 댓글 내용
+	private boolean isDeleted; // 삭제된 댓글 여부
 
 	public Comment(int bulletinID, int commentID, Date writeDate, String authorID, String content) {
 		super();
@@ -18,6 +19,7 @@ public class Comment {
 		this.writeDate = writeDate;
 		this.authorID = authorID;
 		this.content = content;
+		this.isDeleted = false;
 	}
 	
 	public int getBulletinID() {
@@ -50,6 +52,12 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 
 	@Override
 	public int hashCode() {
@@ -71,7 +79,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return String.format("작성자 : %s | 작성일 : %s\n내용 : %s", authorID, writeDate.toString(), content);
+		return String.format("댓글번호 : %d | 작성자 : %s | 작성일 : %s\n내용 : %s", commentID , authorID, writeDate.toString(), content);
 	}
 
 }

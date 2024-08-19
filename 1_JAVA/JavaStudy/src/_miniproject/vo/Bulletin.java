@@ -21,6 +21,7 @@ public class Bulletin {
 		this.authorID = authorID;
 		this.title = title;
 		this.content = content;
+		this.viewCount = 0;
 		this.writeDate = new Date();
 		this.comments = new ArrayList<Comment>();
 	}

@@ -142,8 +142,8 @@ public class BulletinController {
 		cc.readAllComment(bl);
 	}
 	
-	public void updateComment(Bulletin bl, Comment comment, int commentID) {
-		cc.updateComment(bl, comment, commentID);
+	public void updateComment(Bulletin bl, Comment comment) {
+		cc.updateComment(bl, comment);
 	}
 	
 }

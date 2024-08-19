@@ -29,9 +29,18 @@ public class CommentController {
 		comments.add(comment);
 	}
 	
-	public void deleteComment(Bulletin bl, int commentID) {
+	public boolean deleteComment(Bulletin bl, int commentID) {
 		comments = getCommentList(bl);
-		comments.remove(commentID);
+		Comment cmt = comments.get(commentID);
+		
+		if(!cmt.isDeleted()) {
+			cmt.setContent("삭제된 댓글입니다.");
+			cmt.setDeleted(true);
+			return true;
+		} else {
+			System.out.println("이미 삭제된 댓글입니다.");
+			return false;
+		}
 	}
 	
 	public Comment getComment(Bulletin bl, int commentID) {
@@ -46,9 +55,9 @@ public class CommentController {
 		}
 	}
 	
-	public void updateComment(Bulletin bl, Comment comment ,int commentID) {
+	public void updateComment(Bulletin bl, Comment comment) {
 		comments = getCommentList(bl);
-		comments.set(commentID, comment);
+		comments.set(comment.getCommentID(), comment);
 	}
 	
 }

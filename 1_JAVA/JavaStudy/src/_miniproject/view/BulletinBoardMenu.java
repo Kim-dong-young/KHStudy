@@ -24,7 +24,6 @@ public class BulletinBoardMenu {
 	}
 	
 	public void searchResultMenu() {
-		// TODO 게시글 삭제, 변경 후 인덱스 값 제대로 계산할 것
 		ArrayList<Bulletin> bulletinList = bc.getBulletinList();
 		
 		// searchText[0] : 조회 기준 ( 0 : 전체, 1 : 제목 , 2 : 작성자 )
@@ -93,9 +92,11 @@ public class BulletinBoardMenu {
 				try {
 					Bulletin bl = bc.searchByBulletinID(Integer.parseInt(ch));
 					// 조회 성공
-					if (bl != null && readBulletin(bl)) {
-						// bulletinMenu 반환값 : 게시글 수정 or 삭제 여부
-						isChanged = true;
+					if (bl != null) {
+						// readBulletin 반환값 : 게시글 수정 or 삭제 여부
+						if(readBulletin(bl)) {
+							isChanged = true;
+						}
 					}
 					// 조회 실패
 					else {
@@ -134,8 +135,11 @@ public class BulletinBoardMenu {
 			System.out.printf("작성자 : %s\n", bl.getAuthorID());
 			System.out.printf("조회수 : %s\n", bl.getAuthorID());
 			System.out.println("====================");
-			System.out.printf("%s", bl.getContent());
+			System.out.printf("%s\n", bl.getContent());
 			System.out.println("====================");
+			if(bl.getComments().isEmpty()) {
+				System.out.println("작성된 댓글이 없습니다.");
+			}
 			cc.readAllComment(bl);
 			System.out.println("====================\n");
 			System.out.println("게시글 수정 : u , 게시글 삭제 : d 입력");
@@ -156,13 +160,13 @@ public class BulletinBoardMenu {
 				return isChanged;
 			}
 			else if(ch.equals("w")) {
-				new CommentMenu(s).writeMenu();
+				new CommentMenu(s).writeMenu(bl);
 			}
 			else if(ch.equals("cd")) {
-				new CommentMenu(s).deleteMenu();
+				new CommentMenu(s).deleteMenu(bl);
 			}
 			else if(ch.equals("c")) {
-				new CommentMenu(s).updateMenu();
+				new CommentMenu(s).updateMenu(bl);
 			}
 			else if(ch.equals("q")) {
 				System.out.println("게시판으로 돌아갑니다.");
