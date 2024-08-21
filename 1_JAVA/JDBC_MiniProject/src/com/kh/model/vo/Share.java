@@ -7,19 +7,19 @@ public class Share {
 	private int stockId;
 	private int shareQty;
 	private int sharePrice;
-	private double shareFluct;
+	private String stockName;
 	
 	public Share() {
 		super();
 	}
-	
-	public Share(int memberUid, int stockId, int shareQty, int sharePrice, double shareFluct) {
+
+	public Share(int memberUid, int stockId, int shareQty, int sharePrice, String stockName) {
 		super();
 		this.memberUid = memberUid;
 		this.stockId = stockId;
 		this.shareQty = shareQty;
 		this.sharePrice = sharePrice;
-		this.shareFluct = shareFluct;
+		this.stockName = stockName;
 	}
 
 	/**
@@ -71,16 +71,16 @@ public class Share {
 		this.sharePrice = sharePrice;
 	}
 	/**
-	 * @return the shareFluct
+	 * @return the stockName
 	 */
-	public double getShareFluct() {
-		return shareFluct;
+	public String getStockName() {
+		return stockName;
 	}
 	/**
-	 * @param shareFluct the shareFluct to set
+	 * @param stockName the stockName to set
 	 */
-	public void setShareFluct(double shareFluct) {
-		this.shareFluct = shareFluct;
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
 	}
 
 	@Override
@@ -103,8 +103,8 @@ public class Share {
 	@Override
 	public String toString() {
 		return "Share [memberUid=" + memberUid + ", stockId=" + stockId + ", shareQty=" + shareQty + ", sharePrice="
-				+ sharePrice + ", shareFluct=" + shareFluct + "]";
+				+ sharePrice + ", stockName=" + stockName + "]";
 	}
-	
+
 	
 }

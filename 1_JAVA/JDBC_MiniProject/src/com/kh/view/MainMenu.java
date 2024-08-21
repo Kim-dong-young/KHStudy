@@ -1,13 +1,18 @@
 package com.kh.view;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.kh.controller.MemberController;
+import com.kh.controller.MemberStockController;
+import com.kh.model.vo.Member;
+import com.kh.model.vo.MemberStock;
 
 public class MainMenu {
 	Scanner s = new Scanner(System.in);
 	private MemberController mc = MemberController.getInstance();
+	private MemberStockController msc = MemberStockController.getInstance();
 	
 	public void mainMenu() {
 		int ch = -1;
@@ -54,7 +59,10 @@ public class MainMenu {
 		String pwd = s.next();
 		s.nextLine();
 		
-		mc.loginUser(id,pwd);
+		mc.loginMember(id,pwd);
+		if(mc.getCurrentMember() != null) {
+			memberMenu();
+		}
 	}
 	
 	public void registerMenu() {
@@ -71,17 +79,17 @@ public class MainMenu {
 		String pwd = s.next();
 		s.nextLine();
 		
-		mc.createUser(name, id, pwd);
+		mc.createMember(name, id, pwd);
 	}
 	
 	public void memberMenu() {
+		Member cMember = mc.getCurrentMember();
 		int ch = -1;
 
 		while (ch != 0) {
-			// TODO 정보 제대로 표시
-			System.out.printf("===== %s 님 환영합니다. =====\n", "default");
-			System.out.printf("현재 날짜 : %d일", 0);
-			System.out.printf("보유 자산 : %d원\n", 0);
+			System.out.printf("===== %s 님 환영합니다. =====\n", cMember.getMemberName());
+			System.out.printf("현재 날짜 : %d일\n", cMember.getDay());
+			System.out.printf("보유 자산 : %d원\n", cMember.getBalance());
 			System.out.println("===== 메인 화면 =====");
 			System.out.println("1. 주식 현황");
 			System.out.println("2. 주식 매매");
@@ -103,16 +111,16 @@ public class MainMenu {
 
 			switch (ch) {
 			case 1:
-
+				displayStockList();
 				break;
 			case 2:
-
+				new StockMarketMenu(s).mainMenu();
 				break;
 			case 3:
 
 				break;
 			case 4:
-
+				
 				break;
 			case 5:
 
@@ -129,6 +137,37 @@ public class MainMenu {
 		}
 	}
 	
+	private void displayStockList() {
+		ArrayList<MemberStock> mStockList = msc.getMemberStockList();
+		
+		if(mStockList.isEmpty()) {
+			System.out.println("현재 상장된 종목이 없습니다.");
+			return;
+		}
+		
+		for(MemberStock ms : mStockList) {
+			System.out.println(ms);
+		}
+	}
+
+	public void registerSuccess() {
+		System.out.println("회원가입에 성공하였습니다.");
+	}
 	
+	public void registerFail() {
+		System.out.println("회원가입에 실패하였습니다.");
+	}
+	
+	public void loginSuccess() {
+		System.out.println("로그인에 성공하였습니다.");
+	}
+	
+	public void loginFail() {
+		System.out.println("로그인에 실패하였습니다.");
+	}
+	
+	public void loadMemberStockListFail() {
+		System.out.println("주식 목록을 불러오는데 실패했습니다.");
+	}
 	
 }

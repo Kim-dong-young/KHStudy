@@ -11,11 +11,19 @@ public class Member {
 	private String memberRcode;
 	private Date enrollDate;
 	private boolean isWithdraw;
+	private int day;
+	private int balance;
 
 	public Member() {
 		super();
 	}
 	
+	public Member(String memberId, String memberPwd) {
+		super();
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+	}
+
 	public Member(String memberName, String memberId, String memberPwd) {
 		super();
 		this.memberName = memberName;
@@ -24,7 +32,7 @@ public class Member {
 	}
 
 	public Member(int memberUid, String memberName, String memberId, String memberPwd, String memberRcode,
-			Date enrollDate, boolean isWithdraw) {
+			Date enrollDate, boolean isWithdraw, int day, int balance) {
 		super();
 		this.memberUid = memberUid;
 		this.memberName = memberName;
@@ -33,8 +41,10 @@ public class Member {
 		this.memberRcode = memberRcode;
 		this.enrollDate = enrollDate;
 		this.isWithdraw = isWithdraw;
+		this.day = day;
+		this.balance = balance;
 	}
-	
+
 	/**
 	 * @return the memberUid
 	 */
@@ -119,7 +129,31 @@ public class Member {
 	public void setWithdraw(boolean isWithdraw) {
 		this.isWithdraw = isWithdraw;
 	}
-	
+	/**
+	 * @return the day
+	 */
+	public int getDay() {
+		return day;
+	}
+	/**
+	 * @param day the day to set
+	 */
+	public void setDay(int day) {
+		this.day = day;
+	}
+	/**
+	 * @return the balance
+	 */
+	public int getBalance() {
+		return balance;
+	}
+	/**
+	 * @param balance the balance to set
+	 */
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(memberUid);
@@ -139,7 +173,7 @@ public class Member {
 	public String toString() {
 		return "Member [memberUid=" + memberUid + ", memberName=" + memberName + ", memberId=" + memberId
 				+ ", memberPwd=" + memberPwd + ", memberRcode=" + memberRcode + ", enrollDate=" + enrollDate
-				+ ", isWithdraw=" + isWithdraw + "]";
+				+ ", isWithdraw=" + isWithdraw + ", day=" + day + ", balance=" + balance + "]";
 	}
 	
 }

@@ -16,6 +16,15 @@ public class TradeLog {
 		super();
 	}
 	
+	public TradeLog(int memberId, int stockId, int tradeQty, int tradePrice, String status) {
+		super();
+		this.memberId = memberId;
+		this.stockId = stockId;
+		this.tradeQty = tradeQty;
+		this.tradePrice = tradePrice;
+		this.status = status;
+	}
+
 	public TradeLog(int tradeId, int memberId, Date tradeDate, int stockId, int tradeQty, int tradePrice,
 			String status) {
 		super();

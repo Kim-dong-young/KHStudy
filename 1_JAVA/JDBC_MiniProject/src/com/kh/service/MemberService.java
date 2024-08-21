@@ -22,9 +22,9 @@ public class MemberService {
 		return ms;
 	}
 
-	public int createUser(Member m) {
+	public int createMember(Member m) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = md.createUser(conn, m);
+		int result = md.createMember(conn, m);
 		
 		if(result > 0) {
 			JDBCTemplate.commit(conn);
@@ -35,5 +35,13 @@ public class MemberService {
 		
 		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	public Member searchMember(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		Member foundMember = md.searchMember(conn, m);
+
+		JDBCTemplate.close(conn);
+		return foundMember;
 	}
 }

@@ -2,6 +2,7 @@ package com.kh.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.kh.common.JDBCTemplate;
@@ -20,11 +21,11 @@ public class MemberDao {
 		return md;
 	}
 
-	public int createUser(Connection conn, Member m) {
+	public int createMember(Connection conn, Member m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = "INSERT INTO TB_MEMBER VALUES(MEMBER_UID_SEQ.NEXTVAL, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)";
+		String sql = "INSERT INTO TB_MEMBER VALUES(MEMBER_UID_SEQ.NEXTVAL, ?, ?, ?, DEFAULT ,DEFAULT, DEFAULT, DEFAULT, DEFAULT)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -40,5 +41,42 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public Member searchMember(Connection conn, Member m) {
+		Member foundMember = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM TB_MEMBER WHERE MEMBER_ID = ? AND MEMBER_PWD = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getMemberId());
+			pstmt.setString(2, m.getMemberPwd());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				foundMember = new Member();
+				foundMember.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				foundMember.setMemberId(rset.getString("MEMBER_ID"));
+				foundMember.setMemberName(rset.getString("MEMBER_NAME"));
+				foundMember.setMemberPwd(rset.getString("MEMBER_PWD"));
+				foundMember.setMemberRcode(rset.getString("MEMBER_RCODE"));
+				foundMember.setMemberUid(rset.getInt("MEMBER_UID"));
+				foundMember.setWithdraw(rset.getString("WITHDRAW_YN").equals("Y"));
+				foundMember.setDay(rset.getInt("PLAY_DAY"));
+				foundMember.setBalance(rset.getInt("BALANCE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return foundMember;
 	}
 }
