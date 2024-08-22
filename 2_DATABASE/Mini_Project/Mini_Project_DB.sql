@@ -280,7 +280,34 @@ CREATE OR REPLACE PROCEDURE PURCHASE_STOCK_PROC (
     p_purchase_qty IN NUMBER,
     p_purchase_price IN NUMBER
 ) AS
+    ms_stock_qty TB_MEMBER_STOCK.STOCK_QTY%TYPE;
+    m_balance TB_MEMBER.BALANCE%TYPE;
 BEGIN
+    -- 변수 초기화 
+    -- 1) 조건검사를 위해 주식 수량을 가져온다.
+    SELECT STOCK_QTY
+    INTO ms_stock_qty
+    FROM TB_MEMBER_STOCK
+    WHERE MEMBER_UID = p_member_uid
+        AND STOCK_ID = p_stock_id;
+        
+    -- 2) 조건검사를 위해 보유한 돈을 가져온다.
+    SELECT BALANCE
+    INTO m_balance
+    FROM TB_MEMBER
+    WHERE MEMBER_UID = p_member_uid;
+       
+     -- 조건 검사 
+     -- 1) 주식 시장에 물량이 충분한지 확인한다
+     IF ms_stock_qty < p_purchase_qty 
+        THEN RAISE_APPLICATION_ERROR(-20001,'주식 물량이 부족합니다.');
+     END IF;
+     
+     -- 2) 보유한 돈을 확인한다.
+     IF m_balance < p_purchase_price
+        THEN RAISE_APPLICATION_ERROR(-20003,'보유한 돈이 부족합니다.');
+     END IF;
+
     -- 1. TB_SHARE에서 사용자가 구매한 주식을 등록시키되, 만약 이미 있다면 주식의 수량 STOCK_QTY를 증가
     MERGE
     INTO TB_SHARE
@@ -294,7 +321,8 @@ BEGIN
      -- 2. p_purchase_qty 만큼 p_stock_id의 TB_MEMBER_STOCK.STOCK_QTY를 차감
     UPDATE TB_MEMBER_STOCK
     SET STOCK_QTY = STOCK_QTY - p_purchase_qty
-    WHERE MEMBER_UID = p_member_uid AND STOCK_ID = p_stock_id;
+    WHERE MEMBER_UID = p_member_uid 
+        AND STOCK_ID = p_stock_id;
     
     -- 3. 구매 기록을 TB_TRADELOG에 등록
     INSERT INTO TB_TRADELOG VALUES(TRADE_ID_SEQ.NEXTVAL, p_member_uid, DEFAULT,
@@ -315,7 +343,44 @@ CREATE OR REPLACE PROCEDURE SELL_STOCK_PROC (
     p_sell_qty IN NUMBER,
     p_sell_price IN NUMBER
 ) AS
-BEGIN
+    s_share_qty TB_SHARE.SHARE_QTY%TYPE;
+BEGIN 
+    -- 변수 초기화 // 조건검사를 위해 주식 수량을 가져온다.
+    SELECT SHARE_QTY 
+    INTO s_share_qty 
+    FROM TB_SHARE 
+    WHERE MEMBER_UID = p_member_uid
+        AND STOCK_ID = p_stock_id;
+        
+     -- 조건 검사 : 보유한 주식 물량보다 더 많이 팔려고 시도하는지 검사한다.
+     IF s_share_qty < p_sell_qty 
+        THEN RAISE_APPLICATION_ERROR(-20002,'주식 보유량이 부족합니다.');
+     END IF;
+
+    -- 1. 보유한 주식(TB_SHARE)에서 판매한 수량만큼 차감
+    UPDATE TB_SHARE
+    SET SHARE_QTY = SHARE_QTY - p_sell_qty
+    WHERE MEMBER_UID = p_member_uid
+        AND STOCK_ID = p_stock_id;
+        
+    -- 1_1. 보유한 주식 수량이 0이면 TB_SHARE 목록에서 제거
+    DELETE FROM TB_SHARE
+    WHERE SHARE_QTY <= 0;
+        
+    -- 2. 판매한 수량만큼 TB_MEMBER_STOCK의 STOCK_QTY 증가
+    UPDATE TB_MEMBER_STOCK
+    SET STOCK_QTY = STOCK_QTY + p_sell_qty
+    WHERE MEMBER_UID = p_member_uid
+        AND STOCK_ID = p_stock_id;
+        
+    -- 3. 판매 기록을 TB_TRADELOG에 등록
+    INSERT INTO TB_TRADELOG VALUES(TRADE_ID_SEQ.NEXTVAL, p_member_uid, DEFAULT, 
+                                    p_stock_id, p_sell_qty, p_sell_price, '판매');
+    
+    -- 4. 판매한 금액만큼 TB_MEMBER의 BALANCE 증가
+    UPDATE TB_MEMBER
+    SET BALANCE = BALANCE + p_sell_price
+    WHERE MEMBER_UID = p_member_uid;
     
 END;
 /
@@ -365,3 +430,4 @@ UPDATE TB_MEMBER
 SET BALANCE = 1000000
 WHERE MEMBER_UID = 1;
 COMMIT;
+

@@ -22,27 +22,30 @@ public class StockMarketMenu {
 		this.s = s;
 	}
 	
-	public void chartMenu(ArrayList<MemberStock> mStockList) {
-		
+	public boolean chartMenu(ArrayList<MemberStock> mStockList) {
+		// 조회에 실패할 경우 false 반환
 		if(mStockList.isEmpty()) {
 			System.out.println("현재 상장된 종목이 없습니다.");
-			return;
+			return false;
 		}
 		
 		for(MemberStock ms : mStockList) {
 			System.out.println(ms);
 		}
+		return true;
 	}
 	
-	public void shareHeldMenu(ArrayList<Share> shareHeld) {
+	public boolean shareHeldMenu(ArrayList<Share> shareHeld) {
+		// 조회에 실패할 경우 false 반환
 		if (shareHeld.isEmpty()) {
 			System.out.println("보유중인 주식이 없습니다.");
-			return;
+			return false;
 		}
 		
 		for(Share sh : shareHeld) {
 			System.out.println(sh);
 		}
+		return true;
 	}
 	
 	public void mainMenu() {
@@ -80,7 +83,10 @@ public class StockMarketMenu {
 	}
 	
 	public void buyStockMenu() {
-		chartMenu(mc.getMemberStockList());
+		// 조회에 실패할 경우 false 반환
+		if (!chartMenu(mc.getMemberStockList(mc.getCurrentMember())) ) {
+			return;
+		}
 		
 		int buyQuantity = 0;
 		
@@ -100,7 +106,10 @@ public class StockMarketMenu {
 	}
 	
 	public void sellStockMenu() {
-		shareHeldMenu(mc.getMemberShareHeld(mc.getCurrentMember()));
+		// 조회에 실패할 경우 false 반환
+		if (!shareHeldMenu(mc.getMemberShareHeld(mc.getCurrentMember())) ) {
+			return;
+		}
 		
 		int sellQuantity = 0;
 		System.out.print("\n판매할 종목과 수량 입력(띄어쓰기로 구분) : ");

@@ -120,7 +120,7 @@ public class MainMenu {
 
 				break;
 			case 4:
-				
+				new PrivateMenu(s).mainMenu();
 				break;
 			case 5:
 

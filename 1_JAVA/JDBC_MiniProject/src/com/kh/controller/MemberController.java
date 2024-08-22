@@ -6,6 +6,7 @@ import com.kh.model.dto.SellStockRequest;
 import com.kh.model.vo.Member;
 import com.kh.model.vo.MemberStock;
 import com.kh.model.vo.Share;
+import com.kh.model.vo.items.Item;
 import com.kh.service.MemberService;
 import com.kh.view.MainMenu;
 
@@ -13,6 +14,7 @@ public class MemberController {
 	private static MemberController mc;
 	MemberStockController msc;
 	ShareController sc;
+	ItemController ic;
 	
 	private Member currentMember;
 	
@@ -79,7 +81,7 @@ public class MemberController {
 		return ms.loadMemberInfo(m);
 	}
 	
-	public ArrayList<MemberStock> getMemberStockList(){
+	public ArrayList<MemberStock> getMemberStockList(Member m){
 		msc = MemberStockController.getInstance();
 		
 		return msc.getMemberStockList();
@@ -90,6 +92,13 @@ public class MemberController {
 		
 		return sc.getShareHeld(m);
 	}
+	
+	public ArrayList<Item> getItemList(Member m) {
+		ic = ItemController.getInstance();
+		
+		return ic.getMemberItemList(m);
+	}
+	
 	
 	public void buyStock(Member member, int buyQuantity, String buyStockName) {
 		msc = MemberStockController.getInstance();
@@ -105,6 +114,10 @@ public class MemberController {
 		msc = MemberStockController.getInstance();
 		
 		msc.sellStock(member,sellQuantity,sellStockName);
+		
+		Member memberInfo = loadMemberInfo(member);
+		if(memberInfo != null)
+			currentMember.setBalance(memberInfo.getBalance());
 	}
-	
+
 }

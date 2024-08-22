@@ -24,6 +24,14 @@ public class MemberStockService {
 			mst = new MemberStockService();
 		return mst;
 	}
+	
+	public ArrayList<MemberStock> getMemberStockList(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<MemberStock> mStockList = msd.getMemberStockList(conn, m);
+		
+		JDBCTemplate.close(conn);
+		return mStockList;
+	}
 
 	public ArrayList<MemberStock> loadMemberStockList(Member m) {
 		Connection conn = JDBCTemplate.getConnection();
