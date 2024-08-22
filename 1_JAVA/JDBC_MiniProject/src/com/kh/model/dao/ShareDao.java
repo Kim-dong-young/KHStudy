@@ -45,7 +45,7 @@ public class ShareDao {
 				sh.setMemberUid(rset.getInt("MEMBER_UID"));
 				sh.setStockId(rset.getInt("STOCK_ID"));
 				sh.setShareQty(rset.getInt("SHARE_QTY"));
-				sh.setSharePrice(rset.getInt("SHARE_PRICE"));
+				sh.setPurchasePrice(rset.getInt("PURCHASE_PRICE"));
 				sh.setStockName(rset.getString("STOCK_NAME"));
 				
 				shareHeld.add(sh);

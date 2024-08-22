@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.model.dto.BuyStockRequest;
+import com.kh.model.dto.SellStockRequest;
 import com.kh.model.vo.Member;
 import com.kh.model.vo.MemberStock;
 
@@ -67,7 +68,6 @@ public class MemberStockDao {
 		boolean isSuccess = false;
 		
 		CallableStatement cstmt = null;
-		// TODO 프로시저 고쳐야함
 		String sql = "{CALL PURCHASE_STOCK_PROC(?, ?, ?, ?)}";
 		
 		try {
@@ -77,6 +77,32 @@ public class MemberStockDao {
 			cstmt.setInt(2, bsRequest.getStockid());
 			cstmt.setInt(3, bsRequest.getBuyQuantity());
 			cstmt.setInt(4, bsRequest.getPrice());
+			
+			cstmt.execute();
+			isSuccess = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(cstmt);
+		}
+		
+		return isSuccess;
+	}
+
+	public boolean sellStock(Connection conn, SellStockRequest ssRequest) {
+		boolean isSuccess = false;
+		
+		// TODO DB에 판매 프로시저 작성
+		CallableStatement cstmt = null;
+		String sql = "{CALL SELL_STOCK_PROC(?, ?, ?, ?)}";
+		
+		try {
+			cstmt = conn.prepareCall(sql);
+			
+			cstmt.setInt(1, ssRequest.getMember().getMemberUid());
+			cstmt.setInt(2, ssRequest.getStockid());
+			cstmt.setInt(3, ssRequest.getSellQuantity());
+			cstmt.setInt(4, ssRequest.getPrice());
 			
 			cstmt.execute();
 			isSuccess = true;

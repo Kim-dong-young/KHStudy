@@ -11,6 +11,7 @@ import com.kh.model.vo.Share;
 public class ShareService {
 	private static ShareService ss;
 	private ShareDao sd = ShareDao.getInstance();
+	
 	private ShareService() {
 		super();
 	}
@@ -19,7 +20,7 @@ public class ShareService {
 		if(ss == null) {
 			ss = new ShareService();
 		}
-		return null;
+		return ss;
 	}
 
 	public ArrayList<Share> getShareHeld(Member m) {

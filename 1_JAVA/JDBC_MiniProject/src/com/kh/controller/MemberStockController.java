@@ -3,6 +3,7 @@ package com.kh.controller;
 import java.util.ArrayList;
 
 import com.kh.model.dto.BuyStockRequest;
+import com.kh.model.dto.SellStockRequest;
 import com.kh.model.vo.Member;
 import com.kh.model.vo.MemberStock;
 import com.kh.service.MemberStockService;
@@ -13,6 +14,7 @@ public class MemberStockController {
 	private static MemberStockController mstc;
 	private MemberStockService mss;
 	
+	// 유저 개인별 주식 시장의 정보
 	private ArrayList<MemberStock> mStockList;
 	
 	private MemberStockController() {
@@ -48,40 +50,6 @@ public class MemberStockController {
 		}
 	}
 	
-	public void initMemberStockList(ArrayList<MemberStock> mStockList) {
-		for(MemberStock ms : mStockList) {
-			if(ms.getStockName().equals("LG전자")) {
-				initMemberStock(ms,1000,1000,112500);
-			}
-			else if(ms.getStockName().equals("삼성전자")) {
-				initMemberStock(ms,1000,1000,159500);
-			}
-			else if(ms.getStockName().equals("롯데케미칼")) {
-				initMemberStock(ms,1000,1000,100800);
-			}
-			else if(ms.getStockName().equals("현대모비스")) {
-				initMemberStock(ms,1000,1000,224500);
-			}
-			else if(ms.getStockName().equals("KB금융")) {
-				initMemberStock(ms,1000,1000,84600);
-			}
-			else {
-				initMemberStock(ms,1000,1000,100000);
-			}
-		}	
-	}
-	
-	public void initMemberStock(MemberStock ms, int maxQty, int stockQty, int stockPrice) {
-		if(maxQty <= 0) maxQty = 1;
-		if(stockQty <= 0) stockQty = 1;
-		if(stockQty > maxQty) stockQty = maxQty;
-		if(stockPrice < 0) stockPrice = 0;
-		
-		ms.setMaxQty(maxQty);
-		ms.setStockQty(stockQty);
-		ms.setStockPrice(stockPrice);
-	}
-	
 	public MemberStock getStockByName(String StockName) {
 		MemberStock result = null;
 		
@@ -91,7 +59,7 @@ public class MemberStockController {
 				break;
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -109,5 +77,22 @@ public class MemberStockController {
 		} else {
 			new StockMarketMenu().buyStockFail();
 		}
+	}
+
+	public void sellStock(Member m, int sellQuantity, String sellStockName) {
+		MemberStock ms = getStockByName(sellStockName);
+		// 해당하는 이름의 주식번호 조회 실패시 null
+		if(ms == null) {
+			new StockMarketMenu().sellStockFail();
+			return;
+		}
+		
+		SellStockRequest ssRequest = new SellStockRequest(m, sellQuantity, ms.getStockId(), sellQuantity * ms.getStockPrice());
+		if(mss.sellStock(ssRequest)) {
+			new StockMarketMenu().sellStockSuccess();
+		} else {
+			new StockMarketMenu().sellStockFail();
+		}
+		
 	}
 }

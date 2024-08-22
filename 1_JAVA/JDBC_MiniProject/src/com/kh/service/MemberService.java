@@ -44,4 +44,12 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return foundMember;
 	}
+
+	public Member loadMemberInfo(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		Member memberInfo = md.loadMemberInfo(conn, m);
+		
+		JDBCTemplate.close(conn);
+		return memberInfo;
+	}
 }

@@ -47,7 +47,6 @@ public class StockMarketMenu {
 	
 	public void mainMenu() {
 		int ch = -1;
-		// TODO MemberStockDao , 프로시저 고쳐야함
 		while(ch != 0) {
 			System.out.println("===== 주식 시장 =====");
 			System.out.println("1. 구매하기");
@@ -65,7 +64,6 @@ public class StockMarketMenu {
 			
 			switch(ch) {
 			case 1:
-				chartMenu(mc.getMemberStockList());
 				buyStockMenu();
 				break;
 			case 2:
@@ -82,6 +80,8 @@ public class StockMarketMenu {
 	}
 	
 	public void buyStockMenu() {
+		chartMenu(mc.getMemberStockList());
+		
 		int buyQuantity = 0;
 		
 		System.out.print("\n구매할 종목과 수량 입력(띄어쓰기로 구분) : ");
@@ -100,6 +100,7 @@ public class StockMarketMenu {
 	}
 	
 	public void sellStockMenu() {
+		shareHeldMenu(mc.getMemberShareHeld(mc.getCurrentMember()));
 		
 		int sellQuantity = 0;
 		System.out.print("\n판매할 종목과 수량 입력(띄어쓰기로 구분) : ");
@@ -114,20 +115,7 @@ public class StockMarketMenu {
 			s.nextLine();
 		}
 		
-		// TODO result 받아오기
-		int result = 0;
-		
-		switch(result) {
-		case 200:
-			System.out.println("판매에 성공했습니다!");
-			break;
-		case 400:
-			System.out.println("잘못된 수량입니다.");
-			break;
-		case 403:
-			System.out.println("수량이 부족합니다.");
-			break;
-		}
+		mc.sellStock(mc.getCurrentMember(),sellQuantity, sellStockName);
 	}
 	
 	public void buyStockSuccess() {
@@ -137,6 +125,15 @@ public class StockMarketMenu {
 	public void buyStockFail() {
 		System.out.println("구매에 실패하였습니다.");
 	}
+	
+	public void sellStockSuccess() {
+		System.out.println("판매에 성공하였습니다.");
+	}
+
+	public void sellStockFail() {
+		System.out.println("판매에 실패하였습니다.");
+	}
+
 	
 	
 }

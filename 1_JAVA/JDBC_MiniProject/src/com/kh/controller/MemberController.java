@@ -2,13 +2,17 @@ package com.kh.controller;
 
 import java.util.ArrayList;
 
+import com.kh.model.dto.SellStockRequest;
 import com.kh.model.vo.Member;
 import com.kh.model.vo.MemberStock;
+import com.kh.model.vo.Share;
 import com.kh.service.MemberService;
 import com.kh.view.MainMenu;
 
 public class MemberController {
 	private static MemberController mc;
+	MemberStockController msc;
+	ShareController sc;
 	
 	private Member currentMember;
 	
@@ -67,26 +71,40 @@ public class MemberController {
 			
 			currentMember = foundMember;
 			msc.loadMemberStockList(foundMember);
-			
-			if(currentMember.getDay() == 0) {
-				msc.initMemberStockList(msc.getMemberStockList());
-			}
 		}
 		
 	}
 	
+	public Member loadMemberInfo(Member m) {
+		return ms.loadMemberInfo(m);
+	}
+	
 	public ArrayList<MemberStock> getMemberStockList(){
-		MemberStockController msc = MemberStockController.getInstance();
+		msc = MemberStockController.getInstance();
 		
 		return msc.getMemberStockList();
 	}
-
-	public void buyStock(Member currentMember, int buyQuantity, String buyStockName) {
-		MemberStockController msc = MemberStockController.getInstance();
+	
+	public ArrayList<Share> getMemberShareHeld(Member m){
+		sc = ShareController.getInstance();
 		
-		msc.buyStock(currentMember, buyQuantity, buyStockName);
+		return sc.getShareHeld(m);
 	}
 	
-	
+	public void buyStock(Member member, int buyQuantity, String buyStockName) {
+		msc = MemberStockController.getInstance();
+		
+		msc.buyStock(member, buyQuantity, buyStockName);
+		
+		Member memberInfo = loadMemberInfo(member);
+		if(memberInfo != null)
+			currentMember.setBalance(memberInfo.getBalance());
+	}
+
+	public void sellStock(Member member, int sellQuantity, String sellStockName) {
+		msc = MemberStockController.getInstance();
+		
+		msc.sellStock(member,sellQuantity,sellStockName);
+	}
 	
 }

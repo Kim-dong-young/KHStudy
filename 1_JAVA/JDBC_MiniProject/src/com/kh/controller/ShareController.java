@@ -9,10 +9,11 @@ import com.kh.view.StockMarketMenu;
 
 public class ShareController {
 	private static ShareController shc;
-	private ShareService ss = ShareService.getInstance();
+	private ShareService ss;
 
 	private ShareController() {
 		super();
+		ss =ShareService.getInstance();
 	}
 	
 	public static ShareController getInstance() {
@@ -25,10 +26,6 @@ public class ShareController {
 		ArrayList<Share> shareHeld = ss.getShareHeld(m);
 
 		return shareHeld;
-	}
-	
-	public void showShareHeld(Member m) {
-		new StockMarketMenu().shareHeldMenu(getShareHeld(m));
 	}
 	
 }

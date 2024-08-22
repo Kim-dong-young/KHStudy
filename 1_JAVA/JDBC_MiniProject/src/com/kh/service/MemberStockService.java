@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.common.JDBCTemplate;
 import com.kh.model.dao.MemberStockDao;
 import com.kh.model.dto.BuyStockRequest;
+import com.kh.model.dto.SellStockRequest;
 import com.kh.model.vo.Member;
 import com.kh.model.vo.MemberStock;
 
@@ -37,6 +38,22 @@ public class MemberStockService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		isSuccess = msd.buyStock(conn, bsRequest);
+		
+		if(isSuccess) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return isSuccess;
+	}
+
+	public boolean sellStock(SellStockRequest ssRequest) {
+		boolean isSuccess = false;
+		Connection conn = JDBCTemplate.getConnection();
+		
+		isSuccess = msd.sellStock(conn, ssRequest);
 		
 		if(isSuccess) {
 			JDBCTemplate.commit(conn);
