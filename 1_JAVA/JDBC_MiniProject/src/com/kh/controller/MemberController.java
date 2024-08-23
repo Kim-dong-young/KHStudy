@@ -2,12 +2,13 @@ package com.kh.controller;
 
 import java.util.ArrayList;
 
-import com.kh.model.dto.SellStockRequest;
 import com.kh.model.vo.Member;
 import com.kh.model.vo.MemberStock;
 import com.kh.model.vo.Share;
+import com.kh.model.vo.TradeLog;
 import com.kh.model.vo.items.Item;
 import com.kh.service.MemberService;
+import com.kh.view.AlertMenu;
 import com.kh.view.MainMenu;
 
 public class MemberController {
@@ -15,6 +16,7 @@ public class MemberController {
 	MemberStockController msc;
 	ShareController sc;
 	ItemController ic;
+	TradeLogController tc;
 	
 	private Member currentMember;
 	
@@ -52,27 +54,26 @@ public class MemberController {
 		int result = ms.createMember(m);
 		
 		if(result > 0) {
-			new MainMenu().registerSuccess();
+			new AlertMenu().registerSuccess();
 		}
 		else {
-			new MainMenu().registerFail();
+			new AlertMenu().registerFail();
 		}
 		
 	}
 
 	public void loginMember(String id, String pwd) {
-		MemberStockController msc = MemberStockController.getInstance();
 		Member m = new Member(id,pwd);
 		
 		Member foundMember = ms.searchMember(m);
 		
 		if(foundMember == null) {
-			new MainMenu().loginFail();
+			new AlertMenu().loginFail();
 		} else {
-			new MainMenu().loginSuccess();
+			new AlertMenu().loginSuccess();
 			
 			currentMember = foundMember;
-			msc.loadMemberStockList(foundMember);
+			mc.getMemberStockList(foundMember);
 		}
 		
 	}
@@ -81,10 +82,10 @@ public class MemberController {
 		return ms.loadMemberInfo(m);
 	}
 	
-	public ArrayList<MemberStock> getMemberStockList(Member m){
+	public ArrayList<MemberStock> getMemberStockList(Member m) {
 		msc = MemberStockController.getInstance();
 		
-		return msc.getMemberStockList();
+		return msc.getMemberStockList(m);
 	}
 	
 	public ArrayList<Share> getMemberShareHeld(Member m){
@@ -93,10 +94,16 @@ public class MemberController {
 		return sc.getShareHeld(m);
 	}
 	
-	public ArrayList<Item> getItemList(Member m) {
+	public ArrayList<Item> getMemberItemList(Member m) {
 		ic = ItemController.getInstance();
 		
 		return ic.getMemberItemList(m);
+	}
+	
+	public ArrayList<TradeLog> getMemberTradeLog(Member m, int start, int end) {
+		tc = TradeLogController.getInstance();
+		
+		return tc.getMemberTradeLog(m, start, end);
 	}
 	
 	
@@ -119,5 +126,6 @@ public class MemberController {
 		if(memberInfo != null)
 			currentMember.setBalance(memberInfo.getBalance());
 	}
+
 
 }

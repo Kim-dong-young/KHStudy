@@ -8,6 +8,7 @@ public class TradeLog {
 	private int memberId;
 	private Date tradeDate;
 	private int stockId;
+	private String stockName;
 	private int tradeQty;
 	private int tradePrice;
 	private String status; // 판매 or 구매 여부
@@ -25,13 +26,14 @@ public class TradeLog {
 		this.status = status;
 	}
 
-	public TradeLog(int tradeId, int memberId, Date tradeDate, int stockId, int tradeQty, int tradePrice,
+	public TradeLog(int tradeId, int memberId, Date tradeDate, int stockId, String stockName, int tradeQty, int tradePrice,
 			String status) {
 		super();
 		this.tradeId = tradeId;
 		this.memberId = memberId;
 		this.tradeDate = tradeDate;
 		this.stockId = stockId;
+		this.stockName = stockName;
 		this.tradeQty = tradeQty;
 		this.tradePrice = tradePrice;
 		this.status = status;
@@ -85,6 +87,12 @@ public class TradeLog {
 	public void setStockId(int stockId) {
 		this.stockId = stockId;
 	}
+	public String getStockName() {
+		return stockName;
+	}
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
+	}
 	/**
 	 * @return the tradeQty
 	 */
@@ -137,11 +145,12 @@ public class TradeLog {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "TradeLog [tradeId=" + tradeId + ", memberId=" + memberId + ", tradeDate=" + tradeDate + ", stockId="
-				+ stockId + ", tradeQty=" + tradeQty + ", tradePrice=" + tradePrice + ", status=" + status + "]";
+				+ stockId + ", stockName=" + stockName + ", tradeQty=" + tradeQty + ", tradePrice=" + tradePrice
+				+ ", status=" + status + "]";
 	}
 	
 	

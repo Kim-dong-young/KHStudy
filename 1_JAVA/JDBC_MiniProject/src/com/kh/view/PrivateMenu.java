@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.kh.controller.MemberController;
 import com.kh.model.vo.Share;
+import com.kh.model.vo.TradeLog;
 import com.kh.model.vo.items.Item;
 
 public class PrivateMenu {
@@ -50,7 +51,7 @@ public class PrivateMenu {
 				itemMenu();
 				break;
 			case 3:
-
+				tradeLogMenu();
 				break;
 			case 0:
 				System.out.println("마이페이지에서 나갑니다.");
@@ -75,7 +76,7 @@ public class PrivateMenu {
 	
 	public void displayItemList(ArrayList<Item> itemList) {
 		if (itemList.isEmpty()) {
-			System.out.println("보유중인 주식이 없습니다.");
+			System.out.println("보유중인 아이템이 없습니다.");
 			return;
 		}
 		
@@ -84,12 +85,23 @@ public class PrivateMenu {
 		}
 	}
 	
+	public void displayTradeLog(ArrayList<TradeLog> tradeLog) {
+		if (tradeLog.isEmpty()) {
+			System.out.println("거래 기록이 없습니다.");
+			return;
+		}
+		
+		for(TradeLog tl : tradeLog) {
+			System.out.println(tl);
+		}
+	}
+	
 	public void itemMenu() {
 		int ch = -1;
 		
 		while(ch != 0) {
 			System.out.println("===== 보유중인 아이템 =====");
-			displayItemList(mc.getItemList(mc.getCurrentMember()));
+			displayItemList(mc.getMemberItemList(mc.getCurrentMember()));
 			System.out.println("0. 마이페이지로 돌아가기");
 			System.out.print("사용할 아이템 번호 : ");
 			
@@ -107,6 +119,25 @@ public class PrivateMenu {
 			
 		}
 		
+	}
+	
+	public void tradeLogMenu() {
+		int ch = -1;
+		int minIndex = 1;
+		// 한번에 end - start + 1 개 거래기록 조회 
+		int start = minIndex; // 가져올 기록 시작 인덱스
+		int end = 10; // 가져올 기록 끝 인덱스
+		
+		while(ch != 0) {
+			System.out.println("===== 최근 거래 기록 =====");
+			displayTradeLog(mc.getMemberTradeLog(mc.getCurrentMember(), start, end));
+			System.out.println("=======================");
+			System.out.println("최신 기록으로 : N / 이전 기록으로 : P 입력");
+			System.out.print("이동할 페이지 입력 : ");
+			String nextPage = s.next().toUpperCase();
+			
+			// TODO 불러온 페이지 보여줄 것. 최소 페이지 = MININDEX 조건문, 더 보여줄 페이지 없으면 END값 증가 X
+		}
 	}
 	
 }

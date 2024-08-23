@@ -13,7 +13,7 @@ import com.kh.model.vo.MemberStock;
 public class MemberStockService {
 	private static MemberStockService mst;
 	
-	private MemberStockDao msd = MemberStockDao.getInstance();
+	private MemberStockDao msd = MemberStockDao.getInstance();;
 	
 	private MemberStockService() {
 		super();
@@ -28,14 +28,6 @@ public class MemberStockService {
 	public ArrayList<MemberStock> getMemberStockList(Member m) {
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<MemberStock> mStockList = msd.getMemberStockList(conn, m);
-		
-		JDBCTemplate.close(conn);
-		return mStockList;
-	}
-
-	public ArrayList<MemberStock> loadMemberStockList(Member m) {
-		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<MemberStock> mStockList = msd.loadMemberStockList(conn, m);
 		
 		JDBCTemplate.close(conn);
 		return mStockList;

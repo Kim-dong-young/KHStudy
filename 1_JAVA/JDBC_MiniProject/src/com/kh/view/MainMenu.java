@@ -138,7 +138,7 @@ public class MainMenu {
 	}
 	
 	private void displayStockList() {
-		ArrayList<MemberStock> mStockList = msc.getMemberStockList();
+		ArrayList<MemberStock> mStockList = mc.getMemberStockList(mc.getCurrentMember());
 		
 		if(mStockList.isEmpty()) {
 			System.out.println("현재 상장된 종목이 없습니다.");
@@ -150,24 +150,5 @@ public class MainMenu {
 		}
 	}
 
-	public void registerSuccess() {
-		System.out.println("회원가입에 성공하였습니다.");
-	}
-	
-	public void registerFail() {
-		System.out.println("회원가입에 실패하였습니다.");
-	}
-	
-	public void loginSuccess() {
-		System.out.println("로그인에 성공하였습니다.");
-	}
-	
-	public void loginFail() {
-		System.out.println("로그인에 실패하였습니다.");
-	}
-	
-	public void loadMemberStockListFail() {
-		System.out.println("주식 목록을 불러오는데 실패했습니다.");
-	}
 	
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko"> <!-- html 문서의 시작, 끝을 표시해주는 태그 / lang속성은 페이지가 어느나라 언어인지 표시 -->
+    <head> <!-- 머리부분 : 문서의 각종 정보, 제목, 설명, 외부파일을 가져오는 것등 작성 -->
+        <meta charset="UTF-8"> <!-- 인코딩 설정 -->
+        <meta name="generator" content="VScode"> <!-- generator : 해당 문서를 작성한 프로그램 -->
+        <meta name="author" content="kim"> <!-- author : 해당 문서를 작성한 사람 -->
+        <meta name="description" content="html 학습용 문서">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>목록태그관련</title>
+    </head>
+
+    <body>
+        <li>목록1</li>
+        <li>목록2</li>
+
+        <h1>ul : 순서없는 목록 태그</h1>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>jQuery</li>
+        </ul>
+        <br>
+        <ul>
+            <li>HTML</li>
+                <ul>
+                    <li>글자관련태그</li>
+                    <li>목록관련태그</li>
+                </ul>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>jQuery</li>
+        </ul>
+        검색최적화를 위해 ul 등으로 태그를 잘 분리해놓자.
+
+        <hr>
+
+        <h1>ol : 순서있는 목록 태그</h1>
+        <ol>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>jQuery</li>
+        </ol>
+        <br>
+        <!-- type속성을 통해서 순서표현방식을 변경할 수 있다.(A,a,i...)-->
+        <!-- start속성을 이용해서 시작순서를 변경할 수 있다. -->
+        <ol type="A" start="8" reversed>
+            <li>HTML</li>
+                <ul>
+                    <li>글자관련태그</li>
+                    <li>목록관련태그</li>
+                </ul>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>jQuery</li>
+        </ol>
+        그밖에 모르는 html 태그 등등은 w3school 에서 찾아보고 공부하자
+        <a href="https://www.w3schools.com/html/default.asp"><b>https://www.w3schools.com/html/default.asp</b></a>
+
+        <br><br>
+
+
+
+    </body>
+</html>

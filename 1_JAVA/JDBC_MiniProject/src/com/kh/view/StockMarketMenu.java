@@ -22,7 +22,7 @@ public class StockMarketMenu {
 		this.s = s;
 	}
 	
-	public boolean chartMenu(ArrayList<MemberStock> mStockList) {
+	public boolean displayMemberStock(ArrayList<MemberStock> mStockList) {
 		// 조회에 실패할 경우 false 반환
 		if(mStockList.isEmpty()) {
 			System.out.println("현재 상장된 종목이 없습니다.");
@@ -35,7 +35,7 @@ public class StockMarketMenu {
 		return true;
 	}
 	
-	public boolean shareHeldMenu(ArrayList<Share> shareHeld) {
+	public boolean displayShareHeld(ArrayList<Share> shareHeld) {
 		// 조회에 실패할 경우 false 반환
 		if (shareHeld.isEmpty()) {
 			System.out.println("보유중인 주식이 없습니다.");
@@ -84,7 +84,8 @@ public class StockMarketMenu {
 	
 	public void buyStockMenu() {
 		// 조회에 실패할 경우 false 반환
-		if (!chartMenu(mc.getMemberStockList(mc.getCurrentMember())) ) {
+		if (!displayMemberStock( mc.getMemberStockList(mc.getCurrentMember())) ) {
+			new AlertMenu().getMemberStockListFail();
 			return;
 		}
 		
@@ -107,7 +108,7 @@ public class StockMarketMenu {
 	
 	public void sellStockMenu() {
 		// 조회에 실패할 경우 false 반환
-		if (!shareHeldMenu(mc.getMemberShareHeld(mc.getCurrentMember())) ) {
+		if (!displayShareHeld( mc.getMemberShareHeld(mc.getCurrentMember())) ) {
 			return;
 		}
 		
@@ -126,23 +127,5 @@ public class StockMarketMenu {
 		
 		mc.sellStock(mc.getCurrentMember(),sellQuantity, sellStockName);
 	}
-	
-	public void buyStockSuccess() {
-		System.out.println("구매에 성공하였습니다.");
-	}
-	
-	public void buyStockFail() {
-		System.out.println("구매에 실패하였습니다.");
-	}
-	
-	public void sellStockSuccess() {
-		System.out.println("판매에 성공하였습니다.");
-	}
-
-	public void sellStockFail() {
-		System.out.println("판매에 실패하였습니다.");
-	}
-
-	
 	
 }
