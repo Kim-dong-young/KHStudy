@@ -108,7 +108,7 @@
 
         <h2>숫자와 관련된 input태그의 타입</h2>
         <form action="test.co">
-            <h3>type = "number</h3>
+            <h3>type = "number"</h3>
             <p>
                 - 숫자값만 작성 가능한 텍스트 상자<br>
                 - 스핀박스가 표시된다(스핀박스 : 위/아래 화살표)<br>
@@ -145,23 +145,57 @@
 
         <br>
 
-        <h3>selectbox : 여러개 중에 한개만 선택</h3>
-        <select name="color">
-            <option value="red">빨간색</option>
-            <option value="blue">파란색</option>
-        </select>
-
-        <br>
-
-        <h3>checkbox</h3>
-        사과<input type="checkbox"> <br>
-        바나나<input type="checkbox"> <br>
-        수박<input type="checkbox"> <br>
-
-        <h3>radio</h3>
-        딸기<input type="radio" name="r1">
-        레몬<input type="radio" name="r1">
-        자몽<input type="radio" name="r1">
         
+            <h3>selectbox : 여러개 중에 한개만 선택</h3>
+            <h4>무조건 하나를 선택해야 할 때</h4>
+            <select name="color">
+                <option>선택</option>
+                <option value="red">빨간색</option>
+                <option value="blue">파란색</option>
+            </select>
+
+            <br>
+
+        <form action = "test.co">
+            <!-- name : 데이터 받는쪽에서 식별할 아이디
+                id : 페이지 내에서 유일한 식별자 -->
+            <h3>radio  button</h3> <!-- checked : 미리 체크되있게 설정 -->
+            <p>
+                selectbox 처럼 여러개 중에 하나를 선택할 때 주로 사용함<br>
+                name 속성을 통해서 여러개의 라디오버튼을 하나의 선택지로 묶을 수 있음<br>
+                checked 속성을 넣은 라디오버튼이 기본값으로 설정됨 <br>
+                id - for 속성을 통해서 input과 label 태그를 묶어줄 수 있음<br>
+                서버에 실제로 전달될 때 key -> name속성값, value -> value 속성값으로 전달
+            </p>
+            <input type="radio" name="gender" id="man" value="man" checked>
+            <!-- id를 설정하고 for 을 붙이면, 버튼이 아닌 이름 클릭해도
+                선택이 가능 => 유저 편의적 -->
+            <label for="man">남자</label>
+            <input type="radio" name="gender" id="woman" value="woman">
+            <label for="woman">여자</label>
+
+            <br>
+
+            <h3>checkbox</h3>
+            <h4>여러개를 선택할 때 사용</h4>
+            <p>
+                다중선택 시 주로 사용함<br>
+                name 속성을 통해서 여러개의 체크박스를 하나의 선택지로 묶을 수 있음<br>
+                checked 속성을 넣은 체크박스는 체크가 된 상태가 기본이 됨 <br>
+                id - for 속성을 통해서 input과 label 태그를 묶어줄 수 있음<br>
+                서버에 실제로 전달될 때 key -> name속성값, value -> value 속성값으로 전달
+            </p>
+            <input type="checkbox" id = "red" name="color" checked>
+            <label for="red">빨간색</label>
+
+            <input type="checkbox" id="blue" name="color">
+            <label for="blue">파란색</label>
+
+            <input type="checkbox" id="yellow" name="color">
+            <label for="yellow">노란색</label>
+
+            <br><br>
+            <input type="submit">
+        </form>
     </body>
 </html>

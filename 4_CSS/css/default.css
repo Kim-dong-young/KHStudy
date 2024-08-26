@@ -1,0 +1,121 @@
+/* css 영역 */
+
+/* 1. 속성선택자 -------------------------------------------- */
+
+/* div요소들 중 name 속성값이 name1과 정확히 "일치"하는 요소*/
+div[name=name1]{ 
+    background : rgb(104, 169, 255);
+}
+
+/* div요소들 중 name 속성값에 공백으로 구분되는 name1이 "포함"된 요소 */
+div[name~=name1]{
+    background : yellowgreen
+}
+
+/* div요소들 중 class속성값이 class로 "시작*되는 요소 */
+/* 속성값 구분은 -(하이폰) 으로 함. 띄어쓰기 X */
+/* class = "class-div" => O */
+/* class = "class  div" => X */
+div[class|=class]{
+    background : rgb(201, 169, 169);
+}
+
+/* div요소들 중 name속성값이 na로 "시작"하는 요소 */
+div[name^=na]{
+    background : wheat;
+}
+
+/* div요소들 중 class 속성값이 ss로 "끝"나는 요소 */
+div[class$=ss]{
+    color : white;
+}
+
+/* div요소들 중 class 속성값에 i가 어디든지 "포함"되어있는 요소 */
+div[class*=i]{
+    background : yellow;
+    color : red;
+}
+
+/* 문제 : class 속성값이 div-class인 요소들 중에서 name속성값에 name3가 포함된 요소(배경 : pink) */
+.div-class[name~=name3]{
+    background : pink;
+}
+
+/* 2. 자손 선택자와 후손선택자 ---------------------------------- */
+/* a>b: a 요소의 자손들 중에서 b요소만 전부 선택 */
+
+/* 아이디가 test1인 요소들의 자손들중 h4만 선택 */
+#test1>h4{
+    background :rgb(104, 169, 255);
+}
+
+#test1>ul>li{
+    background :rgb(74, 231, 192);
+}
+
+/* a b : a요소의 후손들 중에서 b요소 전부 선택 */
+
+#test1 li{
+    color : white;
+}
+
+/* 3. 동위 선택자 ---------------------------------------- */
+#test2+div{
+    background-color : yellow
+}
+
+#test2+ul{
+    background-color : yellow
+} /* 바로 뒤에 있는 요소가 아니기 때문에 선택 X */
+
+/*
+#test2~div{
+    background-color: antiquewhite
+}
+*/
+
+#test2~ul{
+    background-color: indianred;
+}
+
+/* 4. 반응 선택자 --------------------------------------- */
+.area{
+    background-color:yellowgreen;
+    width: 100px;
+    height: 100px;
+    cursor : pointer;
+}
+
+#active-test:active{
+    background-color: brown;
+    color:yellow;
+}
+
+#hover-test:hover{
+    background-color: rgb(248, 186, 105);
+    color:rgb(250, 246, 186);
+    scale: 0.98;
+}
+
+/* 5. 상태 선택자 --------------------------------------- */
+input[type=checkbox]:checked{
+    width : 20px;
+    height : 20px;
+}
+
+input[type=checkbox]:checked+label{
+    font-size : 20px;
+}
+
+input[name^=user]:focus{
+    background-color: hotpink;
+}
+
+button:enabled{
+    background-color: greenyellow;
+}
+
+button:disabled{
+    background-color:salmon;
+    opacity : 0.7; /* oapcity : 선명도(0 ~ 1) */
+}
