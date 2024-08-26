@@ -1,39 +1,41 @@
 package com.kh.model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.kh.common.JDBCTemplate;
+import com.kh.model.vo.Member;
 import com.kh.model.vo.items.Item;
 
-public class ItemDao {
-	private static ItemDao id;
+public class MemberItemDao {
+	private static MemberItemDao itd;
 	
-	private ItemDao() {
+	private MemberItemDao() {
 		super();
 	}
-
-	public static ItemDao getInstance() {
-		if(id == null) {
-			id = new ItemDao();
-		}
-		return id;
+	
+	public static MemberItemDao getInstance() {
+		if(itd == null)
+			itd = new MemberItemDao();
+		return itd;
 	}
 
-	public ArrayList<Item> getItemList(Connection conn) {
+	public ArrayList<Item> getMemberItemList(Connection conn, Member m) {
 		ArrayList<Item> itemList = new ArrayList<>();
 		ResultSet rset = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		
-		String sql = "SELECT * FROM TB_ITEM";
+		String sql = "SELECT * FROM TB_MEMBER_ITEM JOIN TB_ITEM USING(ITEM_ID) WHERE MEMBER_UID = ?";
 		
 		try {
-			stmt = conn.createStatement();
+			pstmt = conn.prepareStatement(sql);
 			
-			rset = stmt.executeQuery(sql);
+			pstmt.setInt(1, m.getMemberUid());
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				Item item = new Item();
@@ -49,10 +51,9 @@ public class ItemDao {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
+			JDBCTemplate.close(pstmt);
 		}
 		
 		return itemList;
 	}
-
 }

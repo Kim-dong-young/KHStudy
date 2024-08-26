@@ -15,7 +15,7 @@ public class MemberController {
 	private static MemberController mc;
 	MemberStockController msc;
 	ShareController sc;
-	ItemController ic;
+	MemberItemController ic;
 	TradeLogController tc;
 	
 	private Member currentMember;
@@ -95,7 +95,7 @@ public class MemberController {
 	}
 	
 	public ArrayList<Item> getMemberItemList(Member m) {
-		ic = ItemController.getInstance();
+		ic = MemberItemController.getInstance();
 		
 		return ic.getMemberItemList(m);
 	}

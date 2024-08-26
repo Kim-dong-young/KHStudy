@@ -32,6 +32,10 @@ public class AlertMenu {
 		System.out.println("거래 기록을 불러오는데 실패했습니다.");
 	}
 	
+	public void tradeLogNotExist() {
+		System.out.println("거래 기록이 존재하지 않습니다.");
+	}
+	
 	
 	// 주식 거래 관련
 	public void buyStockSuccess() {
@@ -50,5 +54,9 @@ public class AlertMenu {
 		System.out.println("판매에 실패하였습니다.");
 	}
 	
+	// 입출력 관련
+	public void inputValueNotValid() {
+		System.out.println("잘못된 입력입니다.");
+	}
 	
 }

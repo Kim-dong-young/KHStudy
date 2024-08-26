@@ -452,7 +452,6 @@ FROM (
         WHERE T.MEMBER_UID = 1
 ) WHERE RNUM BETWEEN 10 AND 20;
 
-
 -- =========================
 -- µð¹ö±ë¿ë
 UPDATE TB_MEMBER

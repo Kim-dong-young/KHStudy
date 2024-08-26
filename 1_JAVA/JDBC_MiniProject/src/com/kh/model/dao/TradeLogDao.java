@@ -42,7 +42,7 @@ public class TradeLogDao {
 				+ "            ROW_NUMBER() OVER(ORDER BY T.TRADE_DATE DESC) AS RNUM "
 				+ "        FROM TB_TRADELOG T "
 				+ "        JOIN TB_STOCK_LIST S ON T.STOCK_ID = S.STOCK_ID "
-				+ "        WHERE T.MEMBER_UID = 1 "
+				+ "        WHERE T.MEMBER_UID = ? "
 				+ ") WHERE RNUM BETWEEN ? AND ?";
 
 		try {

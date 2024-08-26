@@ -12,7 +12,6 @@ import com.kh.model.vo.MemberStock;
 public class MainMenu {
 	Scanner s = new Scanner(System.in);
 	private MemberController mc = MemberController.getInstance();
-	private MemberStockController msc = MemberStockController.getInstance();
 	
 	public void mainMenu() {
 		int ch = -1;
@@ -123,7 +122,7 @@ public class MainMenu {
 				new PrivateMenu(s).mainMenu();
 				break;
 			case 5:
-
+				new ItemStoreMenu(s).mainMenu();
 				break;
 			case 6:
 

@@ -85,15 +85,15 @@ public class PrivateMenu {
 		}
 	}
 	
-	public void displayTradeLog(ArrayList<TradeLog> tradeLog) {
+	public int displayTradeLog(ArrayList<TradeLog> tradeLog) {
 		if (tradeLog.isEmpty()) {
 			System.out.println("거래 기록이 없습니다.");
-			return;
 		}
 		
 		for(TradeLog tl : tradeLog) {
 			System.out.println(tl);
 		}
+		return tradeLog.size();
 	}
 	
 	public void itemMenu() {
@@ -123,20 +123,50 @@ public class PrivateMenu {
 	
 	public void tradeLogMenu() {
 		int ch = -1;
-		int minIndex = 1;
+		int pageNum = 10;
 		// 한번에 end - start + 1 개 거래기록 조회 
-		int start = minIndex; // 가져올 기록 시작 인덱스
-		int end = 10; // 가져올 기록 끝 인덱스
+		int start = 1; // 가져올 기록 시작 인덱스
+		int end = pageNum; // 가져올 기록 끝 인덱스
 		
 		while(ch != 0) {
 			System.out.println("===== 최근 거래 기록 =====");
-			displayTradeLog(mc.getMemberTradeLog(mc.getCurrentMember(), start, end));
+			int logCount = displayTradeLog(mc.getMemberTradeLog(mc.getCurrentMember(), start, end));
 			System.out.println("=======================");
 			System.out.println("최신 기록으로 : N / 이전 기록으로 : P 입력");
+			System.out.println("뒤로 가기 : Q 입력");
 			System.out.print("이동할 페이지 입력 : ");
 			String nextPage = s.next().toUpperCase();
 			
-			// TODO 불러온 페이지 보여줄 것. 최소 페이지 = MININDEX 조건문, 더 보여줄 페이지 없으면 END값 증가 X
+			// 시작 인덱스가 1 이상인지 검사
+			if(nextPage.equals("N") && start - pageNum > 0 ) {
+				start -= pageNum;
+				end -= pageNum;
+			}
+			
+			// 시작 인덱스가 1 이하면 지금 페이지가 가장 최신
+			else if(nextPage.equals("N") && start - pageNum < 0 ) {
+				new AlertMenu().tradeLogNotExist();
+			}
+			
+			// 불러온 로그 갯수가 최대 갯수와 같다 = 더 불러올 데이터가 있다고 가정
+			else if(nextPage.equals("P") && logCount == pageNum) {
+				start += pageNum;
+				end += pageNum;
+			}
+			
+			// 불러온 로그 갯수가 최대 갯수와 다름 = 100% 마지막 페이지
+			else if(nextPage.equals("P") && logCount != pageNum) {
+				new AlertMenu().tradeLogNotExist();
+			}
+			
+			
+			else if(nextPage.equals("Q")) {
+				return;
+			}
+			
+			else {
+				new AlertMenu().inputValueNotValid();
+			}
 		}
 	}
 	
