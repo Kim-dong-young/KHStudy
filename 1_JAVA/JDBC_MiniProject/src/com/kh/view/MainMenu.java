@@ -86,6 +86,7 @@ public class MainMenu {
 		int ch = -1;
 
 		while (ch != 0) {
+			cMember = mc.getCurrentMember();
 			System.out.printf("===== %s 님 환영합니다. =====\n", cMember.getMemberName());
 			System.out.printf("현재 날짜 : %d일\n", cMember.getDay());
 			System.out.printf("보유 자산 : %d원\n", cMember.getBalance());

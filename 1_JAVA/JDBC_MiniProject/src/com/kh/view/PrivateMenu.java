@@ -115,8 +115,10 @@ public class PrivateMenu {
 			}
 			
 			
-			if(ch == 0) return;
-			
+			if(ch == 0) 
+				return;
+			else
+				mc.useItem(ch);
 		}
 		
 	}

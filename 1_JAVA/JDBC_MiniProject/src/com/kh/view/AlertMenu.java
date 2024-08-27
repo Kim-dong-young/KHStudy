@@ -39,19 +39,32 @@ public class AlertMenu {
 	
 	// 주식 거래 관련
 	public void buyStockSuccess() {
-		System.out.println("구매에 성공하였습니다.");
+		System.out.println("주식 구매에 성공하였습니다.");
 	}
 	
 	public void buyStockFail() {
-		System.out.println("구매에 실패하였습니다.");
+		System.out.println("주식 구매에 실패하였습니다.");
 	}
 	
 	public void sellStockSuccess() {
-		System.out.println("판매에 성공하였습니다.");
+		System.out.println("주식 판매에 성공하였습니다.");
 	}
 
 	public void sellStockFail() {
-		System.out.println("판매에 실패하였습니다.");
+		System.out.println("주식 판매에 실패하였습니다.");
+	}
+	
+	// 상점 거래 관련
+	public void itemNotExist() {
+		System.out.println("해당 아이템이 존재하지 않습니다.");
+	}
+	
+	public void buyItemSuccess() {
+		System.out.println("아이템 구매에 성공하였습니다.");
+	}
+	
+	public void buyItemFail() {
+		System.out.println("아이템 구매에 실패하였습니다.");
 	}
 	
 	// 입출력 관련

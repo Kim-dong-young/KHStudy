@@ -25,6 +25,10 @@ public class MemberController {
 	private MemberController() {
 		super();
 		ms = MemberService.getInstance();
+		msc = MemberStockController.getInstance();
+		sc = ShareController.getInstance();
+		ic = MemberItemController.getInstance();
+		tc = TradeLogController.getInstance();
 		this.currentMember = null;
 	}
 
@@ -83,48 +87,54 @@ public class MemberController {
 	}
 	
 	public ArrayList<MemberStock> getMemberStockList(Member m) {
-		msc = MemberStockController.getInstance();
-		
 		return msc.getMemberStockList(m);
 	}
 	
 	public ArrayList<Share> getMemberShareHeld(Member m){
-		sc = ShareController.getInstance();
-		
 		return sc.getShareHeld(m);
 	}
 	
 	public ArrayList<Item> getMemberItemList(Member m) {
-		ic = MemberItemController.getInstance();
-		
 		return ic.getMemberItemList(m);
 	}
 	
 	public ArrayList<TradeLog> getMemberTradeLog(Member m, int start, int end) {
-		tc = TradeLogController.getInstance();
-		
 		return tc.getMemberTradeLog(m, start, end);
 	}
 	
 	
 	public void buyStock(Member member, int buyQuantity, String buyStockName) {
-		msc = MemberStockController.getInstance();
-		
 		msc.buyStock(member, buyQuantity, buyStockName);
 		
 		Member memberInfo = loadMemberInfo(member);
 		if(memberInfo != null)
-			currentMember.setBalance(memberInfo.getBalance());
+			mc.setCurrentMember(memberInfo);
 	}
 
 	public void sellStock(Member member, int sellQuantity, String sellStockName) {
-		msc = MemberStockController.getInstance();
-		
 		msc.sellStock(member,sellQuantity,sellStockName);
 		
 		Member memberInfo = loadMemberInfo(member);
 		if(memberInfo != null)
-			currentMember.setBalance(memberInfo.getBalance());
+			mc.setCurrentMember(memberInfo);
+	}
+
+	public void buyItem(Member member, Item item) {
+		if( ic.buyItem(member, item) ) {
+			new AlertMenu().buyItemSuccess();
+		}
+		else {
+			new AlertMenu().buyItemFail();
+		}
+		
+		Member memberInfo = loadMemberInfo(member);
+		if(memberInfo != null)
+			mc.setCurrentMember(memberInfo);
+	}
+
+	public void useItem(int ch) {
+		// TODO 아이템 사용 구현
+		
 	}
 
 

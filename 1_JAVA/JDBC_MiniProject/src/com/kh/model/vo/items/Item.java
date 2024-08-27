@@ -2,7 +2,7 @@ package com.kh.model.vo.items;
 
 import java.util.Objects;
 
-public class Item {
+public class Item implements useable {
 	private int itemId;
 	private String itemName;
 	private int itemPrice;
@@ -11,7 +11,12 @@ public class Item {
 	public Item() {
 		super();
 	}
-	
+
+	public Item(int itemId) {
+		super();
+		this.itemId = itemId;
+	}
+
 	public Item(int itemId, String itemName, int itemPrice, String itemDesc) {
 		super();
 		this.itemId = itemId;
@@ -90,9 +95,11 @@ public class Item {
 		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", itemDesc="
 				+ itemDesc + "]";
 	}
-	
+
+	@Override
 	public void use() {
 		
 	}
+	
 	
 }

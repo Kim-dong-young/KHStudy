@@ -120,12 +120,11 @@ public class MemberStockDao {
 			String errorMessage = e.getMessage();
 			
 			if(errorMessage.contains("ORA-20002")) {
-				System.out.println("보유한 주식 수량이 부족합니다.");
+				isSuccess = false;
 			}
 			else {
 				e.printStackTrace();
 			}
-			
 		} finally {
 			JDBCTemplate.close(cstmt);
 		}

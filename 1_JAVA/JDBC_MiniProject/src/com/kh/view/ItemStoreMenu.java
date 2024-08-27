@@ -5,17 +5,20 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.kh.controller.ItemController;
+import com.kh.controller.MemberController;
 import com.kh.model.vo.items.Item;
 
 public class ItemStoreMenu {
 	private Scanner s;
 	
 	private ItemController ic;
+	private MemberController mc;
 	
 	public ItemStoreMenu(Scanner s) {
 		super();
 		this.s = s;
 		ic = ItemController.getInstance();
+		mc = MemberController.getInstance();
 	}
 	
 	public void displayItemList(ArrayList<Item> itemList) {
@@ -35,7 +38,8 @@ public class ItemStoreMenu {
 		while (ch != 0) {
 			System.out.println("===== 아이템 목록 =====");
 			System.out.println(">>> 아이템 사용은 마이페이지에서 가능합니다");
-			displayItemList(ic.getItemList());
+			ArrayList<Item> itemList = ic.getItemList();
+			displayItemList(itemList);
 			System.out.println("0. 메뉴로 돌아가기");
 			System.out.print("구매할 아이템 번호 입력 : ");
 			try {
@@ -47,13 +51,20 @@ public class ItemStoreMenu {
 				s.nextLine();
 			}
 
-			if (ch == 0) return;
+			if (ch == 0) 
+				return;
  			
-			purchaseMenu(ch);
+			else 
+				buyMenu(new Item(ch), itemList);
 		}
 	}
 	
-	public void purchaseMenu(int itemNum) {
+	public void buyMenu(Item item, ArrayList<Item> itemList) {
+		if(!itemList.contains(item)) {
+			new AlertMenu().itemNotExist();
+			return;
+		}
 		
+		mc.buyItem(mc.getCurrentMember(), item);
 	}
 }

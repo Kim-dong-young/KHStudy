@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.model.dao.MemberItemDao;
+import com.kh.model.dto.BuyItemRequest;
 import com.kh.model.vo.Member;
 import com.kh.model.vo.items.Item;
 
@@ -28,5 +29,13 @@ public class MemberItemService {
 		
 		JDBCTemplate.close(conn);
 		return itemList;
+	}
+
+	public boolean buyItem(BuyItemRequest biRequest) {
+		Connection conn = JDBCTemplate.getConnection();
+		boolean isSuccess = idao.buyItem(conn, biRequest);
+		
+		JDBCTemplate.close(conn);
+		return isSuccess;
 	}
 }

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.model.vo.items.Item;
@@ -24,11 +25,11 @@ public class ItemDao {
 	}
 
 	public ArrayList<Item> getItemList(Connection conn) {
-		ArrayList<Item> itemList = new ArrayList<>();
+		ArrayList<Item> itemList = new ArrayList<Item>();
 		ResultSet rset = null;
 		Statement stmt = null;
 		
-		String sql = "SELECT * FROM TB_ITEM";
+		String sql = "SELECT * FROM TB_ITEM ORDER BY ITEM_ID";
 		
 		try {
 			stmt = conn.createStatement();

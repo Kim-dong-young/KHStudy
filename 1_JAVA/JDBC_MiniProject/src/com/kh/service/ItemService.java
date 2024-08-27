@@ -2,6 +2,7 @@ package com.kh.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.model.dao.ItemDao;
