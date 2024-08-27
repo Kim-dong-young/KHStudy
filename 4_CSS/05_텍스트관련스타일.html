@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>텍스트 관련 스타일</title>
+
+        <style>
+            #c{
+                color : red;
+                color : #F266F2;
+                color : rgb(0,0,0);
+                color : rgba(15,94,48,0.452);
+            } 
+
+            #td1{text-decoration: underline;}
+            #td2{text-decoration: line-through;}
+            #td3{text-decoration: overline;}
+        </style>
+    </head>
+
+    <body>
+        <h1>텍스트 관련 스타일(text~)</h1>
+
+        <h2>color : 텍스트 색상 지정</h2>
+        <pre id="c">
+            선택자{
+                color:색상명 | #16진수(코드값) | rgb(x,x,x) | rgba(x,x,x,x)
+            }
+        </pre>
+
+        <h2>text-decoration : 텍스트에 줄을 긋거나 줄을 없앨 때 사용</h2>
+        <pre>
+            선택자{
+                text-decoration : none | underline | overline | line-through;
+            }
+        </pre>
+
+        <ul>
+            <li id="td1">텍스트 영역 아래 줄 긋기</li>
+            <li id="td2">텍스트 영역 중간에 줄 긋기</li>
+            <li id="td3">텍스트 영역 위에 줄 긋기</li>
+        </ul>
+
+        <a href="https://www.naver.com" target="_blank" style="text-decoration : none">네이버로</a>
+
+        <hr>
+
+        <h3>text-align : 텍스트 정렬할 때 사용</h3>
+        <pre>
+            선택자{
+                text-align:left(기본값) | right | center | justify
+            }
+        </pre>
+
+        <h4>왼쪽정렬(기본값)</h4>
+        <p style="text-align: left;">
+            (엑스포츠뉴스 김근한 기자) 이 정도면 '푸른 한화' 신드롬이 아닐까. <br>
+            전통적인 주황색이 아닌 푸른색을 입은 한화 이글스가 상대 팀들에 공포의 존재로 변신했다. <br>
+            한화가 푸른 원정 유니폼을 입고 거둔 성적은 무려 14승 3패다. <br>
+            이제 한화는 5강 경쟁자 가운데 가장 많은 잔여 맞대결(8차례)을 치르는 롯데 자이언츠 원정으로 향한다. <br>
+            주축 타자인 채은성과 안치홍도 복귀할 예정이라 더 두려울 게 없다. <br>
+        </p>
+        
+        <h4>양쪽정렬</h4>
+        <p style="text-align : justify">
+            (엑스포츠뉴스 김근한 기자) 이 정도면 '푸른 한화' 신드롬이 아닐까. <br>
+            전통적인 주황색이 아닌 푸른색을 입은 한화 이글스가 상대 팀들에 공포의 존재로 변신했다. <br>
+            한화가 푸른 원정 유니폼을 입고 거둔 성적은 무려 14승 3패다. <br>
+            이제 한화는 5강 경쟁자 가운데 가장 많은 잔여 맞대결(8차례)을 치르는 롯데 자이언츠 원정으로 향한다. <br>
+            주축 타자인 채은성과 안치홍도 복귀할 예정이라 더 두려울 게 없다. <br>
+        </p>
+
+        <h4>중앙정렬</h4>
+        <p style="text-align: center;">
+            (엑스포츠뉴스 김근한 기자) 이 정도면 '푸른 한화' 신드롬이 아닐까. <br>
+            전통적인 주황색이 아닌 푸른색을 입은 한화 이글스가 상대 팀들에 공포의 존재로 변신했다. <br>
+            한화가 푸른 원정 유니폼을 입고 거둔 성적은 무려 14승 3패다. <br>
+            이제 한화는 5강 경쟁자 가운데 가장 많은 잔여 맞대결(8차례)을 치르는 롯데 자이언츠 원정으로 향한다. <br>
+            주축 타자인 채은성과 안치홍도 복귀할 예정이라 더 두려울 게 없다. <br>
+        </p>
+
+        <h4>오른쪽 정렬</h4>
+        <p style="text-align: right;">
+            (엑스포츠뉴스 김근한 기자) 이 정도면 '푸른 한화' 신드롬이 아닐까. <br>
+            전통적인 주황색이 아닌 푸른색을 입은 한화 이글스가 상대 팀들에 공포의 존재로 변신했다. <br>
+            한화가 푸른 원정 유니폼을 입고 거둔 성적은 무려 14승 3패다. <br>
+            이제 한화는 5강 경쟁자 가운데 가장 많은 잔여 맞대결(8차례)을 치르는 롯데 자이언츠 원정으로 향한다. <br>
+            주축 타자인 채은성과 안치홍도 복귀할 예정이라 더 두려울 게 없다. <br>
+        </p>
+
+        <hr>
+
+        <h3>line-height : 줄 간격 조절할 때 사용</h3>
+
+        <pre>
+            선택자{
+                line-height : normal | px | em | %
+            }
+        </pre>
+
+        <h4>px고정단위 간격</h4>
+        <p style="line-height: 30px;">
+            (엑스포츠뉴스 김근한 기자) 이 정도면 '푸른 한화' 신드롬이 아닐까. <br>
+            전통적인 주황색이 아닌 푸른색을 입은 한화 이글스가 상대 팀들에 공포의 존재로 변신했다. <br>
+            한화가 푸른 원정 유니폼을 입고 거둔 성적은 무려 14승 3패다. <br>
+            이제 한화는 5강 경쟁자 가운데 가장 많은 잔여 맞대결(8차례)을 치르는 롯데 자이언츠 원정으로 향한다. <br>
+            주축 타자인 채은성과 안치홍도 복귀할 예정이라 더 두려울 게 없다. <br>
+        </p>
+        
+    </body>
+</html>

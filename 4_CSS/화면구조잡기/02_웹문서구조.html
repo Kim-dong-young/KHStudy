@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>웹문서 구조</title>
+
+        <style>
+            body{
+                margin : 0;
+                padding : 0;
+            }
+
+            div{
+                box-sizing: border-box;
+                border: 1px solid black;
+            }
+
+            /* 화면 전체를 감싸는 div */
+            .wrap{
+                width: 100%;
+                min-height: 500vh; /* vh = 전체 고정화면, 즉 한 스크린에 담기는 크기. 스크롤 내리면 비적용 */
+                height : 800px;
+            }
+
+            /* header, content, footer */
+            .wrap>div{
+                width : 100%;
+            }
+
+            /* 고정적인 크기를 가짐 */
+            #header, #footer{ height: 150px;}
+
+            /* 유동적으로 늘어나는 content */
+            #content{
+                min-height: 200px;
+                height : calc(100% - 300px);
+            }
+
+            #content > div{
+                height: 100%;
+                float: left;
+            }
+
+            #content1{
+                width: 150px;
+            }
+
+            #content{
+                width: calc(100% - 150px);
+            }
+
+        </style>
+    </head>
+
+    <body> 
+        <div class="wrap">
+            <div id="header"></div>
+            <div id="content">
+                <div id="content1"></div>
+                <div id="content2"></div>
+            </div>
+            <div id="footer"></div>
+        </div>
+    </body>
+</html>
