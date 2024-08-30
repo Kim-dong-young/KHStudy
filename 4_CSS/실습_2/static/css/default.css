@@ -1,0 +1,186 @@
+*{
+    margin : 0;
+    padding : 0;
+    box-sizing: border-box;
+    background-color: black;
+}
+
+.main{
+    width:100%;
+}
+
+.header{
+    display : flex;
+    align-items: center;
+    width:100%;
+    height:56px;
+}
+
+.header img{
+    padding: 8px;
+}
+
+.header > .logo-div {
+    width: 15%;
+    display: flex;
+}
+
+#hamburger-menu{
+    width:50px;
+    height:100px;
+}
+
+#youtube-logo{
+    width:120px;
+    height:100px;
+}
+
+.header > .input-div{
+    display : flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    width:70%;
+}
+
+.header > .input-div > input{
+    width:45%;
+    height:30px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border:1px solid gray;
+}
+
+#search-button{
+    background: url(../icons/search.svg) no-repeat center/contain;
+    background-color: rgb(53, 53, 53);
+    width:50px;
+    height:30px;
+    border:1px solid gray;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+#search-mic-button{
+    border-radius: 70%;
+    margin-left:20px;
+    background: url(../icons/voice-search-icon.svg) no-repeat center/contain;
+    background-color: rgb(53, 53, 53);
+    width:40px;
+    height:40px;
+}
+
+.header > .profile{
+    width:15%;
+}
+
+#upload{
+    width:50px;
+    height:50px;
+}
+
+#notifications{
+    width:50px;
+    height:50px;
+}
+
+#avatars{
+    width:50px;
+    height:50px;
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.content{
+    display : flex;
+}
+
+.content > .aside{
+    width:100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content > .aside div{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.content > .aside > div img{
+    width:40px;
+    height:40px;
+}
+
+.content > .aside > div p{
+    color:white;
+}
+
+.content > .video-list{
+    width: 93%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.video-list .video{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 10px;
+    width:333px;
+    height:287px;
+}
+
+.video .video-image{
+    width:100%;
+    position: relative;
+}
+
+.video .video-image img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.video .video-image p{
+    position:absolute;
+    bottom:8px;
+    right:10px;
+    background-color: black;
+    color:white;
+    padding-left:5px;
+    padding-right:5px;
+    border-radius: 5px;
+}
+
+.video .video-caption{
+    height:30%;
+    margin-top: 10px;
+    display: flex;
+}
+
+.video-caption .caption-profile {
+    width:15%;
+    height:100%;
+}
+
+.video-caption .caption-profile img{
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.video-caption .caption-text{
+    width:90%;
+    margin-left: 10px;
+}
+
+.caption-text h4{
+    color: white;
+    margin-bottom: 10px;
+}
+
+.caption-text h5{
+    color: gray;
+}
