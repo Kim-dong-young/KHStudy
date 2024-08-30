@@ -423,6 +423,26 @@ BEGIN
 END;
 /
 
+-- 아이템 사용 프로시저
+CREATE OR REPLACE PROCEDURE USE_ITEM_PROC(
+    p_member_uid IN NUMBER,
+    p_item_id IN NUMBER
+) IS
+BEGIN
+    -- 아이템 개수 차감
+    UPDATE TB_MEMBER_ITEM
+    SET ITEM_QTY = ITEM_QTY - 1
+    WHERE MEMBER_UID = p_member_uid
+        AND ITEM_ID = p_item_id
+        AND ITEM_QTY > 0;
+
+    -- SQL%ROWCOUNT : 가장 최근에 실행된 PL/SQL 문 SELECT 결과 갯수
+    IF SQL%ROWCOUNT = 0 THEN
+        RAISE_APPLICATION_ERROR(-20004, '아이템 개수가 부족합니다.');
+    END IF;
+END;
+/
+
 /* 디버그용 코드
 -- 컴파일 제대로 됬는지 확인
 SELECT OBJECT_NAME, STATUS 
@@ -502,3 +522,10 @@ INSERT INTO TB_MEMBER_ITEM VALUES(1,1,3);
 INSERT INTO TB_MEMBER_ITEM VALUES(1,2,2);
 
 SELECT * FROM TB_ITEM ORDER BY ITEM_ID;
+
+UPDATE TB_MEMBER_ITEM
+SET ITEM_QTY =3
+WHERE MEMBER_UID = 1;
+
+COMMIT;
+

@@ -98,7 +98,7 @@ public class Item implements useable {
 
 	@Override
 	public void use() {
-		
+		System.out.println(toString());
 	}
 	
 	

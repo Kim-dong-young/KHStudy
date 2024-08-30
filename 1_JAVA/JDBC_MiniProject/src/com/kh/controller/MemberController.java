@@ -3,13 +3,15 @@ package com.kh.controller;
 import java.util.ArrayList;
 
 import com.kh.model.vo.Member;
+import com.kh.model.vo.MemberItem;
 import com.kh.model.vo.MemberStock;
 import com.kh.model.vo.Share;
 import com.kh.model.vo.TradeLog;
 import com.kh.model.vo.items.Item;
+import com.kh.model.vo.items.PredictPrice;
+import com.kh.model.vo.items.TodayLuck;
 import com.kh.service.MemberService;
 import com.kh.view.AlertMenu;
-import com.kh.view.MainMenu;
 
 public class MemberController {
 	private static MemberController mc;
@@ -132,9 +134,26 @@ public class MemberController {
 			mc.setCurrentMember(memberInfo);
 	}
 
-	public void useItem(int ch) {
+	public void useItem(MemberItem memberItem) {
 		// TODO 아이템 사용 구현
+		// 1. DB에서 유저가 아이템을 가지고 있는지 조회 후, 갯수 차감
+		if(!ic.useItem(memberItem)) {
+			return;
+		}
 		
+		switch(memberItem.getItemId()) {
+		
+		case 1:
+			new TodayLuck().use();
+			break;
+			
+		case 2:
+			new PredictPrice().use();
+			break;
+			
+		default :
+			new Item().use();
+		}
 	}
 
 

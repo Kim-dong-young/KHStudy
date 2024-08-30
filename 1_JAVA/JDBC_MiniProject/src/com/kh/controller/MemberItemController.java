@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.model.dto.BuyItemRequest;
 import com.kh.model.vo.Member;
+import com.kh.model.vo.MemberItem;
 import com.kh.model.vo.items.Item;
 import com.kh.service.MemberItemService;
 
@@ -30,6 +31,12 @@ public class MemberItemController {
 	public boolean buyItem(Member member, Item item) {
 		BuyItemRequest biRequest = new BuyItemRequest(member.getMemberUid(), item.getItemId());
 		boolean isSuccess = is.buyItem(biRequest);
+		
+		return isSuccess;
+	}
+
+	public boolean useItem(MemberItem memberItem) {
+		boolean isSuccess = is.useItem(memberItem);
 		
 		return isSuccess;
 	}

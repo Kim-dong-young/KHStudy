@@ -10,6 +10,12 @@ public class MemberItem {
 	public MemberItem() {
 		super();
 	}
+	
+	public MemberItem(int memberUid, int itemId) {
+		super();
+		this.memberUid = memberUid;
+		this.itemId = itemId;
+	}
 
 	public MemberItem(int memberUid, int itemId, int itemQty) {
 		super();

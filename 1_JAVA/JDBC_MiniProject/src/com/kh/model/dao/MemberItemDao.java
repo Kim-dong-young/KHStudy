@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.kh.common.JDBCTemplate;
 import com.kh.model.dto.BuyItemRequest;
 import com.kh.model.vo.Member;
+import com.kh.model.vo.MemberItem;
 import com.kh.model.vo.items.Item;
 import com.kh.view.AlertMenu;
 
@@ -79,6 +80,37 @@ public class MemberItemDao {
 			
 			if(errorMessage.contains("ORA-20003")) {
 				new AlertMenu().buyItemFail();
+			}
+			else {
+				e.printStackTrace();
+			}
+		} finally {
+			JDBCTemplate.close(cstmt);
+		}
+		
+		return isSuccess;
+	}
+
+	public boolean useItem(Connection conn, MemberItem memberItem) {
+		boolean isSuccess = false;
+		CallableStatement cstmt = null;
+		
+		String sql = "{CALL USE_ITEM_PROC(?, ?)}";
+		
+		try {
+			cstmt = conn.prepareCall(sql);
+			
+			cstmt.setInt(1, memberItem.getMemberUid());
+			cstmt.setInt(2, memberItem.getItemId());
+			
+			cstmt.executeQuery();
+			isSuccess = true;
+
+		} catch (SQLException e) {
+			String errorMessage = e.getMessage();
+			
+			if(errorMessage.contains("ORA-20004")) {
+				new AlertMenu().useItemFail();
 			}
 			else {
 				e.printStackTrace();

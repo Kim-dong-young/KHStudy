@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.kh.controller.MemberController;
+import com.kh.model.vo.MemberItem;
 import com.kh.model.vo.Share;
 import com.kh.model.vo.TradeLog;
 import com.kh.model.vo.items.Item;
@@ -27,7 +28,6 @@ public class PrivateMenu {
 		int ch = -1;
 		
 		while(ch != 0) {
-			// TODO 정보 제대로 표시
 			System.out.printf("===== %s 님의 마이페이지 =====\n", mc.getCurrentMember().getMemberName());
 			System.out.println("1. 보유중인 주식 확인");
 			System.out.println("2. 보유중인 아이템 확인");
@@ -118,7 +118,7 @@ public class PrivateMenu {
 			if(ch == 0) 
 				return;
 			else
-				mc.useItem(ch);
+				mc.useItem(new MemberItem(mc.getCurrentMember().getMemberUid(), ch));
 		}
 		
 	}

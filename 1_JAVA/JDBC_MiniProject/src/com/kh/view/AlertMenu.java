@@ -36,6 +36,10 @@ public class AlertMenu {
 		System.out.println("거래 기록이 존재하지 않습니다.");
 	}
 	
+	public void useItemFail() {
+		System.out.println("아이템 갯수가 부족합니다.");
+	}
+	
 	
 	// 주식 거래 관련
 	public void buyStockSuccess() {
