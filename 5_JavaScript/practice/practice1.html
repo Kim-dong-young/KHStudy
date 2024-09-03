@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            border: 1px solid black;
+            background: black;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h3>문제1. 색상 선택 후, 변경 버튼을 클릭하면 색상이 변경되도록 만들어라.</h3>
+    <div id="div1"></div>
+
+    <input type="color" id="selectColor">
+    <button onclick="colorChange()">변경</button>
+
+    <script>
+        function colorChange(){
+            const palette = document.querySelector('#selectColor')
+            const canvas = document.getElementById('div1')
+
+            canvas.style.background = palette.value
+        }
+    </script>
+
+    <h3>문제2. 버튼에 따른 크기조절이 가능하게 만들어 보세요.</h3>
+    <div id="div2"></div>
+    <button onclick="halfSize()">50x50</button>
+    <button onclick="defaultSize()">100x100</button>
+    <button onclick="doubleSize()">200x200</button>
+
+    <script>
+
+        function changeSize(size){
+            const pic = document.querySelector('#div2')
+
+            pic.style.width = size+"px";
+            pic.style.height = size+"px";
+        }
+
+        /**
+         * 함수 밖에다 변수를 선언하면 브라우저 window 객체에 생성됨
+         * 즉, 브라우저 종료할 떄 까지 변수가 메모리를 잡아먹는다.
+         * 
+         * 하지만 함수 내에서 선언하면, 함수가 종료될 때 메모리가 반납된다.
+         * 
+         * 따라사 웹에선, 변수를 전역으로 선언해 유지보수성을 높이는 것 보단
+         * 함수내에 일일이 변수를 선언해 주는게 더 좋은 코드다.
+         */
+
+        function halfSize(){
+            const pic = document.querySelector('#div2')
+
+            pic.style.width = "50px";
+            pic.style.height = "50px";
+        }
+
+        function defaultSize(){
+            const pic = document.querySelector('#div2')
+
+            pic.style.width = "100px";
+            pic.style.height = "100px";
+        }
+
+        function doubleSize(){
+            const pic = document.querySelector('#div2')
+
+            pic.style.width = "200px";
+            pic.style.height = "200px";
+        }
+
+    </script>
+    
+
+</body>
+</html>

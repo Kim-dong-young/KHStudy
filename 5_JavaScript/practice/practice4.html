@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>실습문제2</h1>
+    <!--
+        사용자가 계산할 숫자 두 개를 입력하고 연산자도 선택하게 함
+        ‘=‘버튼을 누르면 오른쪽에 계산 결과가 나오며 계산 결과가 나오는 창은 읽기만 가능
+        이 때, 나누는 수가 0일 때 계산 결과 창의 배경이 빨갛게 변하며 ‘연산 불가‘라는 하얀 글자가 들어감
+        (위 조건은 / 연산과 % 연산 모두 같음)
+        * 자바의 경우, 0으로 나누면 에러가 뜨며 종료되었지만 자바스크립트는 NaN 또는 ±Infinity를 결과 값으로 내며 모두 Number임
+        ±Infinity는 ==로 비교할 수 있고 NaN는 isNaN(변수 명) 으로 확인할 수 있음
+        모든 연산 경우에 대한 결과 값을 확인해 본 후 조건을 적용하는 것을 추천!
+    -->
+    
+    <input id='num1' type="text">
+    <select id="opList">
+        <option>+</option>
+        <option>-</option>
+        <option>*</option>
+        <option>/</option>
+        <option>%</option>
+    </select>
+    <input id='num2' type="text">
+    <button onclick="calculate()">=</button>
+    <input id="result" type="text">
+
+    <script>
+        // css class 추가 = .classList.add()
+        // css class 변경 = .className = '클래스명'
+        function calculate(){
+            const num1 = Number(document.getElementById('num1').value)
+            const num2 = Number(document.getElementById('num2').value)
+            const opList = document.getElementById('opList')
+            const operator = opList.options[opList.selectedIndex].value
+            const result = document.getElementById('result')
+            let num = null
+            result.style.background = 'white'
+
+            switch(operator){
+                case '+':
+                    num = num1 + num2;
+                    break;
+                case '-':
+                    num = num1 - num2;
+                    break;
+                case '*':
+                    num = num1 * num2;
+                    break;
+                case '/':
+                    num = num1 / num2;
+                    break;
+                case '%':
+                    num = num1 % num2;
+                    break;
+            }
+
+            if(num == Infinity || num == -Infinity || isNaN(num)){
+                num = '연산불가'
+                result.style.background = 'red'
+            }
+            result.value = num
+        }
+
+    </script>
+    
+</body>
+</html>

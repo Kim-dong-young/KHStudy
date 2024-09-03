@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window 객체</title>
+</head>
+<body>
+    <h1>window 객체</h1>
+    <p>
+        window객체는 자바스크립트 최상위 객체이며 BOM, DOM으로 나뉨 <br>
+        - BOM(Browser Object Model) : <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            location(주소관리창), <br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            screen(브라우저 창과 관련), <br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            navigator(브라우저 자체랑 관련, 브라우저 설정이나 히스토리 알 수 있음) <br>
+        
+        - DOM(Document Object Model) : <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            document객체
+    </p>
+
+    <h4>- [window.]open['url','특성']</h4>
+    <button onclick="test1()">네이버</button>
+    <script>
+        function test1(){
+            // window.open(); 새 창 열림
+            // window.open(첫번쨰, 두번째, 새번쨰)
+            // 첫번째 : 새창에서 열고자하는 url주소
+            // window.open('https://www.naver.com')
+            // 두번쨰 : 창 이름 부여, 창 이름이 같은게 이미 열려있을 경우
+            //          새로운 창이 열리지않고, 이미 열린창이 없을 경우 새로운 창이 열림
+            // window.open('https://www.naver.com','myNaver')
+            // 세번쨰 : 옵션( 너비, 높이, 주소창여부, 툴바여부... )
+            //          요즘은 옵션이 브라우저에 따라 잘 안먹어서 안씀
+            /*
+                창의 특성
+                width : 너비
+                height : 높이
+
+                #>yes | no
+                resizable : 창의 크기조절 가능여부
+                location : 주소창 존재여부
+                menubar : 메뉴바 있냐없냐
+                scrollbars : 스크롤바
+                status : 상태표시줄
+                toolbar : 도구모음
+            */
+            window.open('https://www.naver.com','myNaver', 'width=500, height=500')
+            // 팝업안에 팝업 띄우지 마라. 사용자도 힘들고 개발자도 힘들다.
+            // 팝업창으로 결제창 같은거 띄우는거, 로그인창 등등에 쓰인다.
+        }
+    </script>
+
+    <!-- javascript는 싱글 스레드 -->
+    <h3>window 객체의 timer관련 메소드</h3>
+    <h4>window.setTimeOut(함수,시간ms)</h4> <!-- 일정시간후에 함수 딱 한번만 실행해줘 / 비동기 코드 -->
+    <button onclick="test2()">실행</button>
+    <script>
+        function test2(){
+           // const myWindow = window.open();
+           // myWindow.alert('ㅋㅋㅋㅋㅋㅋㅋㅋ')
+
+            //console.log('setTimeOut 이전')
+
+           // setTimeout(function(){
+           //    myWindow.close();
+           // }, 3000)
+
+            console.log('setTimeOut 이전 : 처음로딩 ->  화면표시')
+
+            setTimeout(function(){
+                console.log('setTimeOut 실행 : 서버에서 데이터 도착')
+                console.log('실제 데이터로 화면 구성')
+            }, 3000)
+
+            console.log('setTimeOut 이후 : 데이터 없이 화면 구성')
+        }
+    </script>
+
+<!-- 지정한 시간마다 반복적으로 실행 -->
+<h4>- window.setInterval(함수,시간ms)</h4>
+<button onclick="test3()">실행</button>
+<div id="area1" class="area"></div>
+
+<script>
+    function test3(){
+        const area1 = document.getElementById("area1")
+
+        //1초마다 카운트값 1씩 증가 -> 스탑워치처럼
+        let count = 0;
+        setInterval(() => {
+            count++
+            area1.innerHTML = getNowTimeHHMMSS()
+        }, 1000)
+
+        console.log('시간출력이후')
+    }
+
+    function getNowTimeHHMMSS(){
+        const now = new Date();
+
+        let hour = now.getHours();  // 시
+        let min = now.getMinutes(); // 분
+        let sec = now.getSeconds(); // 초
+
+        const str = hour + " : "+ min + " : " + sec;
+        return str;
+    }
+</script>
+
+<!--
+    Web api에 DOM, AJAX(비동기 담당), Timer가 있다
+    
+    JavaScript의 stack엔 실행해야할 이벤트가 담긴다
+    + task queue 라는 영역도 존재해야한다.
+
+    timer 비동기의 원리는
+    task queue에서 stack으로 이벤트를 가져온 뒤,
+    시간이 지났다면 실행시키고, 지나지 않았다면 다시 task queue에 넣는다
+-->
+
+<hr>
+<h1>* BOM(Browser Object Model)</h1>
+
+<h3>location 객체</h3>
+<p>브라우저 주소창과 관련된 객체</p>
+
+<!-- 동일한 기능 -->
+<b>href</b><br>
+<a href="https://www.naver.com">네이버로이동</a>
+<button onclick="location.href = 'https:www.naver.com' ">네이버로이동</button> <br>
+
+<b>assign & replace(뒤로가기 불가능)</b><br>
+<button onclick="location.assign('https:www.google.com')">구글로이동</button>
+<!-- replace는 뒤로가기를 사용할 수 없도록 ip와 포트 이외의 경로를 삭제 -->
+<button onclick="location.replace('https:www.google.com')">구글로이동</button> <br>
+
+<b>reload</b><br>
+<button onclick="location.href = location.href">새로고침</button>
+<!-- 동일한 기능을 함수로 구현해 놓은것 location.reload() -->
+<button onclick="location.reload()">새로고침</button>
+
+<br><br><br>
+
+<h3>screen 객체</h3>
+<p>화면 정보(크기)가 담긴 객체</p>
+<button onclick="console.log(screen)">screen객체확인</button>
+
+<h3>navigator 객체</h3>
+<p>어떤 브라우저를 쓰는지 정보가 담긴 개체</p>
+<button onclick="console.log(navigator)">screen객체확인</button>
+
+<h3>history 객체</h3>
+<p>내가 지금까지 이동했던 경로(navigator의 history)</p>
+<button onclick="console.log(history)">history객체확인</button>
+<button onclick="history.back()">history.back()</button>
+
+<br>
+<hr>
+
+<h1>DOM 구성하기</h1>
+<p>
+    HTML에 있는 각각의 요소들을 노드(Node)라고 함<br>
+    > 요소노드(Element Node) : 태그 그 자체만을 의미<br>
+    > 텍스트노드(Text Node) : 태그내에 기록되는 내용<br><br>
+</p>
+
+<button onclick="test4()">Element 생성</button>
+<div id="area2"></div>
+
+<script>
+    function test4(){
+        const area2 = document.querySelector('#area2')
+        // area2.innerText = '안녕하세요.'
+        // 동적으로 요소노드를 만드는 방법1 : "문자열"
+        area2.innerHTML = "<h2>안녕하세요.</h2>"
+        
+        // 동적으로 요소노드를 만드는 방법2 : document에서 제공하는 메소드
+        let h3E1 = document.createElement('h3'); // <h3></h3> 객체 생성
+        h3E1.innerText = "안녕하세요." // <h3>안녕하세요.</h3>
+        //onclick 적용 =  h3E1.onclick = function(){ }
+
+        // DOM 문서에 적용
+        area2.appendChild(h3E1) // appendChild : 맨 마지막 자식요소로 추가하겠다.
+    }
+</script>
+
+</body>
+</html>

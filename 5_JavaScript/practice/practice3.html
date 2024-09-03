@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제</title>
+</head>
+<body>
+    <h1>실습문제1</h1>
+    <!--
+        체크 박스 선택 후 “카테고리 선택“을 누르면 하단 네모에 선택한 카테고리 출력
+        이 때, “전체 선택“ 체크 박스 선택 시 모든 카테고리가 선택 되며, 선택 해제 시 모두 선택 해제 됨
+        또한 카테고리 체크박스를 전부 선택하면 “전체 선택“ 체크 박스가 선택되고
+        하나라도 선택이 되어있지 않으면 “전체 선택“ 체크 박스는 선택 해제 됨.
+    -->
+
+    <fieldset>
+        <legend>취미</legend>
+
+        <input type="checkbox" name="category" id="all" onclick="checkAll()">
+        <label for="all">전체선택</label>
+
+        <input type="checkbox" name="category" id="total">
+        <label for="total">종합</label>
+
+        <input type="checkbox" name="category" id="novel">
+        <label for="novel">소설</label>
+
+        <input type="checkbox" name="category" id="poem">
+        <label for="poem">시/에세이</label>
+
+        <input type="checkbox" name="category" id="economy">
+        <label for="economy">경제/경영</label>
+
+        <input type="checkbox" name="category" id="self-dev">
+        <label for="self-dev">자기계발</label>
+
+        <input type="checkbox" name="category" id="child">
+        <label for="child">아동</label>
+
+        <br>
+
+        <input type="checkbox" name="category" id="travel">
+        <label for="travel">여행</label>
+
+        <input type="checkbox" name="category" id="science">
+        <label for="science">과학</label>
+
+        <input type="checkbox" name="category" id="history">
+        <label for="history">역사/문화</label>
+
+        <input type="checkbox" name="category" id="foreign">
+        <label for="foreign">외국어</label>
+
+        <input type="checkbox" name="category" id="computer">
+        <label for="computer">컴퓨터</label>
+
+        <input type="checkbox" name="category" id="comic">
+        <label for="comic">만화</label>
+    </fieldset>
+    
+    <br>
+
+    <button onclick="selectCategory()">카테고리 선택</button>
+    <div id="div1" style="border:1px solid red; height:200px;"></div>
+
+    <script>
+
+        function checkAll(){
+            const boxList = document.querySelectorAll("input[name='category']")
+
+            if(boxList[0].checked){ // boxList[0] : 전체 체크박스
+                for(let i in boxList){
+                    boxList[i].checked = true
+                }
+            }
+
+            else{
+                for(let i in boxList){
+                    boxList[i].checked = false
+                }
+            }
+        }
+
+        function check(){
+            const boxList = document.querySelectorAll("input[name='category']")
+
+            if(!this.checked){ // 하나라도 해제되었다면 전체선택 해제
+                boxList[0].checked = false;
+                return;
+            }
+
+            // 한개가 선택되었을 경우
+            let allChecked = true;
+            for(let i=1; i< boxList.length; i++){ // 모든 체크박스 탐색
+                if(!boxList[i].checked){ // 하나라도 체크가 안되었다면 false
+                    allChecked = false;
+                }
+            }
+            boxList[0].checked = allChecked; // 체크 안된것이 없으면 전체선택 true
+        }
+
+        function selectCategory(){ // 라벨에서 텍스트 추출 후 결과 출력
+            const boxList = document.querySelectorAll("input[name='category']")
+            const labelList = document.querySelectorAll('label')
+
+            const div = document.getElementById('div1')
+            div.innerText = '';
+
+            for(let i=1; i< boxList.length; i++){
+                if(boxList[i].checked){     // 전체 순회하며 체크된 것만 추가
+                    let labelText = document.querySelector(`label[for='${boxList[i].id}']`).textContent
+                    div.innerHTML += labelText + " "
+                }
+            }
+        }
+
+        function init(){ // 버든들의 onclick 이벤트에 check 함수 모두 적용
+            const boxList = document.querySelectorAll("input[name='category']")
+            for(let i=1; i< boxList.length; i++){
+                boxList[i].onclick = check;
+            }
+        }
+        init();
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .none-pass{
+            color : red;
+        }
+        
+        .pass{
+            color : greenyellow;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>실습문제3</h1>
+
+    <form action="">
+        <fieldset>
+            <legend>회원가입</legend>
+
+            아이디 : <input type="text" id="user-id" onkeyup="checkId(this)" data-name="아이디"> 
+            <span id="id-dup-alert"></span> <br><br>
+
+            비밀번호 : <input type="password" id="user-pwd" data-name="비밀번호"> <br><br>
+
+            비밀번호 확인 : <input type="password" id="user-pwd-confirm" data-name="비밀번호 확인" onblur="checkPwd(this)"> 
+            <span id="pwd-diff-alert"></span> <br><br>
+
+            이름 : <input type="text" id="user-name" data-name="이름"> <br><br>
+
+            <input type="submit" onclick="return validate()" value="회원가입">
+        
+        </fieldset>
+    </form>
+
+    <script>
+
+        function checkId(_this){
+            const idInput = _this.value
+            const idAlert = document.getElementById('id-dup-alert')
+
+            if(idInput === 'user01'){
+                idAlert.className = 'none-pass'
+                idAlert.innerText = "이미 존재하는 아이디입니다."
+            } 
+            else if(idInput.trim() === ""){
+                idAlert.innerText = ""
+            }
+            else{
+                idAlert.className = 'pass'
+                idAlert.innerText = "사용 가능한 아이디입니다."
+            }
+        }
+
+        function checkPwd(_this){
+            const pwdInput = document.getElementById('user-pwd').value
+            const pwdConfirmInput = _this.value
+            const pwdAlert = document.getElementById('pwd-diff-alert')
+
+            if(pwdInput === pwdConfirmInput){
+                pwdAlert.className = 'pass'
+                pwdAlert.innerText = '비밀번호가 일치합니다.'
+            }
+            else{
+                pwdAlert.className = 'none-pass'
+                pwdAlert.innerText = '비밀번호가 일치하지 않습니다.'
+            }
+        }
+
+        function equalPwd(){
+            const pwdInput = document.getElementById('user-pwd').value
+            const pwdConfirmInput = document.getElementById('user-pwd-confirm').value
+            
+            return pwdInput === pwdConfirmInput
+        }
+
+        function validate(){
+
+            const inputList = document.getElementsByTagName('input')
+            for(input of inputList){
+                console.log(input)
+                console.log(input.dataset)
+                if(input.dataset.name && input.value.trim() === ""){
+                    alert(input.dataset.name + " 입력해주세요.")
+                    input.focus();
+
+                    return false;
+                }
+            }
+
+            const idInput = document.getElementById('user-id')
+            if(idInput.value === 'user01'){
+                alert('사용할 수 없는 아이디입니다.')
+                idInput.value = ""
+                idInput.focus();
+
+                return false;
+            }
+
+            const pwdConfirmInput = document.getElementById('user-pwd-confirm')
+            if(!equalPwd()){
+                alert('비밀번호가 일치하지 않습니다.')
+                pwdConfirmInput.value = ""
+                pwdConfirmInput.focus();
+
+                return false;
+            }
+        }
+
+    </script>
+
+</body>
+</html>
