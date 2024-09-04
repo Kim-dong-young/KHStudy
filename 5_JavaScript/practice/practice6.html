@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제</title>
+    <style>
+        .area{
+            width: 250px;
+            height:100px;
+        }
+
+        .result{
+            width: 500px;
+            height: 200px;
+        }
+
+    </style>
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>구매 정보</legend>
+            <ul>
+                <li>
+                    구매자 : <input id="name" type="text" placeholder="구매자의 이름을 입력하세요">
+                </li>
+
+                <li>
+                    상품명 : <input id="product" type="text" placeholder="구매 상품 명을 입력하세요">
+                </li>
+
+                <li>
+                    가격 : <input id="price" type="text" placeholder="구매 가격을 입력하세요">
+                </li>
+
+                <li>
+                    구매 수량 : <input id="amount" type="number" min="10" max="100" step="10" placeholder="최소 10">
+                </li>
+
+                <li>
+                    납품 등급 : <input id="grade" type="range" min="1" max="9" step="2" placeholder="">
+                </li>
+
+                <li>
+                    기타 사항 : <textarea id="etc" class="area"></textarea>
+                </li>
+            </ul>
+        </fieldset>
+        <br>
+        <input type="submit" onclick="printReceipt(); return false;" value="입력 값 출력하기">
+    </form>
+
+    <br>
+
+    <fieldset class="result">
+        <div id="receipt"></div>
+    </fieldset>
+
+    <script>
+        function printReceipt(){
+            const name = document.getElementById('name')
+            const product = document.getElementById('product')
+            const price = document.getElementById('price')
+            const amount = document.getElementById('amount')
+            const grade = document.getElementById('grade')
+            const etc = document.getElementById('etc')
+
+            const receipt = document.getElementById('receipt')
+
+            receipt.innerHTML = '';
+            receipt.innerHTML += '구매자명 : ' + name.value + "님<br>"
+            receipt.innerHTML += '상품 명 : ' + product.value + "<br>"
+            receipt.innerHTML += '가격 : ' + price.value + "만원<br>"
+            receipt.innerHTML += '구매 수량 : ' + amount.value + "개<br>"
+            receipt.innerHTML += '납품등급 : ' + grade.value + "등급<br>"
+            receipt.innerHTML += '기타사항 : ' + etc.value + "<br>"
+        }
+    </script>
+</body>
+</html>
