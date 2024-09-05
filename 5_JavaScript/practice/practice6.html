@@ -23,7 +23,7 @@
             <legend>구매 정보</legend>
             <ul>
                 <li>
-                    구매자 : <input id="name" type="text" placeholder="구매자의 이름을 입력하세요">
+                    구매자 : <input data-info='님' id="name" type="text" placeholder="구매자의 이름을 입력하세요">
                 </li>
 
                 <li>
@@ -31,15 +31,15 @@
                 </li>
 
                 <li>
-                    가격 : <input id="price" type="text" placeholder="구매 가격을 입력하세요">
+                    가격 : <input data-info='만원' id="price" type="text" placeholder="구매 가격을 입력하세요">
                 </li>
 
                 <li>
-                    구매 수량 : <input id="amount" type="number" min="10" max="100" step="10" placeholder="최소 10">
+                    구매 수량 : <input data-info='개' id="amount" type="number" min="10" max="100" step="10" placeholder="최소 10">
                 </li>
 
                 <li>
-                    납품 등급 : <input id="grade" type="range" min="1" max="9" step="2" placeholder="">
+                    납품 등급 : <input data-info='등급' id="grade" type="range" min="1" max="9" step="2" value="1" placeholder="">
                 </li>
 
                 <li>
@@ -48,7 +48,7 @@
             </ul>
         </fieldset>
         <br>
-        <input type="submit" onclick="printReceipt(); return false;" value="입력 값 출력하기">
+        <input type="submit" onclick="printText(); return false;" value="입력 값 출력하기">
     </form>
 
     <br>
@@ -75,6 +75,18 @@
             receipt.innerHTML += '구매 수량 : ' + amount.value + "개<br>"
             receipt.innerHTML += '납품등급 : ' + grade.value + "등급<br>"
             receipt.innerHTML += '기타사항 : ' + etc.value + "<br>"
+        }
+
+        function printText(){
+            const area = document.getElementById('receipt')
+            area.innerHTML = '';
+
+            let liArr = document.getElementsByTagName('li') // 클래스 부여해서 가져오면 더 좋다
+            for(let li of liArr){
+                let valueObj = li.children[0];      // li.innerText = li.childNode로도 가능
+                area.innerHTML += li.innerText + valueObj.value + 
+                                (valueObj.dataset.info ? (valueObj.dataset.info + "<br>") : '<br>')
+            }
         }
     </script>
 </body>

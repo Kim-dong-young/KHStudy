@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        ul,ol,li{
+            list-style: none;
+        }
+
+        .align-center{
+            display : flex;
+            justify-content: center;
+        }
+
+        .header-text{
+            font-weight: 900;
+            font-size : 48px;
+        }
+
+        #input-form > input{
+            background-color: lightgray;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        #todo-list{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: space-around;
+        }
+
+        .todo-card{
+            width: 95%;
+            background-color: lightgray;
+            text-align: center;
+        }
+
+        .del-button{
+            width:5%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <p class="header-text align-center">TodoList</p>
+
+    <div id="input-form" class="align-center">
+        <input type="text">
+        <input type="button" value="+" onclick="addTodo(); return false;">
+    </div>
+
+    <ul id="todo-list">
+        <!--
+        <li class="todo-card">밥먹기<button class="del-button" onclick="delTodo()">X</button></li>
+        -->
+    </ul>
+
+    <script>
+        function addTodo(){
+            const todoList = document.getElementById('todo-list')
+            const inputForm = document.querySelector('#input-form > input')
+            
+            let card = document.createElement('li')
+            let delbutton = document.createElement('button')
+
+            card.className = 'todo-card'
+            card.innerHTML = inputForm.value
+
+            delbutton.innerText = 'X'
+            delbutton.onclick = delTodo
+
+            card.appendChild(delbutton)
+            todoList.appendChild(card)
+            inputForm.value = ''
+        }
+
+        function delTodo(){
+            const todoCard = this.parentNode
+            todoCard.remove()
+        }
+
+    </script>
+
+
+</body>
+</html>
