@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(159, 229, 255);
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        span{
+            display:none;
+            color:rgb(134, 133, 133);
+        }
+
+        input{
+            border-width: 0 0 6px;
+            border-style: dashed;
+            background-color: rgb(230, 230, 230);
+        }
+
+        input:focus{
+            outline: none;
+        }
+
+        .input-form{
+            background-color: rgb(230, 230, 230);
+            border: 1px solid rgb(134, 133, 133);
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: space-around;
+            width:800px;
+            height:800px;
+            position: relative;
+        }
+
+        .input-form div{
+            display:flex;
+            justify-content: center;
+        }
+
+        .input-form p{
+            width:20%;
+            font-size: 24px;
+            font-weight: 900;
+            color:rgb(83, 83, 83);
+        }
+
+        .input-form input{
+            width:60%;
+        }
+
+        .input-form button{
+            border:none;
+            background-color: rgb(175, 212, 171);
+            color:green;
+            width:90%;
+            height:100px;
+            font-size:24px;
+            font-weight:900;
+            position:absolute;
+            bottom:10px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div class="input-form">
+
+            <div id="id">
+                <p>아이디</p>
+                <input id="id-text" type="text" onblur="checkIdEmpty()"> <br>
+            </div>
+
+            <div>
+                <span id="id-alert">필수입력 항목입니다.</span>
+            </div>
+
+            <div id="pwd">
+                <p>패스워드</p>
+                <input id="pwd-text"type="text" onfocus="displayNotification()" onblur="hideNotification(); checkPwdEmpty();">
+            </div>
+
+            <div>
+                <span id="pwd-notification">영문자 대/소문자 특수문자, 숫자 포함 8 ~ 32자</span>
+                <span id="pwd-alert">필수입력 항목입니다.</span>
+            </div>
+
+            <div id="pwd-confirm">
+                <p>패스워드 확인</p>
+                <input id="pwd-confirm-text"type="text" onblur="checkPwdConfEmpty()">
+            </div>
+
+            <div>
+                <span id="pwd-confirm-alert">필수입력 항목입니다.</span>
+            </div>
+
+            <div>
+                <p>이메일</p>
+                <input style="width:29%;" type="text"><p style="width:24px;">@</p><input  style="width:29%;" type="text">
+            </div>
+
+            <div>
+                <p>주소</p>
+                <input type="text">
+            </div>
+
+            <div>
+                <p></p>
+                <input style="height:50px;" type="text">
+            </div>
+
+                    
+            <div>
+                <button>가 입</button>
+            </div>
+
+        </div>
+
+    </form>
+
+    <script>
+        function displayNotification(){
+            const noti = document.getElementById('pwd-notification')
+            noti.style.display = 'block'
+        }
+
+        function hideNotification(){
+            const noti = document.getElementById('pwd-notification')
+            noti.style.display = 'none'
+        }
+
+        function checkIdEmpty(){
+            if(document.getElementById('id-text').value === ''){
+                document.getElementById('id-alert').style.display = 'block'
+            }
+            else{
+                document.getElementById('id-alert').style.display = 'none'
+            }
+        }
+
+        function checkPwdEmpty(){
+            if(document.getElementById('pwd-text').value === ''){
+                document.getElementById('pwd-alert').style.display = 'block'
+            }
+            else{
+                document.getElementById('pwd-alert').style.display = 'none'
+            }
+        }
+
+        function checkPwdConfEmpty(){
+            if(document.getElementById('pwd-confirm-text').value === ''){
+                document.getElementById('pwd-confirm-alert').style.display = 'block'
+            }
+            else{
+                document.getElementById('pwd-confirm-alert').style.display = 'none'
+            }
+        }
+
+    </script>
+</body>
+</html>
