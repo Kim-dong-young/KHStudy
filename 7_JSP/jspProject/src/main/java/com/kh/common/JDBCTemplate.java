@@ -27,7 +27,7 @@ public class JDBCTemplate {
 		Properties prop = new Properties();
 		
 		// 읽어들이고자하는 classes폴더내의 driver.properties파일의 물리적인 경로 가져오기
-		String filePath = JDBCTemplate.class.getResource("/db/driver.properties").getPath();
+		String filePath = JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath();
 		// System.out.println(filePath);
 		
 		try {
@@ -38,7 +38,7 @@ public class JDBCTemplate {
 			// 2) Connection객체 생성
 			conn = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("username"),prop.getProperty("password"));
 			conn.setAutoCommit(false); // 수동 커밋 설정
-			System.out.println("db연결 성공");
+			//System.out.println("db연결 성공");
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

@@ -2,10 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Insert title here</title>
 </head>
 <body>
 	<!-- 
@@ -34,7 +35,10 @@
 	 	 게시글 작성(C) - 첨부파일 업로드
 	 -->
 	 
-	 <% JDBCTemplate.getConnection(); %>
+	 <%-- <% JDBCTemplate.getConnection(); --%>
+	 
+	 <%@ include file="views/common/menubar.jsp" %>
+
 	 
 </body>
 </html>
