@@ -1,8 +1,7 @@
 package com.kh.member.service;
 
 // static 메소드만 가져오기
-import static com.kh.common.JDBCTemplate.getConnection;
-import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
@@ -17,6 +16,68 @@ public class MemberService {
 		
 		close(conn);
 		return member;
+	}
+
+	public int insertMember(Member m) {
+		Connection conn = getConnection();
+		int result = new MemberDao().insertMember(conn,m);
+		
+		if( result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public Member updatePwdMember(String userId, String userPwd, String updatePwd) {
+		Connection conn = getConnection();
+		int result = new MemberDao().updatePwdMember(conn, userId, userPwd, updatePwd);
+		
+		Member updateMember = null;
+		if(result > 0) {
+			commit(conn);
+			
+			updateMember = new MemberDao().selectMember(conn, userId);
+			
+		} else {
+			rollback(conn);
+		}
+		
+		return updateMember;
+	}
+
+	public int deleteMember(String userId, String userPwd) {
+		Connection conn = getConnection();
+		int result = new MemberDao().deleteMember(conn, userId, userPwd);
+		
+		if( result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public Member updateMember(Member m) {
+		Connection conn = getConnection();
+		int result = new MemberDao().updateMember(conn, m);
+		
+		Member updateMember = null;
+		if( result > 0 ) {
+			commit(conn);
+			
+			updateMember = new MemberDao().selectMember(conn,m.getUserId());
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return updateMember;
 	}
 
 }
