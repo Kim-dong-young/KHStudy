@@ -50,16 +50,16 @@ public class MemberInfoUpdateController extends HttpServlet {
 		// sql요청 -> service -> dao -> sql 실행
 		Member updateMember = new MemberService().updateMember(m);
 		
-		if(updateMember != null) {
+		if(updateMember == null) {
+			request.setAttribute("errorMsg", "정보수정에 실패하였습니다.");
+			
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", updateMember);
 			session.setAttribute("alertMsg", "성공적으로 정보수정 되었습니다.");
 
 			response.sendRedirect(request.getContextPath() + "/mypage.me");
-		} else {
-			request.setAttribute("errorMsg", "정보수정에 실패하였습니다.");
-			
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

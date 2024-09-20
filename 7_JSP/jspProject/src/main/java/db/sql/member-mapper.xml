@@ -72,18 +72,19 @@
 	
 	<entry key="deleteMember">
 		UPDATE MEMBER
-		SET STATUS = 'N'
-		WHERE USER_ID = ?
-		  AND USER_PWD = ?
+		   SET STATUS = 'N',
+			   MODIFY_DATE = SYSDATE
+		 WHERE USER_ID = ?
+		   AND USER_PWD = ?
 	</entry>
 	
 	<entry key="updateMember">
 		UPDATE MEMBER
-		SET	PHONE = ?,
-			EMAIL = ?,
-			ADDRESS = ?,
-			INTEREST = ?,
-			MODIFY_DATE = SYSDATE
-		WHERE USER_ID = ?
+		   SET PHONE = ?,
+			   EMAIL = ?,
+			   ADDRESS = ?,
+			   INTEREST = ?,
+			   MODIFY_DATE = SYSDATE
+		 WHERE USER_ID = ?
 	</entry>
 </properties>

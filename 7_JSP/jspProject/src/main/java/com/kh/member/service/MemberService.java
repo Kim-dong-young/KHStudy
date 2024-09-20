@@ -71,7 +71,7 @@ public class MemberService {
 		if( result > 0 ) {
 			commit(conn);
 			
-			updateMember = new MemberDao().selectMember(conn,m.getUserId());
+			updateMember = new MemberDao().selectMember(conn, m.getUserId());
 		} else {
 			rollback(conn);
 		}
