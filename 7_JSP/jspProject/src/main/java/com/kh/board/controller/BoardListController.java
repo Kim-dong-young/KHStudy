@@ -3,9 +3,9 @@ package com.kh.board.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.kh.board.model.vo.Board;
 import com.kh.board.service.BoardService;
 import com.kh.common.PageInfo;
-import com.kh.member.model.vo.Board;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

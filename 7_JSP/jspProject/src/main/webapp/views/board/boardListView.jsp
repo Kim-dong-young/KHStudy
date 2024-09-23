@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.common.PageInfo, java.util.ArrayList, com.kh.member.model.vo.Board" %>
+<%@ page import="com.kh.common.PageInfo, java.util.ArrayList,com.kh.board.model.vo.Board" %>
 <%
     PageInfo pi = (PageInfo)request.getAttribute("pi");
     ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
@@ -31,6 +31,11 @@
             border:1px solid white;
             text-align:center;
         }
+
+        .list-area > tbody > tr:hover{
+            background: gray;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -40,6 +45,13 @@
         <br>
         <h2 align="center">일반 게시판</h2>
         <br>
+        
+        <% if(loginUser != null) { %>
+            <div align="right" style="width:852px; margin-bottom:4px;">
+                <a href="<%=contextPath%>/enrollForm.bo" class="btn btn-sm btn-secondary">글쓰기</a>
+            </div>
+        <% } %>
+
         <table align="center" class="list-area">
             <thead>
                 <th width="70">글 번호</th>
@@ -56,7 +68,7 @@
                     </tr>
                 <% } else { %>
                     <% for(Board b : list) { %>
-                        <tr>
+                        <tr onclick="clickDetailPage(<%=b.getBoardNo()%>)">
                             <td><%=b.getBoardNo()%></td>
                             <td><%=b.getCategory()%></td>
                             <td><%=b.getBoardTitle()%></td>
@@ -68,10 +80,29 @@
                <% } %>
             </tbody>
         </table>
+        
+        <script>
+            // contextPath/detail.bo?bno=?
+            function clickDetailPage(boardNo){
+                location.href = "<%=contextPath%>/detail.bo?bno=" + boardNo;
+            }
+
+            /*
+            const trList = documnet.querySelectorAll(".list-area>tbody>tr")
+            for(let tr of trList){
+                tr.onclick = function(){
+                    console.log(this.children[0].innerText)
+                }
+            }
+            */
+        </script>
 
         <br><br>
         <div align="center">
-            <button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=startPage-boardLimit%>'">&lt;</button>
+            <% if(currentPage > 1) { %>
+                <button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=currentPage - 1%>'">&lt;</button>
+            <% } %>
+
             <% for (int p = startPage; p <= endPage; p++) { %>
                 <% if(p == currentPage) { %>
                     <button disabled><%=p%></button>
@@ -79,7 +110,10 @@
                     <button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=p%>'"><%=p%></button>
                 <% } %>
             <% } %>
-            <button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=endPage+1%>'">&gt;</button>
+
+            <% if(currentPage < maxPage) { %>
+                <button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=endPage+1%>'">&gt;</button>
+            <% } %>
         </div>
     </div>
 </body>
