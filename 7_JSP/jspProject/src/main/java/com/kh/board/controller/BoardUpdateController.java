@@ -19,15 +19,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class BoardInsertController
+ * Servlet implementation class BoardUpdateController
  */
-public class BoardInsertController extends HttpServlet {
+public class BoardUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertController() {
+    public BoardUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,15 +36,9 @@ public class BoardInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("utf-8");
 		
-		// 일반 방식이 아닌 multipart/form-data로 전송하는 경우 request로부터 값 추출 불가
-		// String boardTitle = request.getParameter("title");
-		// System.out.println(boardTitle);
-		
-		// enctype이 multipart/form-data로 전송이 되었는지 체크
 		if(JakartaServletFileUpload.isMultipartContent(request)) {
-			
 			// 1. 파일 용량제한(byte)
 			int fileMaxSize = 1024 * 1024 * 10; // 10 MB
 			int requestMaxSize = 1024 * 1024 * 20; // 20MB
@@ -72,6 +66,7 @@ public class BoardInsertController extends HttpServlet {
 			// 추가할 데이터
 			Board b = new Board();
 			Attachment at = null;
+			String originFileNo = null;
 			
 			// 반복문을 통해 파일과 파라미터 정보 획득
 			// isFormField => true면 일반 파라미터, false면 파일 데이터
@@ -79,8 +74,8 @@ public class BoardInsertController extends HttpServlet {
 				System.out.println(item);
 				if(item.isFormField()) { // 일반 파라미터
 					switch(item.getFieldName()) {
-					case "userName":
-						b.setBoardWriter(item.getString(Charset.forName("UTF-8")));
+					case "bno":
+						b.setBoardNo(Integer.parseInt(item.getString(Charset.forName("UTF-8"))));
 						break;
 					case "category":
 						b.setCategory(item.getString(Charset.forName("UTF-8")));
@@ -91,6 +86,8 @@ public class BoardInsertController extends HttpServlet {
 					case "content":
 						b.setBoardContent(item.getString(Charset.forName("UTF-8")));
 						break;
+					case "originFileNo":
+						originFileNo = item.getString(Charset.forName("UTF-8"));
 					}
 				} else {
 					String originName = item.getName(); // 업로드 요청한 파일명(오리지널 파일명)
@@ -112,21 +109,34 @@ public class BoardInsertController extends HttpServlet {
 				}
 			}
 			
-			int result = new BoardService().insertBoard(b, at);
-			if(result > 0) { // 성공 -> 게시글 목록(jspProject/list.bo?cpage=1)
-				request.getSession().setAttribute("alertMsg", "일반게시글 작성 성공");
-				response.sendRedirect(request.getContextPath() + "/list.bo?cpage=1");
+			if(at != null) {
+				// 기존 첨부파일이 있을때
+				if(originFileNo != null) {
+					at.setFileNo(Integer.parseInt(originFileNo));
+				} else {
+					at.setRefBoardNo(b.getBoardNo());
+				}
+			}
+			
+			int result = new BoardService().updateBoard(b,at);
+			// 새로운 첨부파일 X					b, null -> board update
+			// 새로운 첨부파일 O, 기존 첨부파일 O		b, fileNo -> board update, attachment update
+			// 새로운 첨부파일 O, 기존 첨부파일 X		b, refBoardNo -> board update, attachment insert
+			
+			if(result > 0) { // 성공 -> 게시글 상세페이지(jspProject/detail.bo?bno=게시글번호)
+				request.getSession().setAttribute("alertMsg", "일반게시글 수정 성공");
+				response.sendRedirect(request.getContextPath() + "/detail.bo?bno="+b.getBoardNo());
 			} else { // 실패 -> 업로드된 파일 삭제해주고 에러페이지
 				if(at != null) {
 					new File(savePath + at.getChangeName()).delete();
 				}
 				
-				request.setAttribute("errorMsg", "일반게시글 작성 실패");
+				request.setAttribute("errorMsg", "일반게시글 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
-			
 		}
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

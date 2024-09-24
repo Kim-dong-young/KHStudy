@@ -4,7 +4,7 @@
 <%
     Board b = (Board)request.getAttribute("board");
 
-    Attachment at = (Attachment)request.getAttribute("Attachment");
+    Attachment at = (Attachment)request.getAttribute("attachment");
 %>
 <!DOCTYPE html>
 <html>
@@ -28,6 +28,10 @@
 
     .outer > table tr, .outer > table td {
         border: 1px solid white;
+    }
+
+    .outer table a{
+        color: white;
     }
 </style>
 </head>
@@ -73,7 +77,7 @@
         <div align="center">
             <a href="<%=contextPath%>/list.bo?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
             <% if(loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())) { %>
-                <a href="" class="btn btn-sm btn-warning">수정하기</a>
+                <a href="<%=contextPath%>/updateForm.bo?bno=<%=b.getBoardNo()%>" class="btn btn-sm btn-warning">수정하기</a>
                 <a href="" class="btn btn-sm btn-danger">삭제하기</a>
             <% } %>
         </div>
