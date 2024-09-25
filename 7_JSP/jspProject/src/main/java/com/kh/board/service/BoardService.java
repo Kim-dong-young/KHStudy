@@ -34,7 +34,7 @@ public class BoardService {
 	
 	public Board selectBoard(int boardNo) {
 		Connection conn = getConnection();
-		Board b = new BoardDao().selectBoard(conn,boardNo);
+		Board b = new BoardDao().selectBoard(conn, boardNo);
 
 		close(conn);
 		return b;
@@ -127,6 +127,31 @@ public class BoardService {
 		
 		close(conn);
 		return list;
+	}
+
+	public int insertThumbnailBoard(Board b, ArrayList<Attachment> list) {
+		Connection conn = getConnection();
+		
+		BoardDao bDao = new BoardDao();
+		int result1 = bDao.insertThumbnailBoard(conn, b);
+		int result2 = bDao.insertAttachmentList(conn, list);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result1 * result2;
+	}
+	
+	public ArrayList<Attachment> selectAttachmentList(int boardNo) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> atList = new BoardDao().selectAttachmentList(conn, boardNo);
+		
+		close(conn);
+		return atList;
 	}
 	
 }

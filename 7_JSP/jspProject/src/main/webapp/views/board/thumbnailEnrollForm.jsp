@@ -53,7 +53,7 @@
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td>
+                    <td colspan="3">
                        <textarea name="content" rows=5 style="resize:none;"></textarea>
                     </td>
                 </tr>
