@@ -45,7 +45,7 @@
 		* 비동기식 단점 <br>
 		- 현재페이지에 지속적으로 리소스가 쌓임 -> 페이지가 느려질 수 있음<br>
 		- 에러발생시 디버깅이 어렵다<br>
-		- 요청처리 후에 들어온 응답데이터를 가지고 현재페이지에 새로운 요소를 만들어서 붙여줘야한다 -> dom을 개발자가 직접 컨트롤해야함
+		- 요청처리 후에 들어온 응답데이터를 가지고 현재페이지에 새로운 요소를 만들어서 붙여줘야한다 -> dom을 개발자가 직접 컨트롤해야함<br>
 		
 		* AJAX 구현 -> JavaScript방식(XmlHttpRequest) vs jQuery방식(코드가 간결하고 사용하기 쉽다.)
 		
@@ -79,5 +79,39 @@
 			-timeout: 서버요청시 응답대기시간
 		</pre>
 	</p>
+	
+	<h3>버튼 클릭시 post방식으로 서버에 여러개의 데이터 전송 및 응답</h3>
+	이름 : <input type="text" id="input1">
+	나이 : <input type="text" id="input2">
+	<button onclick="test()">전송</button>
+	<ul id="member-area">
+
+	</ul>
+	
+	<script>
+		function test(){
+			// http://localhost:8888/jspProject/jqAjax.do
+			$.ajax({
+				type : "post",
+				url : "http://localhost:8888/jspProject/jqAjax.do",
+				data : {
+					name :$("#input1").val(),
+					age : document.querySelector("#input2").value
+				},
+				success : function(result){
+					let memberList = JSON.parse(result);
+					const memberZone = document.getElementById("member-area")
+				
+					for(let m of memberList){
+						memberZone.innerHTML += ("<li>" + m.userNo + " " + m.userName + " " + m.phone + "</li>")
+					}
+				},
+				error : function(){
+					console.log("요청실패");
+				}
+			})
+		}
+	</script>
+	
 </body>
 </html>

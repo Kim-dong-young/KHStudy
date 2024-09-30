@@ -185,4 +185,44 @@
     <servlet-name>detail.th</servlet-name>
     <url-pattern>/detail.th</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>jqAjax.do</display-name>
+    <servlet-name>jqAjax.do</servlet-name>
+    <servlet-class>com.kh.common.AjaxTestController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>jqAjax.do</servlet-name>
+    <url-pattern>/jqAjax.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>idCheck.me</display-name>
+    <servlet-name>idCheck.me</servlet-name>
+    <servlet-class>com.kh.member.controller.AjaxCheckController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>idCheck.me</servlet-name>
+    <url-pattern>/idCheck.me</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>rinsert.bo</display-name>
+    <servlet-name>rinsert.bo</servlet-name>
+    <servlet-class>com.kh.board.controller.AjaxReplyInsertController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>rinsert.bo</servlet-name>
+    <url-pattern>/rinsert.bo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>rlist.bo</display-name>
+    <servlet-name>rlist.bo</servlet-name>
+    <servlet-class>com.kh.board.controller.AjaxReplyListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>rlist.bo</servlet-name>
+    <url-pattern>/rlist.bo</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -33,7 +33,7 @@
                 <tr>
                     <td>* 아이디</td>
                     <td><input type="text" name="userId" maxlength="12" required></td>
-                    <td><button type="button" onclick="">중복확인</button></td>
+                    <td><button type="button" onclick="idCheck()">중복확인</button></td>
                 </tr>
 
                 <tr> <!-- 테이블은 갯수를 맞춰야 화면크기에 따라 어그러짐이 없다. 빈 칸 추가해주자. -->
@@ -111,7 +111,7 @@
             <br><br>
 
             <div align="center">
-                <button type="submit" onclick="return checkPwd()">회원가입</button>
+                <button type="submit" onclick="return checkPwd()" disabled>회원가입</button>
                 <button type="reset">초기화</button>
             </div>
 
@@ -127,6 +127,42 @@
                 alert("비밀번호가 일치하지 않습니다.");
                 return false;
             }
+        }
+
+        function idCheck(){
+            // 중복확인버튼 클릭시 사용자가 입력한 아이디값을 서버에 보내서 조회요청 -> 응답받기
+            // 1) 사용 불가 -> alert메세지출력(이미 존재하는 아이디입니다.)
+            // 2) 사용 가능 -> 진짜 사용할거니? -> ok : 더이상 아이디 수정못하게
+            //                                -> no : 다시 입력하도록 유도
+
+            const idInput = document.querySelector("#enroll-form input[name=userId]");
+            console.log(idInput)
+            $.ajax({
+                url : "idCheck.me",
+                type : "get",
+                data : {
+                    checkId : idInput.value
+                },
+                success : function(result){
+                    if(result === "NNNNY") {
+                        if(confirm("사용가능한 아이디입니다. 정말 사용하시겠습니까?")){
+                            idInput.setAttribute("readonly",true)
+
+                            const submitBtn = document.querySelector("#enroll-form button[type=submit]");
+                            submitBtn.removeAttribute("disabled");
+                        } else{
+                            idInput.focus();
+                        }
+                    } else {
+                        alert("사용 불가능한 아이디입니다.")
+                        inInput.focus();
+                    }
+                },
+                error : function(err){
+                    console.log("실패 : ",err)
+                }
+
+            })
         }
     </script>
 </body>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : 해당 mapper 파일의 고유한 별칭, 꼭 설정해줘야 한다. -->
+<mapper namespace="memberMapper">
+  <resultMap type="Member" id="memberResultSet">
+  	<!-- <result column="테이블 컬럼명" property="겍체의 필드명"/> -->
+  	<result column="USER_NO" property="userNo"/>
+  	<result column="USER_ID" property="userId"/>
+  	<result column="USER_PWD" property="userPwd"/>
+  	<result column="USER_NAME" property="userName"/>
+  	<result column="EMAIL" property="email"/>
+  	<result column="BIRTHDAY" property="birthday"/>
+  	<result column="GENDER" property="gender"/>
+  	<result column="PHONE" property="phone"/>
+  	<result column="ADDRESS" property="address"/>
+  	<result column="ENROLL_DATE" property="enrollDate"/>
+  	<result column="MODIFY_DATE" property="modifyDate"/>
+  	<result column="STATUS" property="status"/>
+  </resultMap>
+  <!-- 
+  		* SELECT문 전송시
+  		<select id="각 sql문의 식별자" [parameterType="전달받을 자바타입"] resultMap="결과객체" | resultType="결과타입(원시타입일 때)" >
+   -->
+  <!-- mybatis-config에서 alias(별칭)을 설정해줘서 com.kh.mybatis.model.vo.Member 를 Member로 사용 가능 -->
+  <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
+	 SELECT USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			EMAIL,
+			BIRTHDAY,
+			GENDER,
+			PHONE,
+			ADDRESS,
+			ENROLL_DATE,
+			MODIFY_DATE,
+			STATUS
+	  FROM MEMBER
+	 WHERE USER_ID = #{userId}
+	   AND USER_PWD = #{userPwd}
+	   AND STATUS = 'Y'
+  </select>
+  <!-- 
+ 		* DML문일 경우 
+  		<insert | update | delete id="식별자" [parameterType="전달받을 자바타입"]>
+  		return이 무조건 int라 안써준다.
+  		parameter은 안써도 myBatis가 찰떡같이 해주지만 최신버전 한정
+  -->
+  <insert id="insertMember" parameterType="Member">
+  	INSERT
+  	INTO MEMBER
+  	(
+  		USER_NO,
+  		USER_ID,
+  		USER_PWD,
+  		USER_NAME,
+  		EMAIL,
+  		BIRTHDAY,
+		GENDER,
+		PHONE,
+		ADDRESS
+  	)
+  	VALUES
+  	(
+  		SEQ_UNO.NEXTVAL,
+  		#{userId},
+  		#{userPwd},
+  		#{userName},
+  		#{email},
+  		#{birthday},
+  		#{gender},
+  		#{phone},
+  		#{address}
+  	)
+  </insert>
+</mapper>
