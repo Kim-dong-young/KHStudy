@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 
+		root-context.xml
+		서버구동과 동시에 web.xml을 거처서 바로 로딩되는 문서
+		=> 서버구동과 동시에 바로 세팅(빈으로 등록)해야되는 내용들을 작성하면된다.
+		DB연결 설정, 트랜잭션처리, 내외부 모듈연결등등...
+	 -->
+	 
+	 <!-- 커넥션 풀을 쓸 수 있는 객체 등록 -->
+	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+       <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+       <property name="username" value="spring"/>
+       <property name="password" value="spring"/>
+    </bean>
+	<!-- 
+		org.apache.commons.dbcp.BasicDataSource dataSource = new org.apache.commons.dbcp.BasicDataSource();
+		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe")
+		....
+		이런식으로 자동 생성하라고 등록해 놓는 것
+		절대 마법이 아니다...
+	 -->
+	 
+	 <!-- 마이바티스 객체 연결 -->
+	 <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+     </bean>
+     <!-- 
+     	SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
+     	
+     	프로젝트의 Java Build Path의 Source에 mybatis-config.xml 파일이 있는 resource가 등록되어있으므로
+     	이런식으로 작성 가능
+     	sqlSessionFactory.setConfigLocation("classpath:mybatis-config.xml");
+     	...
+      -->
+      
+      <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+      	 <constructor-arg ref="sqlSessionFactory"/>
+      </bean>
+      <!-- 
+      		constructor-arg : 생성자-매개변수 로 넘겨라
+      		SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactory);
+       -->
+       
+       <!-- 
+       		즉, property : setter를 통해 주입
+       		    constructor-arg : 생성자를 통한 주입
+        -->
+     
+</beans>
