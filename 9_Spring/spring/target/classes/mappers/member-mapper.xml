@@ -23,6 +23,8 @@
   		<select id="각 sql문의 식별자" [parameterType="전달받을 자바타입"] resultMap="결과객체" | resultType="결과타입(원시타입일 때)" >
    -->
   <!-- mybatis-config에서 alias(별칭)을 설정해줘서 com.kh.mybatis.model.vo.Member 를 Member로 사용 가능 -->
+  
+  <!-- 로그인 쿼리 -->
   <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 	 SELECT USER_ID,
 			USER_PWD,
@@ -37,7 +39,54 @@
 			STATUS
 	  FROM MEMBER
 	 WHERE USER_ID = #{userId}
-	   AND USER_PWD = #{userPwd}
+	   <!-- AND USER_PWD = #{userPwd} -->
 	   AND STATUS = 'Y'
   </select>
+  
+  <!-- 아이디 중복 체크 -->
+  <select id="idCheck" resultType="_int">
+  	SELECT COUNT(*)
+  	  FROM MEMBER
+  	 WHERE USER_ID = #{checkId}
+  </select>
+  
+  <insert id="insertMember" parameterType="Member">
+  	INSERT INTO MEMBER(
+  		USER_ID,
+		USER_PWD,
+		USER_NAME,
+		EMAIL,
+		GENDER,
+		AGE,
+		PHONE,
+		ADDRESS
+  	) VALUES(
+  		#{userId},
+  		#{userPwd},
+  		#{userName},
+  		#{email},
+  		#{gender},
+  		#{age},
+  		#{phone},
+  		#{address}
+  	)
+  </insert>
+  
+  <update id="updateMember">
+  	 UPDATE MEMBER
+  	    SET USER_NAME = #{userName},
+			EMAIL = #{email},
+			GENDER = #{gender},
+			AGE = #{age},
+			PHONE = #{phone},
+			ADDRESS = #{address},
+			MODIFY_DATE = SYSDATE
+	  WHERE USER_ID = #{userId}
+  </update>
+  
+    <update id="deleteMember">
+  	 UPDATE MEMBER
+  	    SET STATUS = 'N'
+	  WHERE USER_ID = #{userId}
+  </update>
 </mapper>
