@@ -11,6 +11,7 @@
   
   <typeAliases>
   	<typeAlias type="com.kh.spring.member.model.vo.Member" alias ="Member"/>
+  	<typeAlias type="com.kh.spring.board.model.vo.Board" alias ="Board"/>
   </typeAliases>
   
   <!--  
@@ -25,5 +26,7 @@
   <!-- mappers : 실행할 sql문들을 기록해둔 mapper파일들을 등록하는 영역 -->
   <mappers>
     <mapper resource="mappers/member-mapper.xml"/>
+    <mapper resource="mappers/board-mapper.xml"/>
   </mappers>
+
 </configuration>

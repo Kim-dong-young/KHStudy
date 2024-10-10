@@ -38,5 +38,18 @@
 			</bean:property>
 		</beans:bean>
 	 -->
+	 
+	 <interceptors>
+	 	<interceptor>
+	 		<!-- 
+		 		인터셉터 걸고싶은 서블릿 경로를 추가해주면 된다.
+		 		<mapping path="/myPage.me" />
+		 		<mapping path="/myPage.me" />
+	 			...
+	 		 -->
+	 		<mapping path="/myPage.me" />
+	 		<beans:bean class="com.kh.spring.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
+	 	</interceptor>
+	 </interceptors>
 
 </beans:beans>

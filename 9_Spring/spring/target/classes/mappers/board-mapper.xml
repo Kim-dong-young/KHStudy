@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : 해당 mapper 파일의 고유한 별칭, 꼭 설정해줘야 한다. -->
+<mapper namespace="boardMapper">
+	<resultMap type="Board" id="boardResultSet">
+	  	<result column="BOARD_NO" property="boardNo"/>
+	  	<result column="BOARD_TITLE" property="boardTitle"/>
+	  	<result column="BOARD_WRITER" property="boardWriter"/>
+	  	<result column="BOARD_CONTENT" property="boardContent"/>
+	  	<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+	  	<result column="COUNT" property="count"/>
+	  	<result column="CREATE_DATE" property="createDate"/>
+	  	<result column="STATUS" property="status"/>
+  	</resultMap>
+  
+  <select id="selectListCount" parameterType="Board" resultType="_int">
+	 SELECT COUNT(*)
+	   FROM BOARD
+	  WHERE STATUS = 'Y'
+  </select>
+  <select id="selectList" resultType="Board">
+	 SELECT BOARD_NO boardNo,
+			BOARD_TITLE boardTitle,
+			BOARD_WRITER boardWriter,
+			ORIGIN_NAME originName,
+			COUNT count,
+			TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "createDate"
+	   FROM BOARD
+	  WHERE STATUS = 'Y'
+   ORDER BY BOARD_NO DESC
+  </select>
+  <update id="increaseCount">
+  	UPDATE BOARD
+  	   SET COUNT = COUNT + 1
+  	 WHERE BOARD_NO = #{boardNo}
+  	   AND STATUS = 'Y'
+  </update>
+  <select id="selectBoard" resultMap="boardResultSet">
+	 SELECT BOARD_NO,
+			BOARD_TITLE,
+			BOARD_WRITER,
+			BOARD_CONTENT,
+			ORIGIN_NAME,
+			TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+	   FROM BOARD
+	  WHERE BOARD_NO = #{boardNo}
+	  	AND STATUS = 'Y'
+  </select>
+
+</mapper>
