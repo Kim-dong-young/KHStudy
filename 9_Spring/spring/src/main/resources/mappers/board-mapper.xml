@@ -49,5 +49,31 @@
 	  WHERE BOARD_NO = #{boardNo}
 	  	AND STATUS = 'Y'
   </select>
-
+  <insert id="insertBoard" parameterType="Board">
+  	INSERT INTO
+  		   BOARD(
+  		   	 BOARD_NO,
+			 BOARD_TITLE,
+			 BOARD_WRITER,
+			 BOARD_CONTENT,
+			 ORIGIN_NAME,
+			 CHANGE_NAME
+  		   )
+  		   VALUES(
+  		   		SEQ_BNO.NEXTVAL,
+  		   		#{boardTitle},
+  		   		#{boardWriter},
+  		   		#{boardContent},
+  		   		#{originName},
+  		   		#{changeName}
+  		   )	
+  </insert>
+  <update id="updateBoard" parameterType="Board">
+  	UPDATE BOARD
+	   SET BOARD_TITLE = #{boardTitle},
+		   BOARD_CONTENT = #{boardContent},
+		   ORIGIN_NAME = #{originName},
+		   CHANGE_NAME = #{changeName}
+	 WHERE BOARD_NO = #{boardNo}
+  </update>
 </mapper>
