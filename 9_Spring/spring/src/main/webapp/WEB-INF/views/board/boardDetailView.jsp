@@ -133,6 +133,122 @@
         </div>
         <br><br>
     </div>
+
+    <script>
+        /*
+            ajax 데이터는 같은 데이터를 여러군데서 사용할 수 있다
+            데이터를 불러오는 공통 부분을 함수로 만들고,
+            데이터를 어떻게 처리할 지는 callback 함수로
+            호출하는 페이지에서 알아서 처리하도록 한다
+            + 코드 depth도 줄어든다 ( ajax 결과를 가지고 ajax 할 경우 등 )
+        */
+        $(function(){
+            const sendData = {
+                bno: ${b.boardNo}
+            }
+
+            getReplyList(sendData, function(replyList){
+                console.log(replyList)
+
+                //댓글 갯수 나타내주는 함수 호출
+                setReplyCount(replyList.length)
+
+                const replyBody = document.querySelector("#replyArea tbody")
+                //댓글목록 그려주는 함수 호출
+                drawReplyList(replyBody, replyList);
+            });
+
+
+
+        })
+
+        function drawReplyList(tBody, replyList){
+            //단순하게 보여주기위한 view를 만들때
+            // let str = "";
+            // for(reply of replyList){
+            //     str += `<tr>` + 
+            //                 `<td>` + reply.replyWriter + `</td>` +
+            //                 `<td>` + reply.replyContent + `</td>` +
+            //                 `<td>` + reply.createDate + `</td>` +
+            //             `</tr>`
+            // }
+            // tBody.innerHTML = str;
+
+            $(tBody).empty();
+            //tBody.innerHTML = ""
+            //이벤트를 넣는 뷰를 작성하고 싶을 때
+            for(const reply of replyList){
+                const replyRow = document.createElement('tr'); // <tr></tr>
+                replyRow.innerHTML = `<td>` + reply.replyWriter + `</td>` +
+                                     `<td>` + reply.replyContent + `</td>` +
+                                     `<td>` + reply.createDate + `</td>`;
+                tBody.appendChild(replyRow);
+
+                replyRow.onclick = function(){
+                    console.log(reply.replyNo + "클릭됨")
+                }
+            }
+
+        }
+
+        function setReplyCount(count){
+            document.querySelector("#rcount").innerHTML = count;
+        }
+
+        //ajax호출후 결과 가져오기(댓글목록)
+        function getReplyList(data, callback){
+            $.ajax({
+                url: "rlist.bo",
+                data: data,
+                success: function(res){
+                    callback(res)
+                },
+                error: function(){
+
+                }
+            })
+        }
+
+        //댓글 등록
+        function addReply(){
+            //boardNo
+            //userId
+            //댓글내용
+
+            const boardNo = ${b.boardNo};
+            const userId = "${loginUser.userId}"
+            const content = document.querySelector("#content").value;
+
+            addReplyAjax({
+                refBno: boardNo,
+                replyWriter: userId,
+                replyContent: content
+            }, function(res){
+                // res -> 성공, 실패
+                if(res === "success") {
+                    document.querySelector("#content").value = "";
+                    
+                    getReplyList({bno: boardNo}, function(replyList){
+                        setReplyCount(replyList.length);
+                        drawReplyList(document.querySelector("#replyArea tbody"), replyList); // html 요소를 함수 밖으로 뺴주면, 다양한 요소에서 그릴 수 있다.
+                    });
+                }
+            })
+        }
+
+        function addReplyAjax(data, callback){
+            $.ajax({
+                url: "rinsert.bo",
+                data: data,
+                success : function(res){
+                    callback(res)
+                }, error: function(){
+                    console.log("댓글 생성 ajax 실패")
+                }
+            })
+        }
+
+    </script>
     
     <jsp:include page="../common/footer.jsp" />
 </body>

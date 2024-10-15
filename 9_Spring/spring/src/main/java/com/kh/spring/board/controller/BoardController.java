@@ -11,9 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Reply;
 import com.kh.spring.board.service.BoardService;
 import com.kh.spring.common.template.Template;
 import com.kh.spring.common.vo.PageInfo;
@@ -124,4 +127,25 @@ public class BoardController {
 		}
 	}
 	
+	@ResponseBody // value="주소명", produces="반환값 타입"
+	@RequestMapping(value="rlist.bo", produces="application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int bno) {
+		ArrayList<Reply> list = boardService.selectReply(bno);
+		
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping("rinsert.bo")
+	public String ajaxInsertReply(Reply r) { // 프론트에서 vo와 이름을 맞췄으므로 잘 받아짐
+		// 성공했을 때 success, 실패했을 때 fail return
+		return boardService.insertReply(r) > 0 ? "success" : "fail";
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="topList.bo", produces="application/json; charset=UTF-8")
+	public String ajaxTopBoardList() {
+		return new Gson().toJson(boardService.selectTopBoardList());
+	}
 }

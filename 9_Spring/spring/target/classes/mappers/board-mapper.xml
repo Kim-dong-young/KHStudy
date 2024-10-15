@@ -68,6 +68,7 @@
   		   		#{changeName}
   		   )	
   </insert>
+  <!-- 게시글 수정 -->
   <update id="updateBoard" parameterType="Board">
   	UPDATE BOARD
 	   SET BOARD_TITLE = #{boardTitle},
@@ -76,4 +77,45 @@
 		   CHANGE_NAME = #{changeName}
 	 WHERE BOARD_NO = #{boardNo}
   </update>
+  <!-- 댓글 목록 가져오기 -->
+  <select id="selectReply" resultType="Reply">
+  	SELECT REPLY_NO replyNo,
+  		   REPLY_CONTENT replyContent,
+  		   REPLY_WRITER replyWriter,
+  		   TO_CHAR(CREATE_DATE,'YYYY-MM-DD') AS createDate
+  	  FROM REPLY
+  	 WHERE STATUS = 'Y'
+  	   AND REF_BNO = #{bno}
+  ORDER BY REPLY_NO DESC
+  </select>
+  <!-- 댓글 작성 -->
+  <insert id="insertReply" parameterType="Reply">
+  	INSERT
+  	INTO REPLY(
+  		REPLY_NO,
+  		REPLY_CONTENT,
+  		REPLY_WRITER,
+  		REF_BNO
+  	) VALUES(
+  		SEQ_BNO.NEXTVAL,
+  		#{replyContent},
+  		#{replyWriter},
+  		#{refBno}
+  	)
+  </insert>
+  <select id="selectTopBoardList" resultMap="boardResultSet">
+	 SELECT *
+	 FROM (
+			 SELECT BOARD_NO,
+					BOARD_TITLE,
+					BOARD_WRITER,
+					ORIGIN_NAME,
+					COUNT,
+					TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+			   FROM BOARD
+			  WHERE STATUS = 'Y'
+		   ORDER BY COUNT DESC
+	   )
+	 WHERE ROWNUM BETWEEN 1 AND 5
+  </select>
 </mapper>
