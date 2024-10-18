@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ <!--  settings : mybatis 구동시 선언할 설정들을 작성하는 영역 -->
+  <settings>
+ 		<!-- 만약 null로 데이터가 전달되었다면 빈칸이 아닌 null로 인식해라 -->
+  		<setting name="jdbcTypeForNull" value="NULL"/>
+  </settings>
+  
+  <typeAliases>
+
+  </typeAliases>
+  
+  <!--  
+  	environments : mybatis에서 연동할 db정보들을 등록하는 영역 
+  	environments에 기술했던 db연결관련 정보들은 root-context.xml에 작성할 것이다.
+  	왜? DB등록은 서버 연동과 동시에 같이 이루어져야하기 때문에
+  	서버시작과 동시에 바로 읽혀지는 root-context.xml 문서에 기술하고 등록해서 스프링으로부터 주입받는다.
+  	트랜잭션 관리는 스프링이 한다.
+  -->
+
+  
+  <!-- mappers : 실행할 sql문들을 기록해둔 mapper파일들을 등록하는 영역 -->
+  <mappers>
+
+  </mappers>
+
+</configuration>

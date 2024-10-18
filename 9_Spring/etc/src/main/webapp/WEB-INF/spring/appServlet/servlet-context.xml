@@ -23,9 +23,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kh.spring" />
+	<context:component-scan base-package="com.kh" />
 	
-	<!-- @Aspect 및 하위 어노테이션 활성화 -->
+      <!-- @Aspect 및 하위 어노테이션 활성화 -->
      <aop:aspectj-autoproxy/>
 	
 	<!-- 
@@ -43,19 +43,5 @@
 			</bean:property>
 		</beans:bean>
 	 -->
-	 
-	 <interceptors>
-	 	<interceptor>
-	 		<!-- 
-		 		인터셉터 걸고싶은 서블릿 경로를 추가해주면 된다.
-		 		<mapping path="/myPage.me" />
-		 		<mapping path="/myPage.me" />
-	 			...
-	 		 -->
-	 		<mapping path="/myPage.me" />
-	 		<mapping path="/enrollForm.bo" />
-	 		<beans:bean class="com.kh.spring.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
-	 	</interceptor>
-	 </interceptors>
 
 </beans:beans>

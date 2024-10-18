@@ -1,5 +1,7 @@
 package com.kh.spring.member.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,7 +169,7 @@ public class MemberController {
 	
 	// 2. 스프링에서 제공하는 ModelAndView 객체를 이용하면 데이터를 담고 리턴 형식까지 지정할 수 있음
 	@RequestMapping("login.me")
-	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
+	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv, String saveId, HttpServletResponse response) {
 	
 //		Member loginMember = memberService.loginMember(m);
 //	
@@ -196,7 +198,6 @@ public class MemberController {
 		// 두 구문이 일치하면 true를 반환, 일치하지 않으면 false 반환
 		
 		if(loginMember == null) {
-		System.out.println("로그인 실패");
 		mv.addObject("errorMsg", "일치하는 아이디를 찾을 수 없습니다.");
 		
 		mv.setViewName("common/errorPage");
@@ -207,8 +208,14 @@ public class MemberController {
 			
 			mv.setViewName("common/errorPage");
 		} else {
+			Cookie ck = new Cookie("saveId", loginMember.getUserId());
+			if(saveId == null) {
+				ck.setMaxAge(0);
+			}
+			
+			response.addCookie(ck);
+			// 세션은 서버가 꺼지거나 장시간 동작이 없으면 날라감. 따라서 브라우저에 간단한 정보 저장
 			session.setAttribute("loginUser", loginMember);
-			System.out.println("로그인 성공");
 			
 			mv.setViewName("redirect:/");
 		}
