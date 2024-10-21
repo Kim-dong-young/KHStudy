@@ -29,7 +29,7 @@ class CommentList extends Component {
             commentList: [],
         }
     }
-    componentDidMount() { // 컴포넌트가 부착됬을때 실행
+    componentDidMount() { // 컴포넌트가 처음에 화면에 렌더링 될때 딱 한번 실행
         // const commentList = this.state.commentList; 와 동일
         const { commentList } = this.state; // 비구조할당 -> { 변수1, 변수2, 변수3 ... } 으로 한번에 가져올 수 있어 편리
 
@@ -39,14 +39,14 @@ class CommentList extends Component {
                 const index = commentList.length; // 0
                 commentList.push(serverComments[index]);
                 this.setState({
-                    ...commentList
+                    commentList : commentList // ...commentList
                 })
             } else {
                 this.setState({
-                    commentList: []
+                    commentList: []  // state의 commentList를 비운거지 const commentList를 비운게 아님!!
                 })
             }
-        }, 2000)
+        }, 3000)
 
     }
 
