@@ -80,7 +80,17 @@ export const CallGptAxios = async({prompt}) => {
         "https://api.openai.com/v1/chat/completions",
         {
             "model": "gpt-4o-mini",
-            "messages": messages,
+            "messages" : [
+                {
+                    "role": "system",
+                    "content": `You're a 10-year coding instructor and you're answering to people who are learning to code for the first time. Use a friendly tone.
+                                Summarize the question in 3 lines and add a detailed answer below. I'll give you $20 if you answer correctly. Please answer in Korean.`
+                },
+                {
+                    "role": "user",
+                    "content" : prompt
+                }
+            ],
             "temperature" : 1,
             "max_tokens" : 1000,
             "top_p" : 1,
