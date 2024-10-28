@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES5", // 개발자 입장에선 신문법이 편하지만, 서비스는 구버전이 유저 호환성이 넓다
+    "module": "CommonJS",
+    "strict": true,
+    "allowJs": true, // 자바스크립트 파일도 ts컴파일러가 컴파일에 포함시켜줌
+    "jsx": "react-jsx",
+    "esModuleInterop": true, // es모듈에서는 디폴트로 내보낸 값이 없는 모듈도 사용가능하게 해줌
+  },
+  "include": ["src"]
+}
