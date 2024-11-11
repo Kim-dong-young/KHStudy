@@ -66,4 +66,17 @@
      	<context:include-filter type="annotation"
      		expression="org.aspectj.lang.annotation.Aspect" />
    	 </context:component-scan>
+   	 
+   	 <bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="sender">
+   	 	<property name="host" value="smtp.gmail.com"/>
+   	 	<property name="port" value="587"/>
+   	 	<property name="username" value="ehddud9502@gmail.com"/>
+   	 	<property name="password" value="loti eurd hgvm kxvp"/>
+   	 	<property name="javaMailProperties">
+   	 		<props>
+   	 			<prop key="mail.smtp.auth">true</prop>
+   	 			<prop key="mail.smtp.starttls.enable">true</prop>
+   	 		</props>
+   	 	</property>
+   	 </bean>
 </beans>
