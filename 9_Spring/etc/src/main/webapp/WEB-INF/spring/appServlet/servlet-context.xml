@@ -4,13 +4,16 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+	 <context:property-placeholder location="classpath:*.properties" file-encoding="UTF-8"/>
+	 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -27,6 +30,13 @@
 	
       <!-- @Aspect 및 하위 어노테이션 활성화 -->
      <aop:aspectj-autoproxy/>
+     
+     <websocket:handlers>
+     	<websocket:mapping handler="chatServer" path="/server"/>
+     	<websocket:handshake-interceptors>
+     		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
+     	</websocket:handshake-interceptors>
+     </websocket:handlers>
 	
 	<!-- 
 		* 사용자가 어떤 url로 요청시 해당문서가 읽혀진다고 생각하면 된다.
