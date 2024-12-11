@@ -56,6 +56,7 @@
 
 			// 스크립트 신문법으로 키-값이 똑같으면 한개만 써도 됨 {location:location} -> {location}
 			getAirStatus({location : location}, function(airStatusList){
+				console.log(airStatusList)
 				const itemList = airStatusList.response.body.items;
 				drawAirtBody(document.querySelector("#result tbody"), itemList)
 			})
